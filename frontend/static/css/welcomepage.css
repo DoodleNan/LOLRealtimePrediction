@@ -1,0 +1,171 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+body {
+    overflow: hidden;
+}
+
+/*for welcome page*/
+/*background image*/
+#background {
+    height: 90%;
+    width: 100%;
+    position: relative;
+    background-image: url("../img/background.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/*background text*/
+#background .welcome {
+    padding-top:12%;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: "Amatic SC", sans-serif;
+}
+
+#background .welcome div {
+    -webkit-animation-name: fadeAndScale; /* Safari 4.0 - 8.0 */
+    animation-name: fadeAndScale;
+    -webkit-animation-timing-function: cubic-bezier(.71,.55,.62,1.57); /* Safari 4.0 - 8.0 */
+    animation-timing-function: cubic-bezier(.71,.55,.62,1.57);
+}
+
+#background .welcome div:nth-child(1) {
+    font-size: 80px;
+    -webkit-animation-duration: 0.6s;
+    animation-duration: 0.6s;
+    -webkit-animation-fill-mode: backwards; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: backwards;
+    -webkit-animation-delay: 0.6s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.6s;
+}
+
+#background .welcome div:nth-child(2) {
+    font-size: 60px;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: backwards; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: backwards;
+    -webkit-animation-delay: 2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 2s;
+}
+
+#background .welcome div:nth-child(3) {
+    font-size: 60px;
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+    -webkit-animation-fill-mode: backwards; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: backwards;
+    -webkit-animation-delay: 2.5s; /* Safari 4.0 - 8.0 */
+    animation-delay: 2.5s;
+}
+
+#background .welcome div:nth-child(4) {
+    font-size: 60px;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: backwards; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: backwards;
+    -webkit-animation-delay: 3.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 3.2s;
+}
+
+/*start button*/
+.startbutton {
+    border-radius: 6px;
+    background-color: #111;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 40px;
+    font-family: "Amatic SC", sans-serif;
+    width: 50%;
+    height: 12%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 3% 25% 10% 25%;
+    -webkit-animation-duration: 0.6s;
+    animation-duration: 0.6s;
+    -webkit-animation-name: fadeAndScale; /* Safari 4.0 - 8.0 */
+    animation-name: fadeAndScale;
+    -webkit-animation-timing-function: cubic-bezier(.71,.55,.62,1.57); /* Safari 4.0 - 8.0 */
+    animation-timing-function: cubic-bezier(.71,.55,.62,1.57);
+    -webkit-animation-delay: 4s; /* Safari 4.0 - 8.0 */
+    animation-delay: 4s;
+    -webkit-animation-fill-mode: backwards; /* Safari 4.0 - 8.0 */
+    animation-fill-mode: backwards;
+}
+
+.startbutton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.startbutton span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+.startbutton:hover span {
+    padding-right: 25px;
+}
+
+.startbutton:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+/*fade ans scale animation*/
+@keyframes fadeAndScale {
+    from {
+        opacity: 0;
+        transform: scale(.9, .9);
+        text-shadow: 0 0 50px #fff;
+    }
+    to {
+        opacity: 1;
+        transform: scale(1, 1);
+        text-shadow: 0 0 1px #fff;
+    }
+}
+
+@-moz-keyframes fadeAndScale {
+    from {
+        opacity: 0;
+        transform: scale(.9, .9);
+        text-shadow: 0 0 50px #fff;
+    }
+    to {
+        opacity: 1;
+        transform: scale(1, 1);
+        text-shadow: 0 0 1px #fff;
+    }
+}
+
+@-webkit-keyframes fadeAndScale {
+    from {
+        opacity: 0;
+        transform: scale(.9, .9);
+        text-shadow: 0 0 50px #fff;
+    }
+    to {
+        opacity: 1;
+        transform: scale(1, 1);
+        text-shadow: 0 0 1px #fff;
+    }
+}
+/*end for welcome page*/

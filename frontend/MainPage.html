@@ -12,8 +12,121 @@
 <style>
 body {font-family: "Lato", sans-serif}
 .mySlides {display: none}
+
+path {
+  stroke: grey;
+  stroke-width: 2;
+  fill: none;
+}
+
+.run {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.run span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.run span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.run:hover span {
+  padding-right: 25px;
+}
+
+.run:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.dot {
+  fill:none;
+  stroke: black;
+  color: white;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    stroke-width: 2;
+    shape-rendering: geometricPrecision;
+}
+
+.ticks {
+  font: 10px sans-serif;
+}
+
+.track,
+.track-inset,
+.track-overlay {
+  stroke-linecap: round;
+}
+
+.track {
+  stroke: #000;
+  stroke-opacity: 0.3;
+  stroke-width: 50px;
+}
+
+.track-inset {
+  stroke: black;
+  stroke-width: 20px;
+}
+
+.track-overlay {
+  pointer-events: stroke;
+  stroke-width: 30px;
+  stroke: transparent;
+  cursor: crosshair;
+}
+
+.handle {
+  fill: #fff;
+  stroke: #000;
+  stroke-opacity: 0.4;
+  stroke-width: 1.25px;
+}
+
+div.tooltip { 
+    position: absolute;     
+    text-align: center;     
+    width: 60px;          
+    height: 28px;         
+    padding: 2px;       
+    font: 12px sans-serif;    
+    background: lightsteelblue; 
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;     
+}
+
+.slider{
+  border: 1px solid #7AC143;
+  background-color: black;
+}
 </style>
 <body>
+
 <!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-black w3-card-2">
@@ -55,21 +168,21 @@ body {font-family: "Lato", sans-serif}
 
   <!-- Automatic Slideshow Images -->
   <div class="mySlides w3-display-container w3-center">
-    <img src="static/img/1.jpg" style="width:100%">
+    <img src="static/img/1.jpg" style="width:100%; height: 580px;">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3>HHHHHHHH</h3>
       <p><b>HHHHHHHHHHHHHHHHHHHHHHHH!</b></p>   
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
-    <img src="static/img/2.jpg" style="width:100%">
+    <img src="static/img/2.jpg" style="width:100%; height: 580px;">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3>AAAAAAAAAA</h3>
       <p><b>AAAAAAAAAAAAAAAAAAAAAAAA</b></p>    
     </div>
   </div>
   <div class="mySlides w3-display-container w3-center">
-    <img src="static/img/3.jpg" style="width:100%">
+    <img src="static/img/3.jpg" style="width:100%; height: 580px;">
     <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
       <h3>BBBBBBBB</h3>
       <p><b>BBBBBBBBBBBBBBBBBBBBBBBB.</b></p>    
@@ -80,21 +193,290 @@ body {font-family: "Lato", sans-serif}
   
     
   <div class="w3-black" id="champions">
-    <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+    <div class="w3-container w3-content w3-padding-64 con" style="max-width:1200px">
     <!-- Sidebar -->
-      <button class="w3-button w3-grey w3-xlarge" onclick="openNav()">☰</button>
-      <h2 class="w3-wide w3-center">Champions</h2>
-      <p class="w3-opacity w3-center"><i>Champion analysis here!</i></p><br>
+      <!-- <button class="w3-button w3-grey w3-xlarge" onclick="openNav()">☰</button> -->
+
+      <div class="w3-dropdown-hover w3-hide-small">
+      <button class="w3-padding-large w3-button" title="More">Choices <i class="fa fa-caret-down"></i></button>     
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <a href="#" class="w3-bar-item w3-button">Team Attributes</a>
+        <a href="#" class="w3-bar-item w3-button">Chiampion</a>
+        <a href="#" class="w3-bar-item w3-button">Item</a>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+      <h2 class="w3-wide w3-center">It is your battle</h2>
+      <p class="w3-opacity w3-center"><i>Real-time winning rate prediction here!</i></p><br>
+
+
+      <div style="padding: 20px;">
+      <div>
+        <br>
+        <br>
+        <br>
+      </div>
+      <div>
+        <button type="submit" class="button" onclick="minus_gold()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_gold" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_gold()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>gold</b>
+      </div>
+      
+      <div>
+        <button type="submit" class="button" onclick="minus_exp()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_exp()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>exp</b>
+      </div>
+
+      <div>
+        <button type="submit" class="button" onclick="minus_death()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_death" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_death()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>death</b>
+      </div>
+
+      <div>
+        <button type="submit" class="button" onclick="minus_kill()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_kill" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_kill()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>kill</b>
+      </div>
+
+      <div>
+        <button type="submit" class="button" onclick="minus_dragon()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_dragon" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_dragon()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>dragon</b>
+      </div>
+
+      <div>
+        <button type="submit" class="button" onclick="minus_something()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_something" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_something()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>something</b>
+      </div>
+      <p></p>
+      <p></p>
+      
+      <button class="run" style="vertical-align:middle" onclick="update()"><span>Run </span></button>
+      
+      </div>
+
+      <svg width="800" height="600"></svg>
+      <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+      <script src="http://d3js.org/d3.v4.min.js"></script>
+      <script>
+
+        
+        data1_up = [20, 50, 100, 150, 170, 140, 90, 30, 50];
+        data1_down = [160, 130, 80, 30, 10, 40, 90, 150, 130];
+        data2_up = [80,60,40,120,150,170,100,120];
+        data2_down = [100,120,140,30,10,80,80,60];
+
+        var margin = {top: 30, right: 20, bottom: 30, left: 50}
+          
+        var svg = d3.select("svg"),
+            width = +svg.attr("width") - margin.left - margin.right,
+            height = +svg.attr("height") - margin.top - margin.bottom;
+        // slider bar
+        svg.attr("transform", "translate(250, -350)");
+        svg.select('.run')
+        var x = d3.scaleLinear()
+            .domain([0, 180])
+            .range([0, width])
+            .clamp(true);
+        // data xAxis
+        var x1 = d3.scaleLinear()
+          .domain([0,8])
+          .range([0, width])
+        // data yAxis
+        var y = d3.scaleLinear().range([height, 30]).domain([0, 180]);
+        var slider = svg.append("g")
+            .attr("class", "slider")
+            .attr("transform", "translate(" + margin.left + "," + height + ")");
+        slider.append("line")
+            .attr("class", "track")
+
+            .attr("x1", x.range()[0])
+            .attr("x2", x.range()[1])
+          .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+            .attr("class", "track-inset")
+
+          .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+            .attr("class", "track-overlay")
+            .call(d3.drag()
+                .on("start.interrupt", function() { slider.interrupt(); })
+                .on("start drag", function() { hue(x.invert(d3.event.x)); }));
+
+        slider.insert("g", ".track-overlay")
+            .attr("class", "ticks")
+            .attr("transform", "translate(0,18)")
+          .selectAll("text")
+          .data(x.ticks(9))
+          .enter().append("text")
+            .attr("x", x)
+            .attr("text-anchor", "middle")
+            .text(function(d) { return d/4; });
+
+        var handle = slider.insert("circle", ".track-overlay")
+            .attr("class", "handle")
+            .style("fill", "white")
+            .attr("r", 15);
+
+        slider.transition()
+            .duration(750)
+            .tween("hue", function() {
+              var i = d3.interpolate(0, 70);
+              return function(t) { hue(i(t)); };
+            });
+
+        function hue(h) {
+          handle.attr("cx", x(h));
+          svg.style("background-color", d3.hsl(h, 0.8, 0.8));
+        }
+          
+          
+          var line = d3.svg.line()
+            .x(function(d, i){
+              return x1(i);
+            })
+            .y(function(d){
+              return y(d);
+            });
+          
+          var div = d3.select("body").append("div") 
+          .attr("class", "tooltip")       
+          .style("opacity", 0);
+
+          // add line
+          svg.append("path")
+            .attr("transform", "translate(50, -40)")
+            .attr("class", "line")
+
+            .attr("d", line(data1_up));
+
+          svg.append("path")
+            .attr("transform", "translate(50, -40)")
+            .attr("class", "line")
+            .attr("d", line(data1_down));
+
+
+          // add dots
+          svg.selectAll(".dot")
+            .data(data1_up)
+            .enter()
+            .append("circle")
+            .attr("fill", "white")
+            .attr("stroke", "white")
+            .attr("transform", "translate(50, -40)")
+            .attr("r", 3.5)
+            .attr("cx", function(d, i){
+              return x1(i);
+            })
+            .attr("cy", function(d){
+              return y(d);
+            })
+            .on("mouseover", function(d){
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Value:</strong> <span style='color:red'>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 28) + "px");  
+            })
+            .on("mouseout", function(d){
+              div.transition()    
+                .duration(500)    
+                .style("opacity", 0);
+            });
+
+          svg.selectAll(".dot")
+            .data(data1_down)
+            .enter()
+            .append("circle")
+            .attr("transform", "translate(50, -40)")
+            .attr("stroke", "white")
+            .attr("fill", "white")
+            .attr("r", 3.5)
+            .attr("cx", function(d, i){
+              return x1(i);
+            })
+            .attr("cy", function(d){
+              return y(d);
+            })
+            .on("mouseover", function(d){
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html("<strong>Value:</strong> <span style='color:red'>" + Number(d) + "</span>")  
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 28) + "px");  
+            })
+            .on("mouseout", function(d){
+              div.transition()    
+                .duration(500)    
+                .style("opacity", 0);
+            });
+
+          // Add the Y Axis
+          svg.append("g")
+              .style("fill", "black")
+              .attr("transform", "translate(30, 0)")
+              .call(d3.axisLeft(y).ticks(2).tickFormat(""));
+
+    </script>
+  
+
+
+
+
+
+
+
+
 
       <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
         <div class="w3-third w3-margin-bottom">
-          <img src="static/img/1.jpg" alt="New York" style="width:100%" class="w3-hover-opacity">
+          <img src="static/img/1.jpg" alt="New York" style="width:100%; height: 200px;" class="w3-hover-opacity">
         </div>
         <div class="w3-third w3-margin-bottom">
-          <img src="static/img/1.jpg" alt="Paris" style="width:100%" class="w3-hover-opacity">
+          <img src="static/img/2.jpg" alt="Paris" style="width:100%;height: 200px;" class="w3-hover-opacity">
         </div>
         <div class="w3-third w3-margin-bottom">
-          <img src="static/img/1.jpg" alt="San Francisco" style="width:100%" class="w3-hover-opacity">
+          <img src="static/img/3.jpg" alt="San Francisco" style="width:100%;height: 200px;" class="w3-hover-opacity">
         </div>
       </div>
     </div>
@@ -188,20 +570,102 @@ function myFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
-
 function openNav() {
     console.log("here");
     document.getElementById("mySidebar").style.display = 'block';
     document.getElementById("mySidebar").style.width = '20%';
     document.getElementById("mySidebar").style.height = '70%';
     }
-
 function closeNav() {
 document.getElementById("mySidebar").style.display = "none";
 }
+
+function plus_gold(){
+        var countEl = document.getElementById("count_gold");
+        count = countEl.value
+        countEl.value = Number(count) + 1;
+    }
+    function minus_gold(){
+      var countEl = document.getElementById("count_gold");
+        count = countEl.value
+        if(Number(count) >= 1){
+          countEl.value = Number(count) - 1;
+        }    
+    }
+
+    function plus_exp(){
+        var countEl = document.getElementById("count_exp");
+        count = countEl.value
+        countEl.value = Number(count) + 1;
+    }
+    function minus_exp(){
+      var countEl = document.getElementById("count_exp");
+        count = countEl.value
+        if(Number(count) >= 1){
+          countEl.value = Number(count) - 1;
+        }    
+    }
+
+    function plus_kill(){
+        var countEl = document.getElementById("count_kill");
+        count = countEl.value
+        countEl.value = Number(count) + 1;
+    }
+    function minus_kill(){
+      var countEl = document.getElementById("count_kill");
+        count = countEl.value
+        if(Number(count) >= 1){
+          countEl.value = Number(count) - 1;
+        }    
+    }
+
+    function plus_death(){
+        var countEl = document.getElementById("count_death");
+        count = countEl.value
+        countEl.value = Number(count) + 1;
+    }
+    function minus_death(){
+      var countEl = document.getElementById("count_death");
+        count = countEl.value
+        if(Number(count) >= 1){
+          countEl.value = Number(count) - 1;
+        }    
+    }
+
+    function plus_dragon(){
+        var countEl = document.getElementById("count_dragon");
+        count = countEl.value
+        countEl.value = Number(count) + 1;
+    }
+    function minus_dragon(){
+      var countEl = document.getElementById("count_dragon");
+        count = countEl.value
+        if(Number(count) >= 1){
+          countEl.value = Number(count) - 1;
+        }    
+    }
+
+    function plus_something(){
+        var countEl = document.getElementById("count_something");
+        count = countEl.value
+        countEl.value = Number(count) + 1;
+    }
+    function minus_something(){
+      var countEl = document.getElementById("count_something");
+        count = countEl.value
+        if(Number(count) >= 1){
+          countEl.value = Number(count) - 1;
+        }    
+    }
+function update(){
+  data1_up = [20, 50, 100, 150, 170, 140, 90, 30, 50];
+  data1_down = [160, 130, 80, 30, 10, 40, 90, 150, 130];
+  data2_up = [80,60,40,120,150,170,100,120];
+  data2_down = [100,120,140,30,10,80,80,60];
+}
 </script>
-<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
-  <i class="fa fa-facebook-official w3-hover-opacity"></i>
+<footer class="w3-container w3-padding-16 w3-center w3-opacity w3-light-grey w3-xlarge">
+  <i class="fa fa-facebook-official w3-hover-opacity" onclick="fun()"></i>
   <i class="fa fa-instagram w3-hover-opacity"></i>
   <i class="fa fa-snapchat w3-hover-opacity"></i>
   <i class="fa fa-pinterest-p w3-hover-opacity"></i>
@@ -210,4 +674,3 @@ document.getElementById("mySidebar").style.display = "none";
 </footer>
 </body>
 </html>
-

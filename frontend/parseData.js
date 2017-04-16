@@ -287,7 +287,28 @@ function parseData(response){
 	return result;
 }
 
-
+function getMLData(data, item_weight) {
+	var result = {}
+	for (var i = 5;i <= 45;i += 5) {
+		var current = data[i];
+		result["team-gold-diff"] = current["team"][0]["gold"] - current["team"][1]["gold"];
+		result["team-dragon-diff"] = current["team"][0]["dragon"] - current["team"][1]["dragon"];
+		result["team-baron-diff"] = current["team"][0]["baron"] - current["team"][1]["baron"];
+		result["team-outturret-diff"] = current["team"][0]["inner_and_outer_turret"] - current["team"][1]["inner_and_outer_turret"];
+		result["team-baseturret-diff"] = current["team"][0]["base_and_nexus_turret"] - current["team"][1]["base_and_nexus_turret"];
+		result["team-inhabitor-diff"] = current["team"][0]["inhabitor"] - current["team"][1]["inhabitor"];
+		result["team-ward-diff"] = current["team"][0]["ward"] - current["team"][1]["ward"];
+		result["heros-kill-diff"] = 0;
+		result["heros-death-diff"] = 0;
+		result["heros-assist-diff"] = 0;
+		result["heros-item-diff"] = 0;
+		for (var j = 0;j < 10; j++) {
+			result["heros-kill-diff"] += current["participant"][j]["kill"] * (j < 5? 1:-1);
+			result["heros-death-diff"] += current["participant"][j]["death"] * (j < 5? 1:-1);
+			result["heros-assist-diff"] += current["participant"][j]["assist"] * (j < 5? 1:-1);
+		}
+	}
+}
 
 
 

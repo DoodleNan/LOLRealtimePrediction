@@ -12,7 +12,27 @@
 <style>
 body {font-family: "Lato", sans-serif}
 .mySlides {display: none}
+.btn-group{
+  position: absolute;
+  left: 300px;
 
+}
+.btn-group .button {
+    background-color: white; /* Green */
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    float: left;
+}
+
+.btn-group .button:hover {
+    background-color: grey;
+}
 path {
   stroke: grey;
   stroke-width: 2;
@@ -193,7 +213,7 @@ div.tooltip {
   
     
   <div class="w3-black" id="champions">
-    <div class="w3-container w3-content w3-padding-64 con" style="max-width:1200px">
+    <div class="w3-container w3-content w3-padding-64 con" style="max-width:1200px; height: 3000px;">
     <!-- Sidebar -->
       <!-- <button class="w3-button w3-grey w3-xlarge" onclick="openNav()">☰</button> -->
 
@@ -223,82 +243,14 @@ div.tooltip {
         <br>
         <br>
       </div>
-      <div>
-        <button type="submit" class="button" onclick="minus_gold()">
-            <i class="fa fa-minus" style="color: black"></i>
-        </button>
-        <input type="text" size="10" value="10" id="count_gold" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-        <button type="submit" class="button" onclick="plus_gold()">
-            <i class="fa fa-plus" style="color: black"></i>
-        </button>
-        <b>gold</b>
-      </div>
       
-      <div>
-        <button type="submit" class="button" onclick="minus_exp()">
-            <i class="fa fa-minus" style="color: black"></i>
-        </button>
-        <input type="text" size="10" value="10" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-        <button type="submit" class="button" onclick="plus_exp()">
-            <i class="fa fa-plus" style="color: black"></i>
-        </button>
-        <b>exp</b>
-      </div>
 
-      <div>
-        <button type="submit" class="button" onclick="minus_death()">
-            <i class="fa fa-minus" style="color: black"></i>
-        </button>
-        <input type="text" size="10" value="10" id="count_death" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-        <button type="submit" class="button" onclick="plus_death()">
-            <i class="fa fa-plus" style="color: black"></i>
-        </button>
-        <b>death</b>
-      </div>
-
-      <div>
-        <button type="submit" class="button" onclick="minus_kill()">
-            <i class="fa fa-minus" style="color: black"></i>
-        </button>
-        <input type="text" size="10" value="10" id="count_kill" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-        <button type="submit" class="button" onclick="plus_kill()">
-            <i class="fa fa-plus" style="color: black"></i>
-        </button>
-        <b>kill</b>
-      </div>
-
-      <div>
-        <button type="submit" class="button" onclick="minus_dragon()">
-            <i class="fa fa-minus" style="color: black"></i>
-        </button>
-        <input type="text" size="10" value="10" id="count_dragon" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-        <button type="submit" class="button" onclick="plus_dragon()">
-            <i class="fa fa-plus" style="color: black"></i>
-        </button>
-        <b>dragon</b>
-      </div>
-
-      <div>
-        <button type="submit" class="button" onclick="minus_something()">
-            <i class="fa fa-minus" style="color: black"></i>
-        </button>
-        <input type="text" size="10" value="10" id="count_something" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-        <button type="submit" class="button" onclick="plus_something()">
-            <i class="fa fa-plus" style="color: black"></i>
-        </button>
-        <b>something</b>
-      </div>
-      <p></p>
-      <p></p>
-      
-      <button class="run" style="vertical-align:middle" onclick="update()"><span>Run </span></button>
-      
-      </div>
-
-      <svg width="800" height="600"></svg>
+      <svg id="area0" width="800" height="1000"></svg>
+      <!-- <svg id="area1" width="800" height="600"></svg>
+      <svg id="area2" width="800" height="600"></svg> -->
       <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-      <script src="http://d3js.org/d3.v4.min.js"></script>
-      <script>
+      <!-- <script src="http://d3js.org/d3.v4.min.js"></script> -->
+      <!-- <script>
 
         
         data1_up = [20, 50, 100, 150, 170, 140, 90, 30, 50];
@@ -456,9 +408,293 @@ div.tooltip {
               .style("fill", "black")
               .attr("transform", "translate(30, 0)")
               .call(d3.axisLeft(y).ticks(2).tickFormat(""));
+    </script> -->
+      <script type="text/javascript">
+        var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
+        var gold = [3, 7]
+        var exp = [1000, 1500]
 
-    </script>
-  
+        var weight = [
+          {legend:"exp", value:20, color:"red"},
+          {legend:"gold", value:45, color:"orangered"},
+          {legend:"dragon", value:25, color:"yellow"},
+          {legend:"tower", value:70, color:"pink"},
+          {legend:"item", value:20, color:"purple"}
+          ];
+        var margin = {top: 30, right: 20, bottom: 30, left: 50},
+          width = 800 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom;
+        var svg = d3.select("svg")
+            .attr("width", 1200)
+            .style("background-color", "white")
+
+        var x = d3.scale.linear().range([0, width]).domain([0,8]);
+        var y = d3.scale.linear().range([height, 0]).domain([0,1]);
+
+        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(8).tickFormat(function(d){
+          return d*5;
+        });
+        var yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
+
+        var valueline = d3.svg.line()
+          .x(function(d, i){
+            return x(i);
+          })
+          .y(function(d){
+            return y(d);
+          })
+        var g = svg
+            .append("g")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("transform", "translate("+margin.left+","+margin.top+")");
+        g.append("path")
+          .attr("class", "line")
+          .attr("d", valueline(winrate))
+        g.selectAll("dot")
+          .data(winrate)
+          .enter().append("circle")
+          .attr("r", 3.5)
+          .attr("cx", function(d, i){
+            return x(i);
+          })
+          .attr("cy", function(d){
+            return y(d);
+          })
+        svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate("+ margin.left + "," + (height+30) + ")")
+          .call(xAxis)
+          .selectAll("text")
+          .append("text")
+          .text(function(d){
+            return 
+          });
+        svg.append("g")
+          .attr("class", "y axis")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + margin.left + "," + margin.bottom + ")")
+          .call(yAxis);
+        
+        // chart 2
+
+        var x_compare_1 = d3.scale.linear().range([0,200]).domain([0,1])
+        var y_compare_1 = d3.scale.linear().range([150, 0]).domain([1,9])
+
+        var xAxis_compare_1 = d3.svg.axis()
+          .scale(x_compare_1)
+          .orient("bottom")
+          .ticks(0)
+        var yAxis_compare_1 = d3.svg.axis()
+          .scale(y_compare_1)
+          .orient("left")
+          .ticks(5);
+        var g_compare = svg.append("g");
+        var g_compare_1 = g_compare.append("g")
+          .attr("transform", "translate(50,500)")
+        
+        g_compare_1.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0, 150)")
+          .call(xAxis_compare_1)
+          .append("text")
+          .text("team1" + "\t"  + "team2")
+          .attr("transform", "translate(60, 20)");
+          
+        
+        g_compare_1.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(0,0)")
+          .call(yAxis_compare_1)
+          .append("text")
+          .text("gold")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+        g_compare_1.selectAll("bar")
+          .data(gold)
+          .enter().append("rect")
+          .style("fill", "black")
+          .attr("x", function(d, i) { if(i == 0){
+            
+            return 60;
+          }else{
+            
+            return 100;
+          } })
+          .attr("width", 30)
+          .attr("y", function(d) { return y_compare_1(d); })
+          .attr("height", function(d) { return 150 - y_compare_1(d); });
+
+        // chart 3
+        var x_compare_2 = d3.scale.linear().range([0, 200]).domain([0,1]);
+        var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 2000]);
+        var xAxis_compare_2 = d3.svg.axis()
+          .scale(x_compare_2)
+          .orient("bottom")
+          .ticks("0");
+        var yAxis_compare_2 = d3.svg.axis()
+          .scale(y_compare_2)
+          .orient("left")
+          .ticks(5);
+        var g_compare_2 = g_compare.append("g")
+          .attr("transform", "translate(300, 500)");
+        g_compare_2.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0, 150)")
+          .call(xAxis_compare_2)
+          .append("text")
+          .text("team1" + "\t\t"  + "team2")
+          .attr("transform", "translate(60, 20)");
+
+        g_compare_2.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(0, 0)")
+          .call(yAxis_compare_2)
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("exp");
+
+        g_compare_2.selectAll("bar")
+          .data(exp)
+          .enter()
+          .append("rect")
+          .style("fill", "black")
+          .attr("x", function(d, i) { if(i == 0){
+            return 60;
+          }else{
+            return 100;
+          } })
+          .attr("width", 30)
+          .attr("y", function(d) { return y_compare_2(d); })
+          .attr("height", function(d) { return 150 - y_compare_2(d); });
+
+          // pie chart
+
+          var g_pie = svg.append("g")
+            .attr("width", 350)
+            .attr("height", 200)
+            .attr("transform", "translate(150, 800)");
+          var arc = d3.svg.arc()
+            .outerRadius(100)
+            .innerRadius(10);
+          var pieValue = d3.layout.pie()
+            .sort(null)
+            .value(function(d){
+              return d.value;
+            });
+
+          var pie = g_pie.selectAll(".fan")
+            .data(pieValue(weight))
+            .enter()
+            .append("g")
+            .attr("class", "fan");
+
+          pie.append("path")
+            .attr("d", arc)
+            .style("fill", function(d){
+              return d.data.color;
+            });
+
+          pie.append("text")
+            .attr("transform", function(d){
+              return "translate(" + arc.centroid(d) + ")";
+            })
+            .style("text-anchor", "middle")
+            .text(function(d){
+              return d.data.legend;
+            })
+      </script>
+      
+      <div class="btn-group">
+        <button class="button">5 min</button>
+        <button class="button">10 min</button>
+        <button class="button">15 min</button>
+        <button class="button">20 min</button>
+        <button class="button">25 min</button>
+        <button class="button">30 min</button>
+        <button class="button">35 min</button>
+        <button class="button">40 min</button>
+      </div>
+
+    <div style="position: absolute;top: 2000px; left: 90px">
+      <div>
+        <button type="submit" class="button" onclick="minus_gold()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_gold" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_gold()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>gold</b>
+      </div>
+      <p></p>
+      <div>
+        <button type="submit" class="button" onclick="minus_exp()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_exp()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>exp</b>
+      </div>
+      <p></p>
+      <div>
+        <button type="submit" class="button" onclick="minus_death()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_death" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_death()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>death</b>
+      </div>
+      <p></p>
+      <div>
+        <button type="submit" class="button" onclick="minus_kill()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_kill" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_kill()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>kill</b>
+      </div>
+      <p></p>
+      <div>
+        <button type="submit" class="button" onclick="minus_dragon()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_dragon" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_dragon()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>dragon</b>
+      </div>
+      <p></p>
+      <div>
+        <button type="submit" class="button" onclick="minus_something()">
+            <i class="fa fa-minus" style="color: black"></i>
+        </button>
+        <input type="text" size="10" value="10" id="count_something" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+        <button type="submit" class="button" onclick="plus_something()">
+            <i class="fa fa-plus" style="color: black"></i>
+        </button>
+        <b>something</b>
+      </div>
+
+      </div>
+      <p></p>
+      <p></p>
+      
+      <button class="run" style="vertical-align:middle; position: absolute;left: 100px; top: 2250px;" onclick="update()"><span>Run </span></button>
+      
+      </div>
 
 
 
@@ -466,9 +702,7 @@ div.tooltip {
 
 
 
-
-
-      <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+      <!-- <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
         <div class="w3-third w3-margin-bottom">
           <img src="static/img/1.jpg" alt="New York" style="width:100%; height: 200px;" class="w3-hover-opacity">
         </div>
@@ -478,7 +712,7 @@ div.tooltip {
         <div class="w3-third w3-margin-bottom">
           <img src="static/img/3.jpg" alt="San Francisco" style="width:100%;height: 200px;" class="w3-hover-opacity">
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   

@@ -6,13 +6,22 @@ var itemId_mapping = {};
 var matchId = [];
 var match_count = 0;
 var final_result = {};
-
+var item_weight = {};
+var champions = {};
 // load item id
 d3.csv("item.csv", function(error, data){
 	data.forEach(function(d, i) {
         itemId.push(d.id);
         itemId_mapping[d.id] = i;
     });
+});
+
+d3.json("item_weight_normalize.json", function(data) {
+	item_weight = data;
+});
+
+d3.json("champion.json", function(data) {
+	champions = data;
 });
 
 // for test
@@ -280,7 +289,7 @@ function parseData(response){
             	timeline.participant[j-1][LEVEL] = f[j]['level'];
             }
             // store timeline data to result
-            result[i.toString()] = timeline;
+            result[i.toString()] = (JSON.parse(JSON.stringify(timeline)));
             end += 5;
         }
 	}
@@ -288,26 +297,44 @@ function parseData(response){
 }
 
 function getMLData(data, item_weight) {
-	var result = {}
+	var results = {};
 	for (var i = 5;i <= 45;i += 5) {
+		if (!data[i]) {
+			i -= 4;
+			for (var t = i; t < i + 4; t ++) {
+				if (data[t]) {
+					i = t;
+					break;
+				}
+			}
+			if (!data[i])
+				break;
+		}
+		result = {};
 		var current = data[i];
-		result["team-gold-diff"] = current["team"][0]["gold"] - current["team"][1]["gold"];
-		result["team-dragon-diff"] = current["team"][0]["dragon"] - current["team"][1]["dragon"];
-		result["team-baron-diff"] = current["team"][0]["baron"] - current["team"][1]["baron"];
-		result["team-outturret-diff"] = current["team"][0]["inner_and_outer_turret"] - current["team"][1]["inner_and_outer_turret"];
-		result["team-baseturret-diff"] = current["team"][0]["base_and_nexus_turret"] - current["team"][1]["base_and_nexus_turret"];
-		result["team-inhabitor-diff"] = current["team"][0]["inhabitor"] - current["team"][1]["inhabitor"];
-		result["team-ward-diff"] = current["team"][0]["ward"] - current["team"][1]["ward"];
+		result["team-gold-diff"] = current["team"][0]["gold"]  - current["team"][1]["gold"];
+		result["team-dragon-diff"] = current["team"][0]["dragon"]? current["team"][0]["dragon"] : 0 - current["team"][1]["dragon"]? current["team"][1]["dragon"] : 0;
+		result["team-baron-diff"] = current["team"][0]["baron"]? current["team"][0]["baron"]:0 - current["team"][1]["baron"]? current["team"][1]["baron"]:0;
+		result["team-outturret-diff"] = current["team"][0]["inner_and_outer_turret"]? current["team"][0]["inner_and_outer_turret"]:0 - current["team"][1]["inner_and_outer_turret"]? current["team"][1]["inner_and_outer_turret"]:0;
+		result["team-baseturret-diff"] = current["team"][0]["base_and_nexus_turret"]? current["team"][0]["base_and_nexus_turret"]:0 - current["team"][1]["base_and_nexus_turret"]? current["team"][1]["base_and_nexus_turret"]:0;
+		result["team-inhabitor-diff"] = current["team"][0]["inhabitor"]? current["team"][0]["inhabitor"]:0 - current["team"][1]["inhabitor"]?current["team"][1]["inhabitor"]:0;
+		result["team-ward-diff"] = current["team"][0]["ward"]? current["team"][0]["ward"]:0 - current["team"][1]["ward"]? current["team"][1]["ward"]:0;
 		result["heros-kill-diff"] = 0;
 		result["heros-death-diff"] = 0;
 		result["heros-assist-diff"] = 0;
 		result["heros-item-diff"] = 0;
 		for (var j = 0;j < 10; j++) {
-			result["heros-kill-diff"] += current["participant"][j]["kill"] * (j < 5? 1:-1);
-			result["heros-death-diff"] += current["participant"][j]["death"] * (j < 5? 1:-1);
-			result["heros-assist-diff"] += current["participant"][j]["assist"] * (j < 5? 1:-1);
+			result["heros-kill-diff"] += (current["participant"][j]["kill"]? current["participant"][j]["kill"]:0) * (j < 5? 1:-1);
+			result["heros-death-diff"] += (current["participant"][j]["death"]? current["participant"][j]["death"]:0) * (j < 5? 1:-1);
+			result["heros-assist-diff"] += (current["participant"][j]["assist"]? current["participant"][j]["assist"]:0) * (j < 5? 1:-1);
+			champion_type = champions[data["championId"][j]];
+			for (var k in Object.keys(current["item"][j])) {
+				result["heros-item-diff"] += item_weight[champion_type][k] * (j < 5? 1:-1);
+			}
 		}
+		results[i] = result;
 	}
+	return results;
 }
 
 

@@ -24,6 +24,123 @@ d3.json("champion.json", function(data) {
 	champions = data;
 });
 
+weights = {}
+weights[5] = {}
+weights[5]["team-gold-diff"] = 0;
+weights[5]["team-dragon-diff"] = 0;
+weights[5]["team-baron-diff"] = 0;
+weights[5]["team-outturret-diff"] = 0;
+weights[5]["team-baseturret-diff"] = 0;
+weights[5]["team-inhabitor-diff"] = 0;
+weights[5]["team-ward-diff"] = 0;
+weights[5]["heros-kill-diff"] = 0;
+weights[5]["heros-death-diff"] = 0;
+weights[5]["heros-assist-diff"] = 0;
+weights[5]["heros-item-diff"] = 0;
+
+weights[10] = {}
+weights[10]["team-gold-diff"] = 0;
+weights[10]["team-dragon-diff"] = 0;
+weights[10]["team-baron-diff"] = 0;
+weights[10]["team-outturret-diff"] = 0;
+weights[10]["team-baseturret-diff"] = 0;
+weights[10]["team-inhabitor-diff"] = 0;
+weights[10]["team-ward-diff"] = 0;
+weights[10]["heros-kill-diff"] = 0;
+weights[10]["heros-death-diff"] = 0;
+weights[10]["heros-assist-diff"] = 0;
+weights[10]["heros-item-diff"] = 0;
+
+weights[15] = {}
+weights[15]["team-gold-diff"] = 0;
+weights[15]["team-dragon-diff"] = 0;
+weights[15]["team-baron-diff"] = 0;
+weights[15]["team-outturret-diff"] = 0;
+weights[15]["team-baseturret-diff"] = 0;
+weights[15]["team-inhabitor-diff"] = 0;
+weights[15]["team-ward-diff"] = 0;
+weights[15]["heros-kill-diff"] = 0;
+weights[15]["heros-death-diff"] = 0;
+weights[15]["heros-assist-diff"] = 0;
+weights[15]["heros-item-diff"] = 0;
+
+weights[20] = {}
+weights[20]["team-gold-diff"] = 0;
+weights[20]["team-dragon-diff"] = 0;
+weights[20]["team-baron-diff"] = 0;
+weights[20]["team-outturret-diff"] = 0;
+weights[20]["team-baseturret-diff"] = 0;
+weights[20]["team-inhabitor-diff"] = 0;
+weights[20]["team-ward-diff"] = 0;
+weights[20]["heros-kill-diff"] = 0;
+weights[20]["heros-death-diff"] = 0;
+weights[20]["heros-assist-diff"] = 0;
+weights[20]["heros-item-diff"] = 0;
+
+weights[25] = {}
+weights[25]["team-gold-diff"] = 0;
+weights[25]["team-dragon-diff"] = 0;
+weights[25]["team-baron-diff"] = 0;
+weights[25]["team-outturret-diff"] = 0;
+weights[25]["team-baseturret-diff"] = 0;
+weights[25]["team-inhabitor-diff"] = 0;
+weights[25]["team-ward-diff"] = 0;
+weights[25]["heros-kill-diff"] = 0;
+weights[25]["heros-death-diff"] = 0;
+weights[25]["heros-assist-diff"] = 0;
+weights[25]["heros-item-diff"] = 0;
+
+weights[30] = {}
+weights[30]["team-gold-diff"] = 0;
+weights[30]["team-dragon-diff"] = 0;
+weights[30]["team-baron-diff"] = 0;
+weights[30]["team-outturret-diff"] = 0;
+weights[30]["team-baseturret-diff"] = 0;
+weights[30]["team-inhabitor-diff"] = 0;
+weights[30]["team-ward-diff"] = 0;
+weights[30]["heros-kill-diff"] = 0;
+weights[30]["heros-death-diff"] = 0;
+weights[30]["heros-assist-diff"] = 0;
+weights[30]["heros-item-diff"] = 0;
+
+weights[35] = {}
+weights[35]["team-gold-diff"] = 0;
+weights[35]["team-dragon-diff"] = 0;
+weights[35]["team-baron-diff"] = 0;
+weights[35]["team-outturret-diff"] = 0;
+weights[35]["team-baseturret-diff"] = 0;
+weights[35]["team-inhabitor-diff"] = 0;
+weights[35]["team-ward-diff"] = 0;
+weights[35]["heros-kill-diff"] = 0;
+weights[35]["heros-death-diff"] = 0;
+weights[35]["heros-assist-diff"] = 0;
+weights[35]["heros-item-diff"] = 0;
+
+weights[40] = {}
+weights[40]["team-gold-diff"] = 0;
+weights[40]["team-dragon-diff"] = 0;
+weights[40]["team-baron-diff"] = 0;
+weights[40]["team-outturret-diff"] = 0;
+weights[40]["team-baseturret-diff"] = 0;
+weights[40]["team-inhabitor-diff"] = 0;
+weights[40]["team-ward-diff"] = 0;
+weights[40]["heros-kill-diff"] = 0;
+weights[40]["heros-death-diff"] = 0;
+weights[40]["heros-assist-diff"] = 0;
+weights[40]["heros-item-diff"] = 0;
+
+weights[45] = {}
+weights[45]["team-gold-diff"] = 0;
+weights[45]["team-dragon-diff"] = 0;
+weights[45]["team-baron-diff"] = 0;
+weights[45]["team-outturret-diff"] = 0;
+weights[45]["team-baseturret-diff"] = 0;
+weights[45]["team-inhabitor-diff"] = 0;
+weights[45]["team-ward-diff"] = 0;
+weights[45]["heros-kill-diff"] = 0;
+weights[45]["heros-death-diff"] = 0;
+weights[45]["heros-assist-diff"] = 0;
+weights[45]["heros-item-diff"] = 0;
 // for test
 getMatchData('3019374593', 'EUW')
 
@@ -310,7 +427,7 @@ function getMLData(data, item_weight) {
 			if (!data[i])
 				break;
 		}
-		result = {};
+		var result = {};
 		var current = data[i];
 		result["team-gold-diff"] = current["team"][0]["gold"]  - current["team"][1]["gold"];
 		result["team-dragon-diff"] = current["team"][0]["dragon"]? current["team"][0]["dragon"] : 0 - current["team"][1]["dragon"]? current["team"][1]["dragon"] : 0;
@@ -332,9 +449,35 @@ function getMLData(data, item_weight) {
 				result["heros-item-diff"] += item_weight[champion_type][k] * (j < 5? 1:-1);
 			}
 		}
-		results[i] = result;
+		results[i % 5 == 0? i:(i - i % 5 + 5)] = result;
 	}
 	return results;
+}
+
+function calculatePredictionResult(data, weights, time) {
+	if (time != 0) {
+		return calculateSinglePrediction(data, weights, time);
+	}
+	total_result = {}
+	for (var i = 5; i  <= 45; i += 5) {
+		if (!data[i])
+			break;
+		total_result[i] = calculateSinglePrediction(data[i], weights[i], i);
+	}
+	return total_result;
+}
+
+function calculateSinglePrediction(current, weight) {
+	var result = {};
+	var finalPoint = 0;
+	keys = Object.keys(current);
+	for (var i = 0; i < keys.length; i++) {
+		var key = keys[i];
+		var name = key.split("-")[1];
+		result[name] = weight[key] * current[key];
+		finalPoint += result[name];
+	}
+	return finalPoint;
 }
 
 

@@ -188,6 +188,8 @@ function getMatchData(matchId, region) {
         console.log("Successfully fetch data of match: " + matchId);
         var result = parseData(response);
         final_result = result;
+        ml = getMLData(final_result, item_weight);
+        draw(final_result[30], ml[30]);
 
     }, function(error) {
         console.error("Failed: ", error);
@@ -406,6 +408,9 @@ function parseData(response){
             	timeline.participant[j-1][LEVEL] = f[j]['level'];
             }
             // store timeline data to result
+            if (i % 5 != 0) {
+				i = i - i % 5 + 5;
+			}
             result[i.toString()] = (JSON.parse(JSON.stringify(timeline)));
             end += 5;
         }
@@ -417,15 +422,7 @@ function getMLData(data, item_weight) {
 	var results = {};
 	for (var i = 5;i <= 45;i += 5) {
 		if (!data[i]) {
-			i -= 4;
-			for (var t = i; t < i + 4; t ++) {
-				if (data[t]) {
-					i = t;
-					break;
-				}
-			}
-			if (!data[i])
-				break;
+			break;
 		}
 		var result = {};
 		var current = data[i];
@@ -480,9 +477,206 @@ function calculateSinglePrediction(current, weight) {
 	return finalPoint;
 }
 
+function draw(result, MLData) {
+        var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
+        var gold = [result["team"][0]["gold"]/1000, result["team"][1]["gold"]/1000]
+        var exp = [result["participant"][0]["level"], result["participant"][0]["level"]]
 
+        var weight = [
+          {legend:"baron", value:MLData["team-baron-diff"], color:"red"},
+          {legend:"gold", value:MLData["team-gold-diff"], color:"orangered"},
+          {legend:"dragon", value:MLData["team-dragon-diff"], color:"yellow"},
+          {legend:"tower", value:MLData["team-outturret-diff"], color:"pink"},
+          {legend:"item", value:MLData["heros-item-diff"], color:"purple"}
+          ];
+        var margin = {top: 30, right: 20, bottom: 30, left: 50},
+          width = 800 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom;
+        var svg = d3.select("svg")
+            .attr("width", 1200)
+            .style("background-color", "white")
 
+        var x = d3.scale.linear().range([0, width]).domain([0,8]);
+        var y = d3.scale.linear().range([height, 0]).domain([0,1]);
 
+        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(8).tickFormat(function(d){
+          return d*5;
+        });
+        var yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
+
+        var valueline = d3.svg.line()
+          .x(function(d, i){
+            return x(i);
+          })
+          .y(function(d){
+            return y(d);
+          })
+        var g = svg
+            .append("g")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("transform", "translate("+margin.left+","+margin.top+")");
+        g.append("path")
+          .attr("class", "line")
+          .attr("d", valueline(winrate))
+        g.selectAll("dot")
+          .data(winrate)
+          .enter().append("circle")
+          .attr("r", 3.5)
+          .attr("cx", function(d, i){
+            return x(i);
+          })
+          .attr("cy", function(d){
+            return y(d);
+          })
+        svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate("+ margin.left + "," + (height+30) + ")")
+          .call(xAxis)
+          .selectAll("text")
+          .append("text")
+          .text(function(d){
+            return 
+          });
+        svg.append("g")
+          .attr("class", "y axis")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + margin.left + "," + margin.bottom + ")")
+          .call(yAxis);
+        
+        // chart 2
+
+        var x_compare_1 = d3.scale.linear().range([0,200]).domain([0,1])
+        var y_compare_1 = d3.scale.linear().range([150, 0]).domain([1,9])
+
+        var xAxis_compare_1 = d3.svg.axis()
+          .scale(x_compare_1)
+          .orient("bottom")
+          .ticks(0)
+        var yAxis_compare_1 = d3.svg.axis()
+          .scale(y_compare_1)
+          .orient("left")
+          .ticks(5);
+        var g_compare = svg.append("g");
+        var g_compare_1 = g_compare.append("g")
+          .attr("transform", "translate(50,500)")
+        
+        g_compare_1.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0, 150)")
+          .call(xAxis_compare_1)
+          .append("text")
+          .text("team1" + "\t"  + "team2")
+          .attr("transform", "translate(60, 20)");
+          
+        
+        g_compare_1.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(0,0)")
+          .call(yAxis_compare_1)
+          .append("text")
+          .text("gold")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+        g_compare_1.selectAll("bar")
+          .data(gold)
+          .enter().append("rect")
+          .style("fill", "black")
+          .attr("x", function(d, i) { if(i == 0){
+            
+            return 60;
+          }else{
+            
+            return 100;
+          } })
+          .attr("width", 30)
+          .attr("y", function(d) { return y_compare_1(d); })
+          .attr("height", function(d) { return 150 - y_compare_1(d); });
+
+        // chart 3
+        var x_compare_2 = d3.scale.linear().range([0, 200]).domain([0,1]);
+        var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 18]);
+        var xAxis_compare_2 = d3.svg.axis()
+          .scale(x_compare_2)
+          .orient("bottom")
+          .ticks("0");
+        var yAxis_compare_2 = d3.svg.axis()
+          .scale(y_compare_2)
+          .orient("left")
+          .ticks(5);
+        var g_compare_2 = g_compare.append("g")
+          .attr("transform", "translate(300, 500)");
+        g_compare_2.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0, 150)")
+          .call(xAxis_compare_2)
+          .append("text")
+          .text("team1" + "\t\t"  + "team2")
+          .attr("transform", "translate(60, 20)");
+
+        g_compare_2.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(0, 0)")
+          .call(yAxis_compare_2)
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("exp");
+
+        g_compare_2.selectAll("bar")
+          .data(exp)
+          .enter()
+          .append("rect")
+          .style("fill", "black")
+          .attr("x", function(d, i) { if(i == 0){
+            return 60;
+          }else{
+            return 100;
+          } })
+          .attr("width", 30)
+          .attr("y", function(d) { return y_compare_2(d); })
+          .attr("height", function(d) { return 150 - y_compare_2(d); });
+
+          // pie chart
+
+          var g_pie = svg.append("g")
+            .attr("width", 350)
+            .attr("height", 200)
+            .attr("transform", "translate(150, 800)");
+          var arc = d3.svg.arc()
+            .outerRadius(100)
+            .innerRadius(10);
+          var pieValue = d3.layout.pie()
+            .sort(null)
+            .value(function(d){
+              return d.value;
+            });
+
+          var pie = g_pie.selectAll(".fan")
+            .data(pieValue(weight))
+            .enter()
+            .append("g")
+            .attr("class", "fan");
+
+          pie.append("path")
+            .attr("d", arc)
+            .style("fill", function(d){
+              return d.data.color;
+            });
+
+          pie.append("text")
+            .attr("transform", function(d){
+              return "translate(" + arc.centroid(d) + ")";
+            })
+            .style("text-anchor", "middle")
+            .text(function(d){
+              return d.data.legend;
+            })
+          }
 
 
 

@@ -14,18 +14,18 @@ body {font-family: "Lato", sans-serif}
 .mySlides {display: none}
 .btn-group{
   position: absolute;
-  left: 300px;
+  left: 100px;
 
 }
 .btn-group .button {
-    background-color: white; /* Green */
+    background-color: black; /* Green */
     border: none;
-    color: black;
-    padding: 15px 32px;
+    color: white;
+    padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     float: left;
 }
@@ -144,6 +144,25 @@ div.tooltip {
   border: 1px solid #7AC143;
   background-color: black;
 }
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  widows: 100%;
+  width: 700px;
+  margin-left: 80px;
+  /*margin-top: 10px;*/
+}
+
+td, th{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+/*tr:nth-child(even){
+  background-color: #dddddd;
+}*/
 </style>
 <body>
 
@@ -620,8 +639,98 @@ div.tooltip {
         <button class="button">35 min</button>
         <button class="button">40 min</button>
       </div>
+      <div>
+        <br>
+        <br>
+        <br>
+      </div>
+      <div>
+        <table>
+        <tr>
+          <th>Attr</th>
+          <th>TEAM 1</th>
+          <th>TEAM 2</th>
+        </tr>
+          <td>
+            <i class="fa fa-cubes" aria-hidden="true"></i>
+            Gold
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_gold()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="10" id="count_gold" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_gold()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_gold()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="10" id="count_gold" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_gold()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+        </tr>
+        
 
-    <div style="position: absolute;top: 2000px; left: 90px">
+        <tr>
+          <td>
+            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+            Exp
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1000" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1500" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          
+        </tr>  
+          <td>
+            <i class="fa fa-fort-awesome" aria-hidden="true"></i>
+            Tower
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_death()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="10" id="count_death" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_death()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_death()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="10" id="count_death" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_death()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+      
+      </table>
+      </div>
+      
+
+    <!-- <div style="position: absolute;top: 2000px; left: 90px">
       <div>
         <button type="submit" class="button" onclick="minus_gold()">
             <i class="fa fa-minus" style="color: black"></i>
@@ -702,7 +811,7 @@ div.tooltip {
 
 
 
-      <!-- <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+      <! <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
         <div class="w3-third w3-margin-bottom">
           <img src="static/img/1.jpg" alt="New York" style="width:100%; height: 200px;" class="w3-hover-opacity">
         </div>
@@ -713,7 +822,8 @@ div.tooltip {
           <img src="static/img/3.jpg" alt="San Francisco" style="width:100%;height: 200px;" class="w3-hover-opacity">
         </div>
       </div> -->
-    </div>
+    </div> -->
+  </div>
   </div>
   
 

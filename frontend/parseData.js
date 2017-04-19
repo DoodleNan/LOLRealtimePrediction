@@ -476,10 +476,9 @@ function calculateSinglePrediction(current, weight) {
 }
 
 function draw(result, MLData, time) {
-
         var winrate = [];
         for (i = 5; i <= time; i++) {
-        	winrate.append(predicted[i]);
+        	winrate.push(predicted[i]);
         }
         var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
         var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
@@ -1059,7 +1058,7 @@ function draw(result, MLData, time) {
                 .duration(200)    
                 .style("opacity", .9);    
               div.html(
-                "<strong>Weight:</strong> <span>" + d + "</span>"
+                "<strong>Weight:</strong> <span>" + d.legend + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
             });

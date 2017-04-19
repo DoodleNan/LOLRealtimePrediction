@@ -566,15 +566,11 @@ function draw(result, MLData, time) {
           height = 500 - margin.top - margin.bottom;
         
     // svg--------------------------
-        var svg = d3.select("svg");
+        var svg = d3.select("svg")
+        			.attr("height", 2000)
+        			.attr("width", 1400);
         svg.selectAll("*").remove();
         $("#table").show();
-
-        var svg = d3.select("#area1")
-        	.append("svg")
-            .attr("width", 1200)
-            .attr("height", 2000);
-
 
         var x = d3.scale.linear().range([0, width]).domain([0,8]);
         var y = d3.scale.linear().range([height, 0]).domain([0,1]);
@@ -1005,7 +1001,7 @@ function draw(result, MLData, time) {
                 .duration(200)    
                 .style("opacity", .9);    
               div.html(
-                "<strong>Weight:</strong> <span>" + d + "</span>"
+                "<strong>Weight:</strong> <span>" + d.data.legend + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
             })

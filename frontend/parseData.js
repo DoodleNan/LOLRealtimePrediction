@@ -557,6 +557,7 @@ function draw(result, MLData) {
           height = 500 - margin.top - margin.bottom;
         var svg = d3.select("svg")
             .attr("width", 1200)    
+            .attr("height", 2000);
         svg.selectAll("*").remove();
         $("#table").show();
 

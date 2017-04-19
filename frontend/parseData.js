@@ -26,100 +26,108 @@ d3.json("champion.json", function(data) {
 
 weights = {}
 weights[5] = {}
-weights[5]["team-gold-diff"] = 0;
-weights[5]["team-dragon-diff"] = 0;
+weights[5]["team-gold-diff"] = 0.001;
+weights[5]["team-dragon-diff"] = 1.1651;
 weights[5]["team-baron-diff"] = 0;
 weights[5]["team-outturret-diff"] = 0;
 weights[5]["team-baseturret-diff"] = 0;
 weights[5]["team-inhabitor-diff"] = 0;
-weights[5]["team-ward-diff"] = 0;
-weights[5]["heros-kill-diff"] = 0;
-weights[5]["heros-level-diff"] = 0;
-weights[5]["heros-item-diff"] = 0;
+weights[5]["team-ward-diff"] = 0.0072;
+weights[5]["heros-kill-diff"] = -0.1641;
+weights[5]["heros-level-diff"] = 0.0256;
+weights[5]["heros-item-diff"] = 0.6384;
+weights[5]["intercept"] = 0.0191;
 
 weights[10] = {}
-weights[10]["team-gold-diff"] = 0;
-weights[10]["team-dragon-diff"] = 0;
+weights[10]["team-gold-diff"] = 0.0007;
+weights[10]["team-dragon-diff"] = 0.39;
 weights[10]["team-baron-diff"] = 0;
-weights[10]["team-outturret-diff"] = 0;
-weights[10]["team-baseturret-diff"] = 0;
-weights[10]["team-inhabitor-diff"] = 0;
-weights[10]["team-ward-diff"] = 0;
-weights[10]["heros-kill-diff"] = 0;
-weights[10]["heros-level-diff"] = 0;
-weights[10]["heros-item-diff"] = 0;
+weights[10]["team-outturret-diff"] = 204.5222;
+weights[10]["team-baseturret-diff"] = -0.5434;
+weights[10]["team-inhabitor-diff"] = 206.2739;
+weights[10]["team-ward-diff"] = 0.0024;
+weights[10]["heros-kill-diff"] = -0.0789;
+weights[10]["heros-level-diff"] = 0.0794;
+weights[10]["heros-item-diff"] = 0.5559;
+weights[10]["intercept"] = 0.0164;
 
 weights[15] = {}
-weights[15]["team-gold-diff"] = 0;
-weights[15]["team-dragon-diff"] = 0;
+weights[15]["team-gold-diff"] = 0.0005;
+weights[15]["team-dragon-diff"] = 0.2552;
 weights[15]["team-baron-diff"] = 0;
-weights[15]["team-outturret-diff"] = 0;
-weights[15]["team-baseturret-diff"] = 0;
-weights[15]["team-inhabitor-diff"] = 0;
-weights[15]["team-ward-diff"] = 0;
-weights[15]["heros-kill-diff"] = 0;
-weights[15]["heros-level-diff"] = 0;
-weights[15]["heros-item-diff"] = 0;
+weights[15]["team-outturret-diff"] = -0.5769;
+weights[15]["team-baseturret-diff"] = -0.1698;
+weights[15]["team-inhabitor-diff"] = -0.086;
+weights[15]["team-ward-diff"] = 0.0011;
+weights[15]["heros-kill-diff"] = -0.0311;
+weights[15]["heros-level-diff"] = 0.0585;
+weights[15]["heros-item-diff"] = 1.3747;
+weights[15]["intercept"] = 0.0367;
 
 weights[20] = {}
-weights[20]["team-gold-diff"] = 0;
-weights[20]["team-dragon-diff"] = 0;
+weights[20]["team-gold-diff"] = 0.0002;
+weights[20]["team-dragon-diff"] = 0.2161;
 weights[20]["team-baron-diff"] = 0;
-weights[20]["team-outturret-diff"] = 0;
-weights[20]["team-baseturret-diff"] = 0;
-weights[20]["team-inhabitor-diff"] = 0;
-weights[20]["team-ward-diff"] = 0;
-weights[20]["heros-kill-diff"] = 0;
-weights[20]["heros-level-diff"] = 0;
-weights[20]["heros-item-diff"] = 0;
+weights[20]["team-outturret-diff"] = 0.9118;
+weights[20]["team-baseturret-diff"] = 0.0374;
+weights[20]["team-inhabitor-diff"] = -0.292;
+weights[20]["team-ward-diff"] = 0.0008;
+weights[20]["heros-kill-diff"] = -0.007;
+weights[20]["heros-level-diff"] = 0.1508;
+weights[20]["heros-item-diff"] = 1.4599;
+weights[20]["intercept"] = 0.0608;
 
 weights[25] = {}
-weights[25]["team-gold-diff"] = 0;
-weights[25]["team-dragon-diff"] = 0;
+weights[25]["team-gold-diff"] = 0.0002;
+weights[25]["team-dragon-diff"] = 0.1707;
 weights[25]["team-baron-diff"] = 0;
-weights[25]["team-outturret-diff"] = 0;
-weights[25]["team-baseturret-diff"] = 0;
-weights[25]["team-inhabitor-diff"] = 0;
-weights[25]["team-ward-diff"] = 0;
-weights[25]["heros-kill-diff"] = 0;
-weights[25]["heros-level-diff"] = 0;
-weights[25]["heros-item-diff"] = 0;
+weights[25]["team-outturret-diff"] = 0.3066;
+weights[25]["team-baseturret-diff"] = 0.0026;
+weights[25]["team-inhabitor-diff"] = 0.596;
+weights[25]["team-ward-diff"] = 0.0008;
+weights[25]["heros-kill-diff"] = -0.0129;
+weights[25]["heros-level-diff"] = 0.1358;
+weights[25]["heros-item-diff"] = 1.431;
+weights[25]["intercept"] = 0.063;
 
 weights[30] = {}
 weights[30]["team-gold-diff"] = 0;
-weights[30]["team-dragon-diff"] = 0;
+weights[30]["team-dragon-diff"] = 0.1785;
 weights[30]["team-baron-diff"] = 0;
-weights[30]["team-outturret-diff"] = 0;
-weights[30]["team-baseturret-diff"] = 0;
-weights[30]["team-inhabitor-diff"] = 0;
-weights[30]["team-ward-diff"] = 0;
-weights[30]["heros-kill-diff"] = 0;
-weights[30]["heros-level-diff"] = 0;
-weights[30]["heros-item-diff"] = 0;
+weights[30]["team-outturret-diff"] = 0.4202;
+weights[30]["team-baseturret-diff"] = 0.1554;
+weights[30]["team-inhabitor-diff"] = 0.2878;
+weights[30]["team-ward-diff"] = 0.001;
+weights[30]["heros-kill-diff"] = -0.0112;
+weights[30]["heros-level-diff"] = 0.2727;
+weights[30]["heros-item-diff"] = 1.5751;
+weights[30]["intercept"] = 0.0328;
 
 weights[35] = {}
-weights[35]["team-gold-diff"] = 0;
-weights[35]["team-dragon-diff"] = 0;
+weights[35]["team-gold-diff"] = 0.0001;
+weights[35]["team-dragon-diff"] = 0.1327;
 weights[35]["team-baron-diff"] = 0;
-weights[35]["team-outturret-diff"] = 0;
-weights[35]["team-baseturret-diff"] = 0;
-weights[35]["team-inhabitor-diff"] = 0;
-weights[35]["team-ward-diff"] = 0;
-weights[35]["heros-kill-diff"] = 0;
-weights[35]["heros-level-diff"] = 0;
-weights[35]["heros-item-diff"] = 0;
+weights[35]["team-outturret-diff"] = 0.3648;
+weights[35]["team-baseturret-diff"] = 0.1158;
+weights[35]["team-inhabitor-diff"] = 0.2915;
+weights[35]["team-ward-diff"] = 0.0001;
+weights[35]["heros-kill-diff"] = -0.0181;
+weights[35]["heros-level-diff"] = 0.2298;
+weights[35]["heros-item-diff"] = 1.2389;
+weights[35]["intercept"] = -0.0227;
 
 weights[40] = {}
-weights[40]["team-gold-diff"] = 0;
-weights[40]["team-dragon-diff"] = 0;
+weights[40]["team-gold-diff"] = 0.0001;
+weights[40]["team-dragon-diff"] = 0.0838;
 weights[40]["team-baron-diff"] = 0;
-weights[40]["team-outturret-diff"] = 0;
-weights[40]["team-baseturret-diff"] = 0;
-weights[40]["team-inhabitor-diff"] = 0;
-weights[40]["team-ward-diff"] = 0;
-weights[40]["heros-kill-diff"] = 0;
-weights[40]["heros-level-diff"] = 0;
-weights[40]["heros-item-diff"] = 0;
+weights[40]["team-outturret-diff"] = 0.3859;
+weights[40]["team-baseturret-diff"] = -0.0175;
+weights[40]["team-inhabitor-diff"] = 0.0999;
+weights[40]["team-ward-diff"] = -0.0006;
+weights[40]["heros-kill-diff"] = 0.0041;
+weights[40]["heros-level-diff"] = 0.1737;
+weights[40]["heros-item-diff"] = 0.4032;
+weights[40]["intercept"] = 0.0096;
 
 weights[45] = {}
 weights[45]["team-gold-diff"] = 0;
@@ -180,7 +188,7 @@ function getMatchData(matchId, region) {
         var result = parseData(response);
         final_result = result;
         ml = getMLData(final_result, item_weight);
-        //draw(final_result[30], ml[30]);
+        draw(final_result[30], ml[30]);
 
     }, function(error) {
         console.error("Failed: ", error);
@@ -463,13 +471,13 @@ function calculateSinglePrediction(current, weight) {
 		result[name] = weight[key] * current[key];
 		finalPoint += result[name];
 	}
-	finalPoint += weight["intercept"];
 	return finalPoint;
 }
 
 function draw(result, MLData) {
+
     var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
-    var gold = [result["team"][0]["gold"]/10000, result["team"][1]["gold"]/10000]
+    var gold = [result["team"][0]["gold"]/1000, result["team"][1]["gold"]/1000]
     var exp = [result["participant"][0]["level"], result["participant"][0]["level"]]
 
     var weight = [
@@ -478,15 +486,13 @@ function draw(result, MLData) {
       {legend:"dragon", value:MLData["team-dragon-diff"], color:"yellow"},
       {legend:"tower", value:MLData["team-outturret-diff"], color:"pink"},
       {legend:"item", value:MLData["heros-item-diff"], color:"purple"}
-    ];
+      ];
     var margin = {top: 30, right: 20, bottom: 30, left: 50},
       width = 800 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
-
     var svg = d3.select("svg")
         .attr("width", 1200)
         .style("background-color", "white")
-    svg.selectAll("*").remove();
 
     var x = d3.scale.linear().range([0, width]).domain([0,8]);
     var y = d3.scale.linear().range([height, 0]).domain([0,1]);
@@ -669,21 +675,3 @@ function draw(result, MLData) {
           return d.data.legend;
     })
      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -180,7 +180,7 @@ function getMatchData(matchId, region) {
         var result = parseData(response);
         final_result = result;
         ml = getMLData(final_result, item_weight);
-        draw(final_result[30], ml[30]);
+        //draw(final_result[30], ml[30]);
 
     }, function(error) {
         console.error("Failed: ", error);
@@ -463,13 +463,13 @@ function calculateSinglePrediction(current, weight) {
 		result[name] = weight[key] * current[key];
 		finalPoint += result[name];
 	}
+	finalPoint += weight["intercept"];
 	return finalPoint;
 }
 
 function draw(result, MLData) {
-
     var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
-    var gold = [result["team"][0]["gold"]/1000, result["team"][1]["gold"]/1000]
+    var gold = [result["team"][0]["gold"]/10000, result["team"][1]["gold"]/10000]
     var exp = [result["participant"][0]["level"], result["participant"][0]["level"]]
 
     var weight = [
@@ -478,13 +478,15 @@ function draw(result, MLData) {
       {legend:"dragon", value:MLData["team-dragon-diff"], color:"yellow"},
       {legend:"tower", value:MLData["team-outturret-diff"], color:"pink"},
       {legend:"item", value:MLData["heros-item-diff"], color:"purple"}
-      ];
+    ];
     var margin = {top: 30, right: 20, bottom: 30, left: 50},
       width = 800 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
+
     var svg = d3.select("svg")
         .attr("width", 1200)
         .style("background-color", "white")
+    svg.selectAll("*").remove();
 
     var x = d3.scale.linear().range([0, width]).domain([0,8]);
     var y = d3.scale.linear().range([height, 0]).domain([0,1]);

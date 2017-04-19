@@ -549,8 +549,10 @@ function draw(result, MLData) {
         var margin = {top: 30, right: 20, bottom: 30, left: 50},
           width = 800 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom;
-        var svg = d3.select("svg")
+        var svg = d3.select("#area1")
+        	.append("svg")
             .attr("width", 1200)
+            .attr("height", 2000);
     
 
         var x = d3.scale.linear().range([0, width]).domain([0,8]);
@@ -572,23 +574,12 @@ function draw(result, MLData) {
           .attr("class", "tooltip")       
           .style("opacity", 0);
 
-        // var winrate_section = svg.append("g")
-
-        // winrate_section.append("rect")
-        // 	// .attr("y", -40)
-        // 	.attr("width", 100)
-        // 	.attr("height", 60)
-        // 	.style("fill", "grey")
-       	// winrate_section.append("text")
-       	// 	// .attr("y", 40)
-       	// 	.text("WinRate Analysis")
-       	// 	.style("stroke", "white")
         
         var g = svg
             .append("g")
             .attr("width", width)
             .attr("height", height)
-            .attr("transform", "translate("+margin.left+","+margin.top+")");
+            .attr("transform", "translate("+margin.left+","+30+")");
         
         g.append("path")
           .attr("class", "line")
@@ -821,8 +812,8 @@ function draw(result, MLData) {
 
         // chart participant level
         var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
-        var y_compare_3 = d3.scale.linear().range([300, 0]).domain([0, 25]);
-
+        var y_compare_3 = d3.scale.linear().range([300, 0]).domain([d3.min(parlevel0), d3.max(parlevel0) + 5]);
+        
         var xAxis_compare_3 = d3.svg.axis()
           .scale(x_compare_3)
           .orient("bottom")
@@ -985,7 +976,27 @@ function draw(result, MLData) {
             .style("fill", function(d, i){
               return color(i);
             })
-            ;
+            .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Weight:</strong> <span>" + d + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+            
 
           pie.append("rect")
           	.attr("x", 150)
@@ -1047,6 +1058,14 @@ function draw(result, MLData) {
                 "<strong>Weight:</strong> <span>" + d + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
             });
             
 

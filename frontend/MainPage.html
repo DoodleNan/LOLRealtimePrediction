@@ -36,7 +36,7 @@ body {font-family: "Lato", sans-serif}
     background-color: grey;
 }
 path {
-  stroke: grey;
+  stroke: white;
   stroke-width: 2;
   fill: none;
 }
@@ -89,11 +89,16 @@ path {
 .axis path,
 .axis line {
     fill: none;
-    stroke: black;
+    stroke: "#172367";
     stroke-width: 2;
     shape-rendering: geometricPrecision;
 }
 
+.axis text{
+  stroke: white;
+  /*stroke-width: 1;*/
+
+}
 .ticks {
   font: 10px sans-serif;
 }
@@ -132,12 +137,12 @@ path {
 div.tooltip { 
     position: absolute;     
     text-align: center;     
-    width: 60px;          
-    height: 28px;         
-    padding: 2px;       
-    font: 12px sans-serif;    
+    width: 80px;          
+    height: 60px;         
+    padding: 5px;       
+    font: 15px sans-serif;    
     background: lightsteelblue; 
-    border: 0px;    
+    border: 2px;    
     border-radius: 8px;     
     pointer-events: none;     
 }
@@ -234,7 +239,7 @@ td, th{
   
     
   <div class="w3-black" id="champions">
-    <div class="w3-container w3-content w3-padding-64 con" style="max-width:1200px; height: 3000px;">
+    <div class="w3-container w3-content w3-padding-64 con" style="max-width:1100px; height: 3000px;">
     <!-- Sidebar -->
       <!-- <button class="w3-button w3-grey w3-xlarge" onclick="openNav()">☰</button> -->
 
@@ -265,12 +270,211 @@ td, th{
         <br>
       </div>
       
+      <div class="btn-group">
+        <button class="button">5 min</button>
+        <button class="button">10 min</button>
+        <button class="button">15 min</button>
+        <button class="button">20 min</button>
+        <button class="button">25 min</button>
+        <button class="button">30 min</button>
+        <button class="button">35 min</button>
+        <button class="button">40 min</button>
+      </div>
+      <div>
+        <br>
+        <br>
+        <br>
+      </div>
+      <div>
+        <table>
+        <tr>
+          <th>Attr</th>
+          <th>TEAM 1</th>
+          <th>TEAM 2</th>
+        </tr>
+          <td>
+            <i class="fa fa-cubes" aria-hidden="true"></i>
+            Gold
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_gold()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="10" id="count_gold" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_gold()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_gold()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="10" id="count_gold" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_gold()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+        </tr>
+        
 
-      <svg id="area0" width="800" height="1000"></svg>
-      <!-- <svg id="area1" width="800" height="600"></svg>
-      <svg id="area2" width="800" height="600"></svg> -->
+        <tr>
+          <td>
+            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+            Level
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1000" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1500" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+        </tr>
+        
+        <tr> 
+          <td>
+            <i class="fa fa-fort-awesome" aria-hidden="true"></i>
+            Tower
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_death()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="10" id="count_death" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_death()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_death()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="10" id="count_death" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_death()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <i class="fa fa-superpowers" aria-hidden="true"></i>
+            Ward
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1000" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1500" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            Kill
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1000" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1500" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <i class="fa fa-window-close" aria-hidden="true"></i>
+            Death
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1000" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1500" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <i class="fa fa-check-square" aria-hidden="true"></i>
+            Item
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1000" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+          <td>
+            <button type="submit" class="button" onclick="minus_exp()">
+              <i class="fa fa-minus" style="color: black"></i>
+            </button>
+            <input type="text" size="10" value="1500" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <button type="submit" class="button" onclick="plus_exp()">
+              <i class="fa fa-plus" style="color: black"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <svg id="area0" width="700" height="2000"></svg>
       
-      <!-- <script src="http://d3js.org/d3.v4.min.js"></script> -->
+      
       <!-- <script>
 
         
@@ -430,109 +634,11 @@ td, th{
               .attr("transform", "translate(30, 0)")
               .call(d3.axisLeft(y).ticks(2).tickFormat(""));
     </script> -->
-      <script type="text/javascript">
+      <!-- <script type="text/javascript">
       
-      </script>
+      </script> -->
       
-      <div class="btn-group">
-        <button class="button">5 min</button>
-        <button class="button">10 min</button>
-        <button class="button">15 min</button>
-        <button class="button">20 min</button>
-        <button class="button">25 min</button>
-        <button class="button">30 min</button>
-        <button class="button">35 min</button>
-        <button class="button">40 min</button>
-      </div>
-      <div>
-        <br>
-        <br>
-        <br>
-      </div>
-      <div>
-        <table>
-        <tr>
-          <th>Attr</th>
-          <th>TEAM 1</th>
-          <th>TEAM 2</th>
-        </tr>
-          <td>
-            <i class="fa fa-cubes" aria-hidden="true"></i>
-            Gold
-          </td>
-          <td>
-            <button type="submit" class="button" onclick="minus_gold()">
-              <i class="fa fa-minus" style="color: black"></i>
-            </button>
-            <input type="text" size="10" value="10" id="count_gold" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            <button type="submit" class="button" onclick="plus_gold()">
-              <i class="fa fa-plus" style="color: black"></i>
-            </button>
-          </td>
-          <td>
-            <button type="submit" class="button" onclick="minus_gold()">
-              <i class="fa fa-minus" style="color: black"></i>
-            </button>
-            <input type="text" size="10" value="10" id="count_gold" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            <button type="submit" class="button" onclick="plus_gold()">
-              <i class="fa fa-plus" style="color: black"></i>
-            </button>
-          </td>
-        </tr>
-        
-
-        <tr>
-          <td>
-            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-            Exp
-          </td>
-          <td>
-            <button type="submit" class="button" onclick="minus_exp()">
-              <i class="fa fa-minus" style="color: black"></i>
-            </button>
-            <input type="text" size="10" value="1000" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            <button type="submit" class="button" onclick="plus_exp()">
-              <i class="fa fa-plus" style="color: black"></i>
-            </button>
-          </td>
-          <td>
-            <button type="submit" class="button" onclick="minus_exp()">
-              <i class="fa fa-minus" style="color: black"></i>
-            </button>
-            <input type="text" size="10" value="1500" id="count_exp" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            <button type="submit" class="button" onclick="plus_exp()">
-              <i class="fa fa-plus" style="color: black"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          
-        </tr>  
-          <td>
-            <i class="fa fa-fort-awesome" aria-hidden="true"></i>
-            Tower
-          </td>
-          <td>
-            <button type="submit" class="button" onclick="minus_death()">
-              <i class="fa fa-minus" style="color: black"></i>
-            </button>
-            <input type="text" size="10" value="10" id="count_death" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            <button type="submit" class="button" onclick="plus_death()">
-              <i class="fa fa-plus" style="color: black"></i>
-            </button>
-          </td>
-          <td>
-            <button type="submit" class="button" onclick="minus_death()">
-              <i class="fa fa-minus" style="color: black"></i>
-            </button>
-            <input type="text" size="10" value="10" id="count_death" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            <button type="submit" class="button" onclick="plus_death()">
-              <i class="fa fa-plus" style="color: black"></i>
-            </button>
-          </td>
       
-      </table>
-      </div>
       
 
     <!-- <div style="position: absolute;top: 2000px; left: 90px">

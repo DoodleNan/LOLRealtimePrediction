@@ -479,22 +479,90 @@ function calculateSinglePrediction(current, weight) {
 
 function draw(result, MLData) {
         var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
-        var gold = [result["team"][0]["gold"]/1000, result["team"][1]["gold"]/1000]
-        var exp = [result["participant"][0]["level"], result["participant"][0]["level"]]
+        var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
+        var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
+        var parlevel0 = [];
+        var parlevel1 = [];
+        var adv = []
+        var disadv = []
+        if (MLData["heros-assist-diff"] > 0) {
+        	adv.push({legend: "heros-assist-diff", value: MLData["heros-assist-diff"]});
+        }else if (MLData["heros-assist-diff"] < 0){
+        	disadv.push({legend: "heros-assist-diff", value: MLData["heros-assist-diff"]});
+        }
 
-        var weight = [
-          {legend:"baron", value:MLData["team-baron-diff"], color:"red"},
-          {legend:"gold", value:MLData["team-gold-diff"], color:"orangered"},
-          {legend:"dragon", value:MLData["team-dragon-diff"], color:"yellow"},
-          {legend:"tower", value:MLData["team-outturret-diff"], color:"pink"},
-          {legend:"item", value:MLData["heros-item-diff"], color:"purple"}
-          ];
+        if (MLData["heros-death-diff-diff"] > 0) {
+        	adv.push({legend: "heros-death-diff", value: MLData["heros-death-diff"]});
+        }else if (MLData["heros-death-diff"] < 0){
+        	disadv.push({legend: "heros-death-diff", value: MLData["heros-death-diff"]});
+        }
+
+        if (MLData["heros-item-diff"] > 0) {
+        	adv.push({legend: "heros-item-diff", value: MLData["heros-item-diff"]});
+        }else if (MLData["heros-item-diff"] < 0){
+        	disadv.push({legend: "heros-item-diff", value: MLData["heros-item-diff"]});
+        }
+
+        if (MLData["heros-kill-diff"] > 0) {
+        	adv.push({legend: "heros-kill-diff", value: MLData["heros-kill-diff"]});
+        }else if (MLData["heros-kill-diff"] < 0){
+        	disadv.push({legend: "heros-kill-diff", value: MLData["heros-kill-diff"]});
+        }
+
+        if (MLData["team-baron-diff"] > 0) {
+        	adv.push({legend: "team-baron-diff", value: MLData["team-baron-diff"]});
+        }else if (MLData["team-baron-diff"] < 0){
+        	disadv.push({legend: "team-baron-diff", value: MLData["team-baron-diff"]});
+        }
+
+        if (MLData["team-baseturret-diff"] > 0) {
+        	adv.push({legend: "team-baseturret-diff", value: MLData["team-baseturret-diff"]});
+        }else if (MLData["team-baseturret-diff"] < 0){
+        	disadv.push({legend: "team-baseturret-diff", value: MLData["team-baseturret-diff"]});
+        }
+
+        if (MLData["team-dragon-diff"] > 0) {
+        	adv.push({legend: "team-dragon-diff", value: MLData["team-dragon-diff"]});
+        }else if (MLData["team-dragon-diff"] < 0){
+        	disadv.push({legend: "team-dragon-diff", value: MLData["team-dragon-diff"]});
+        }
+
+        if (MLData["team-gold-diff"] > 0) {
+        	adv.push({legend: "team-gold-diff", value: MLData["team-gold-diff"]});
+        }else if (MLData["team-gold-diff"] < 0){
+        	disadv.push({legend: "team-gold-diff", value: MLData["team-gold-diff"]});
+        }
+
+        if (MLData["team-inhabitor-diff"] > 0) {
+        	adv.push({legend: "team-inhabitor-diff", value: MLData["team-inhabitor-diff"]});
+        }else if (MLData["heros-assist-diff"] < 0){
+        	disadv.push({legend: "team-inhabitor-diff", value: MLData["team-inhabitor-diff"]});
+        }
+
+        if (MLData["team-outturret-diff"] > 0) {
+        	adv.push({legend: "team-outturret-diff", value: MLData["team-outturret-diff"]});
+        }else if (MLData["team-outturret-diff"] < 0){
+        	disadv.push({legend: "team-outturret-diff", value: MLData["team-outturret-diff"]});
+        }
+
+        if (MLData["team-ward-diff"] > 0) {
+        	adv.push({legend: "team-ward-diff", value: MLData["team-ward-diff"]});
+        }else if (MLData["team-ward-diff"] < 0){
+        	disadv.push({legend: "team-ward-diff", value: MLData["team-ward-diff"]});
+        }
+
+
+        for (var i = 0; i < 5; i++) {
+        	parlevel0.push(result["participant"][i]["level"]);
+        	parlevel1.push(result["participant"][i+5]["level"]);
+        }
+
         var margin = {top: 30, right: 20, bottom: 30, left: 50},
           width = 800 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom;
         var svg = d3.select("svg")
             .attr("width", 1200)
-            .style("background-color", "white")
+            // .style("background-color", "white")
 
         var x = d3.scale.linear().range([0, width]).domain([0,8]);
         var y = d3.scale.linear().range([height, 0]).domain([0,1]);
@@ -511,27 +579,69 @@ function draw(result, MLData) {
           .y(function(d){
             return y(d);
           })
+        var div = d3.select("body").append("div") 
+          .attr("class", "tooltip")       
+          .style("opacity", 0);
+
+        var winrate_section = svg.append("g")
+        winrate_section.append("rect")
+        	.attr("width", 100)
+        	.attr("height", 60)
+        	.style("fill", "grey")
+       	winrate_section.append("text")
+       		.attr("y", 40)
+       		.text("WinRate Analysis")
+       		.style("stroke", "white")
+        
         var g = svg
             .append("g")
             .attr("width", width)
             .attr("height", height)
             .attr("transform", "translate("+margin.left+","+margin.top+")");
+        
         g.append("path")
           .attr("class", "line")
           .attr("d", valueline(winrate))
+          .style("stroke", "white")
+        
         g.selectAll("dot")
           .data(winrate)
           .enter().append("circle")
-          .attr("r", 3.5)
+          .attr("r", 8)
           .attr("cx", function(d, i){
             return x(i);
           })
           .attr("cy", function(d){
             return y(d);
           })
+          .style("fill", "#d07a21")
+          .on("mouseover", function(d){
+
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.attr("r", 15)
+        		.style("fill", "#d07a21")
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Winning Rate:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX + 20) + "px")  .style("top", (d3.event.pageY - 28) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.attr("r", 8);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
         svg.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate("+ margin.left + "," + (height+30) + ")")
+          .attr("stroke", "white")
+          .attr("fill", "white")
           .call(xAxis)
           .selectAll("text")
           .append("text")
@@ -540,15 +650,25 @@ function draw(result, MLData) {
           });
         svg.append("g")
           .attr("class", "y axis")
-          .attr("class", "y axis")
+          .attr("stroke", "white")
           .attr("transform", "translate(" + margin.left + "," + margin.bottom + ")")
           .call(yAxis);
         
         // chart 2
-
+        var team_section = svg.append("g")
+        	.attr("transform", "translate(0, 550)")
+        team_section.append("rect")
+        	
+        	.attr("width", 100)
+        	.attr("height", 60)
+        	.style("fill", "grey")
+        team_section.append("text")
+        	.attr("y", 40)
+        	.style("fill", "white")
+        	.text("Team Analysis")
+        
         var x_compare_1 = d3.scale.linear().range([0,200]).domain([0,1])
-        var y_compare_1 = d3.scale.linear().range([150, 0]).domain([1,9])
-
+        var y_compare_1 = d3.scale.linear().range([150, 0]).domain([d3.min(gold)*0.8, d3.max(gold) * 1.2])
         var xAxis_compare_1 = d3.svg.axis()
           .scale(x_compare_1)
           .orient("bottom")
@@ -559,7 +679,7 @@ function draw(result, MLData) {
           .ticks(5);
         var g_compare = svg.append("g");
         var g_compare_1 = g_compare.append("g")
-          .attr("transform", "translate(50,500)")
+          .attr("transform", "translate(55,700)")
         
         g_compare_1.append("g")
           .attr("class", "x axis")
@@ -567,8 +687,8 @@ function draw(result, MLData) {
           .call(xAxis_compare_1)
           .append("text")
           .text("team1" + "\t"  + "team2")
-          .attr("transform", "translate(60, 20)");
-          
+          .attr("stroke", "white")
+          .attr("transform", "translate(60, 20)");        
         
         g_compare_1.append("g")
           .attr("class", "y axis")
@@ -580,24 +700,51 @@ function draw(result, MLData) {
           .attr("y", 6)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
+          .style("stroke", "white")
+        
         g_compare_1.selectAll("bar")
           .data(gold)
           .enter().append("rect")
-          .style("fill", "black")
+          .style("fill", function(d, i){
+          	if (i == 0) {
+          		return "#d07a21"
+          	}else{
+          		return "#386ecb"
+          	}
+          })
           .attr("x", function(d, i) { if(i == 0){
-            
-            return 60;
+            return 55;
           }else{
             
-            return 100;
+            return 105;
           } })
           .attr("width", 30)
           .attr("y", function(d) { return y_compare_1(d); })
-          .attr("height", function(d) { return 150 - y_compare_1(d); });
+          .attr("height", function(d) { return 150 - y_compare_1(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Gold:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1.0);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
 
         // chart 3
         var x_compare_2 = d3.scale.linear().range([0, 200]).domain([0,1]);
-        var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 18]);
+        var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 80]);
         var xAxis_compare_2 = d3.svg.axis()
           .scale(x_compare_2)
           .orient("bottom")
@@ -607,7 +754,7 @@ function draw(result, MLData) {
           .orient("left")
           .ticks(5);
         var g_compare_2 = g_compare.append("g")
-          .attr("transform", "translate(300, 500)");
+          .attr("transform", "translate(350, 700)");
         g_compare_2.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0, 150)")
@@ -625,31 +772,168 @@ function draw(result, MLData) {
           .attr("y", 6)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
-          .text("exp");
+          .text("ward");
 
         g_compare_2.selectAll("bar")
-          .data(exp)
+          .data(ward)
           .enter()
           .append("rect")
-          .style("fill", "black")
+          .style("fill", function(d, i){
+          	if (i == 0) {
+          		return "#d07a21"
+          	}else{
+          		return "#386ecb"
+          	}
+          })
           .attr("x", function(d, i) { if(i == 0){
-            return 60;
+            return 55;
           }else{
-            return 100;
+            return 105;
           } })
           .attr("width", 30)
           .attr("y", function(d) { return y_compare_2(d); })
-          .attr("height", function(d) { return 150 - y_compare_2(d); });
+          .attr("height", function(d) { return 150 - y_compare_2(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Ward:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+
+
+        var par_section = svg.append("g")
+        	.attr("transform", "translate(0, 900)")
+        par_section.append("rect")
+        	.style("fill", "grey")
+        	.attr("height", 60)
+        	.attr("width", 100)
+        par_section.append("text")
+        	.text("Player Analysis")
+        	.attr("y", 40)
+        	.style("stroke", "white")
+
+        // chart participant level
+        var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
+        var y_compare_3 = d3.scale.linear().range([300, 0]).domain([0, 25]);
+
+        var xAxis_compare_3 = d3.svg.axis()
+          .scale(x_compare_3)
+          .orient("bottom")
+          .ticks(0)
+          .tickFormat("");
+        var yAxis_compare_3 = d3.svg.axis()
+          .scale(y_compare_3)
+          .orient("left")
+          .ticks(5);
+
+        var g_compare_3 = g_compare.append("g")
+        	.attr("transform", "translate(50, 900)");
+       	g_compare_3.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
+     		
+     
+
+       	g_compare_3.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          
+	        .text("level");
+	    g_compare_3.selectAll("bar")
+          .data(parlevel0)
+          .enter()
+          .append("rect")
+          .style("fill", "#d07a21")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3(d); })
+          .attr("height", function(d) { return 400 - y_compare_3(d); });
+
+        // participant chart team 2
+        var xAxis_compare_3 = d3.svg.axis()
+          .scale(x_compare_3)
+          .orient("bottom")
+          .ticks(0)
+          .tickFormat("");
+        var yAxis_compare_3 = d3.svg.axis()
+          .scale(y_compare_3)
+          .orient("left")
+          .ticks(5);
+
+        var g_compare_3 = g_compare.append("g")
+        	.attr("transform", "translate(580, 900)");
+       	g_compare_3.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
+
+       	g_compare_3.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          
+	        .text("level");
+	    g_compare_3.selectAll("bar")
+          .data(parlevel1)
+          .enter()
+          .append("rect")
+          .style("fill", "#386ecb")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3(d); })
+          .attr("height", function(d) { return 400 - y_compare_3(d); });
+        
 
           // pie chart
-
+         
+          var color = d3.scale.category20();
           var g_pie = svg.append("g")
             .attr("width", 350)
             .attr("height", 200)
-            .attr("transform", "translate(150, 800)");
+            .attr("transform", "translate(150, 1500)");
           var arc = d3.svg.arc()
             .outerRadius(100)
-            .innerRadius(10);
+            .innerRadius(50);
           var pieValue = d3.layout.pie()
             .sort(null)
             .value(function(d){
@@ -657,22 +941,85 @@ function draw(result, MLData) {
             });
 
           var pie = g_pie.selectAll(".fan")
-            .data(pieValue(weight))
+            .data(pieValue(adv))
             .enter()
             .append("g")
+            .attr("transform", "translate(50, 100)")
             .attr("class", "fan");
 
           pie.append("path")
             .attr("d", arc)
-            .style("fill", function(d){
-              return d.data.color;
+            .style("fill", function(d, i){
+              return color(i);
             });
 
+          pie.append("rect")
+          	.attr("x", 150)
+          	.attr("y", function(d, i){
+          		return i * 20 - 50;
+          	})
+          	.attr("width", 20)
+          	.attr("height", 20)
+          	.style("fill", function(d, i){
+          		return color(i);
+          	})
+
           pie.append("text")
-            .attr("transform", function(d){
-              return "translate(" + arc.centroid(d) + ")";
+            .attr("transform", function(d, i){
+              return "translate(180," + (i * 20 - 38) + ")";
             })
-            .style("text-anchor", "middle")
+            .style("text-anchor", "left")
+            .style("stroke", "white")
+            .text(function(d){
+              return d.data.legend;
+            })
+          
+
+          // pie chart 2
+          var color = d3.scale.category20();
+          var g_pie = svg.append("g")
+            .attr("width", 350)
+            .attr("height", 200)
+            .attr("transform", "translate(630, 1500)");
+          var arc = d3.svg.arc()
+            .outerRadius(100)
+            .innerRadius(50);
+          var pieValue = d3.layout.pie()
+            .sort(null)
+            .value(function(d){
+              return d.value;
+            });
+
+          var pie = g_pie.selectAll(".fan")
+            .data(pieValue(disadv))
+            .enter()
+            .append("g")
+            .attr("transform", "translate(50, 100)")
+            .attr("class", "fan");
+
+          pie.append("path")
+            .attr("d", arc)
+            .style("fill", function(d, i){
+              return color(i);
+            });
+
+          pie.append("rect")
+          	.attr("x", 150)
+          	.attr("y", function(d, i){
+          		return i * 20 - 50;
+          	})
+          	.attr("width", 20)
+          	.attr("height", 20)
+          	.style("fill", function(d, i){
+          		return color(i);
+          	})
+
+          pie.append("text")
+            .attr("transform", function(d, i){
+              return "translate(180," + (i * 20 - 38) + ")";
+            })
+            .style("stroke", "white")
+            .style("text-anchor", "left")
             .text(function(d){
               return d.data.legend;
             })

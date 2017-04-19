@@ -317,6 +317,7 @@ td, th{
         </tr>
         
 
+
         <tr>
           <td>
             <i class="fa fa-graduation-cap" aria-hidden="true"></i>
@@ -639,6 +640,176 @@ td, th{
       </script> -->
       
       
+
+      <svg id="area0" width="800" height="1000"></svg>
+      <!-- <svg id="area1" width="800" height="600"></svg>
+      <svg id="area2" width="800" height="600"></svg> -->
+      
+      <!-- <script src="http://d3js.org/d3.v4.min.js"></script> -->
+      <!-- <script>
+
+        
+        data1_up = [20, 50, 100, 150, 170, 140, 90, 30, 50];
+        data1_down = [160, 130, 80, 30, 10, 40, 90, 150, 130];
+        data2_up = [80,60,40,120,150,170,100,120];
+        data2_down = [100,120,140,30,10,80,80,60];
+
+        var margin = {top: 30, right: 20, bottom: 30, left: 50}
+          
+        var svg = d3.select("svg"),
+            width = +svg.attr("width") - margin.left - margin.right,
+            height = +svg.attr("height") - margin.top - margin.bottom;
+        // slider bar
+        svg.attr("transform", "translate(250, -350)");
+        svg.select('.run')
+        var x = d3.scaleLinear()
+            .domain([0, 180])
+            .range([0, width])
+            .clamp(true);
+        // data xAxis
+        var x1 = d3.scaleLinear()
+          .domain([0,8])
+          .range([0, width])
+        // data yAxis
+        var y = d3.scaleLinear().range([height, 30]).domain([0, 180]);
+        var slider = svg.append("g")
+            .attr("class", "slider")
+            .attr("transform", "translate(" + margin.left + "," + height + ")");
+        slider.append("line")
+            .attr("class", "track")
+
+            .attr("x1", x.range()[0])
+            .attr("x2", x.range()[1])
+          .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+            .attr("class", "track-inset")
+
+          .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+            .attr("class", "track-overlay")
+            .call(d3.drag()
+                .on("start.interrupt", function() { slider.interrupt(); })
+                .on("start drag", function() { hue(x.invert(d3.event.x)); }));
+
+        slider.insert("g", ".track-overlay")
+            .attr("class", "ticks")
+            .attr("transform", "translate(0,18)")
+          .selectAll("text")
+          .data(x.ticks(9))
+          .enter().append("text")
+            .attr("x", x)
+            .attr("text-anchor", "middle")
+            .text(function(d) { return d/4; });
+
+        var handle = slider.insert("circle", ".track-overlay")
+            .attr("class", "handle")
+            .style("fill", "white")
+            .attr("r", 15);
+
+        slider.transition()
+            .duration(750)
+            .tween("hue", function() {
+              var i = d3.interpolate(0, 70);
+              return function(t) { hue(i(t)); };
+            });
+
+        function hue(h) {
+          handle.attr("cx", x(h));
+          svg.style("background-color", d3.hsl(h, 0.8, 0.8));
+        }
+          
+          
+          var line = d3.svg.line()
+            .x(function(d, i){
+              return x1(i);
+            })
+            .y(function(d){
+              return y(d);
+            });
+          
+          var div = d3.select("body").append("div") 
+          .attr("class", "tooltip")       
+          .style("opacity", 0);
+
+          // add line
+          svg.append("path")
+            .attr("transform", "translate(50, -40)")
+            .attr("class", "line")
+
+            .attr("d", line(data1_up));
+
+          svg.append("path")
+            .attr("transform", "translate(50, -40)")
+            .attr("class", "line")
+            .attr("d", line(data1_down));
+
+
+          // add dots
+          svg.selectAll(".dot")
+            .data(data1_up)
+            .enter()
+            .append("circle")
+            .attr("fill", "white")
+            .attr("stroke", "white")
+            .attr("transform", "translate(50, -40)")
+            .attr("r", 3.5)
+            .attr("cx", function(d, i){
+              return x1(i);
+            })
+            .attr("cy", function(d){
+              return y(d);
+            })
+            .on("mouseover", function(d){
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Value:</strong> <span style='color:red'>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 28) + "px");  
+            })
+            .on("mouseout", function(d){
+              div.transition()    
+                .duration(500)    
+                .style("opacity", 0);
+            });
+
+          svg.selectAll(".dot")
+            .data(data1_down)
+            .enter()
+            .append("circle")
+            .attr("transform", "translate(50, -40)")
+            .attr("stroke", "white")
+            .attr("fill", "white")
+            .attr("r", 3.5)
+            .attr("cx", function(d, i){
+              return x1(i);
+            })
+            .attr("cy", function(d){
+              return y(d);
+            })
+            .on("mouseover", function(d){
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html("<strong>Value:</strong> <span style='color:red'>" + Number(d) + "</span>")  
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 28) + "px");  
+            })
+            .on("mouseout", function(d){
+              div.transition()    
+                .duration(500)    
+                .style("opacity", 0);
+            });
+
+          // Add the Y Axis
+          svg.append("g")
+              .style("fill", "black")
+              .attr("transform", "translate(30, 0)")
+              .call(d3.axisLeft(y).ticks(2).tickFormat(""));
+    </script> -->
+      <script type="text/javascript">
+      
+      </script>
+
+
       
 
     <!-- <div style="position: absolute;top: 2000px; left: 90px">

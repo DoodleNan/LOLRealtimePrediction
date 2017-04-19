@@ -1061,7 +1061,7 @@ function draw(result, MLData, time) {
                 .duration(200)    
                 .style("opacity", .9);    
               div.html(
-                "<strong>Weight:</strong> <span>" + d.legend + "</span>"
+                "<strong>Weight:</strong> <span>" + d.data.legend + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
             });

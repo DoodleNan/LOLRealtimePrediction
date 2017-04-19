@@ -272,7 +272,7 @@ select  {
         <div class="input-group match_group">
           <input type="text" class="form-control" id="match_input" placeholder="match ID">
           <span class="input-group-btn">
-            <select style="margin-left:5px;margin-right:5px;">
+            <select id="region" style="margin-left:5px;margin-right:5px;">
               <option value="NA" selected="selected">NA</option>
               <option value="BR">BR</option>
               <option value="EUNE">EUNE</option>
@@ -289,10 +289,18 @@ select  {
             </select>
           </span>
           <span class="input-group-btn">
-            <button class="btn btn-danger" style="width:60px;margin-left:5px;margin-right:5px;">Get</button>
+            <button class="btn btn-danger" type="button" style="width:60px;margin-left:5px;margin-right:5px;" onclick="loadMatch()">Get</button>
           </span>
         </div>
       </div>
+      <script>
+        function loadMatch() {
+          //console.log("a");
+          console.log($("#match_input")[0].value);
+          console.log($("#region")[0].value);
+          getMatchData($("#match_input").text(), $("#region")[0].value);
+        }
+      </script>
 
       <div style="padding: 20px;display:none;" id="page">
       <div>

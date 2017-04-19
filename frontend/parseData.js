@@ -477,9 +477,12 @@ function calculateSinglePrediction(current, weight) {
 
 function draw(result, MLData, time) {
         var winrate = [];
-        for (i = 5; i <= time; i++) {
+        for (var i = 5; i <= time; i+=5) {
         	winrate.push(predicted[i]);
         }
+        // for (var i = time + 5; i <= 40; i +=5) {
+        // 	winrate.push(0.0)
+        // }
         var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
         var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
         var parlevel0 = [];

@@ -182,6 +182,7 @@ function getMatchData(matchId, region) {
         var result = parseData(response);
         final_result = result;
         ml = getMLData(final_result, item_weight);
+        predicted = calculatePredictionResult(ml, weights, 0);
         $("#page").show();
         $("#table").hide();
         d3.select("svg").selectAll("*").remove();
@@ -469,11 +470,17 @@ function calculateSinglePrediction(current, weight) {
 		result[name] = weight[key] * current[key];
 		finalPoint += result[name];
 	}
+	finalPoint += weight["intercept"];
+	finalPoint = 1 - 1 / (1 + Math.exp(finalPoint))
 	return finalPoint;
 }
 
-function draw(result, MLData) {
-        var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
+function draw(result, MLData, time) {
+
+        var winrate = [];
+        for (i = 5; i <= time; i++) {
+        	winrate.append(predicted[i]);
+        }
         var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
         var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
         var parlevel0 = [];

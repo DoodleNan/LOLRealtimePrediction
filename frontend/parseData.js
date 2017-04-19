@@ -6,6 +6,7 @@ var itemId_mapping = {};
 var matchId = [];
 var match_count = 0;
 var final_result = {};
+var ml = {};
 var item_weight = {};
 var champions = {};
 // load item id
@@ -128,20 +129,8 @@ weights[40]["heros-kill-diff"] = 0.0041;
 weights[40]["heros-level-diff"] = 0.1737;
 weights[40]["heros-item-diff"] = 0.4032;
 weights[40]["intercept"] = 0.0096;
-
-weights[45] = {}
-weights[45]["team-gold-diff"] = 0;
-weights[45]["team-dragon-diff"] = 0;
-weights[45]["team-baron-diff"] = 0;
-weights[45]["team-outturret-diff"] = 0;
-weights[45]["team-baseturret-diff"] = 0;
-weights[45]["team-inhabitor-diff"] = 0;
-weights[45]["team-ward-diff"] = 0;
-weights[45]["heros-kill-diff"] = 0;
-weights[45]["heros-level-diff"] = 0;
-weights[45]["heros-item-diff"] = 0;
 // for test
-getMatchData('3019374593', 'EUW')
+//getMatchData('3019374593', 'EUW')
 
 function wait(ms){
    var start = new Date().getTime();
@@ -188,7 +177,8 @@ function getMatchData(matchId, region) {
         var result = parseData(response);
         final_result = result;
         ml = getMLData(final_result, item_weight);
-        draw(final_result[30], ml[30]);
+        $("#page").show();
+        //draw(final_result[30], ml[30]);
 
     }, function(error) {
         console.error("Failed: ", error);
@@ -419,7 +409,7 @@ function parseData(response){
 
 function getMLData(data, item_weight) {
 	var results = {};
-	for (var i = 5;i <= 45;i += 5) {
+	for (var i = 5;i <= 40;i += 5) {
 		if (!data[i]) {
 			break;
 		}
@@ -453,7 +443,7 @@ function calculatePredictionResult(data, weights, time) {
 		return calculateSinglePrediction(data, weights, time);
 	}
 	total_result = {}
-	for (var i = 5; i  <= 45; i += 5) {
+	for (var i = 5; i  <= 40; i += 5) {
 		if (!data[i])
 			break;
 		total_result[i] = calculateSinglePrediction(data[i], weights[i], i);
@@ -493,6 +483,7 @@ function draw(result, MLData) {
     var svg = d3.select("svg")
         .attr("width", 1200)
         .style("background-color", "white")
+    svg.selectAll("*").remove();
 
     var x = d3.scale.linear().range([0, width]).domain([0,8]);
     var y = d3.scale.linear().range([height, 0]).domain([0,1]);

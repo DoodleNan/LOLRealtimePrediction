@@ -34,8 +34,7 @@ weights[5]["team-baseturret-diff"] = 0;
 weights[5]["team-inhabitor-diff"] = 0;
 weights[5]["team-ward-diff"] = 0;
 weights[5]["heros-kill-diff"] = 0;
-weights[5]["heros-death-diff"] = 0;
-weights[5]["heros-assist-diff"] = 0;
+weights[5]["heros-level-diff"] = 0;
 weights[5]["heros-item-diff"] = 0;
 
 weights[10] = {}
@@ -47,8 +46,7 @@ weights[10]["team-baseturret-diff"] = 0;
 weights[10]["team-inhabitor-diff"] = 0;
 weights[10]["team-ward-diff"] = 0;
 weights[10]["heros-kill-diff"] = 0;
-weights[10]["heros-death-diff"] = 0;
-weights[10]["heros-assist-diff"] = 0;
+weights[10]["heros-level-diff"] = 0;
 weights[10]["heros-item-diff"] = 0;
 
 weights[15] = {}
@@ -60,8 +58,7 @@ weights[15]["team-baseturret-diff"] = 0;
 weights[15]["team-inhabitor-diff"] = 0;
 weights[15]["team-ward-diff"] = 0;
 weights[15]["heros-kill-diff"] = 0;
-weights[15]["heros-death-diff"] = 0;
-weights[15]["heros-assist-diff"] = 0;
+weights[15]["heros-level-diff"] = 0;
 weights[15]["heros-item-diff"] = 0;
 
 weights[20] = {}
@@ -73,8 +70,7 @@ weights[20]["team-baseturret-diff"] = 0;
 weights[20]["team-inhabitor-diff"] = 0;
 weights[20]["team-ward-diff"] = 0;
 weights[20]["heros-kill-diff"] = 0;
-weights[20]["heros-death-diff"] = 0;
-weights[20]["heros-assist-diff"] = 0;
+weights[20]["heros-level-diff"] = 0;
 weights[20]["heros-item-diff"] = 0;
 
 weights[25] = {}
@@ -86,8 +82,7 @@ weights[25]["team-baseturret-diff"] = 0;
 weights[25]["team-inhabitor-diff"] = 0;
 weights[25]["team-ward-diff"] = 0;
 weights[25]["heros-kill-diff"] = 0;
-weights[25]["heros-death-diff"] = 0;
-weights[25]["heros-assist-diff"] = 0;
+weights[25]["heros-level-diff"] = 0;
 weights[25]["heros-item-diff"] = 0;
 
 weights[30] = {}
@@ -99,8 +94,7 @@ weights[30]["team-baseturret-diff"] = 0;
 weights[30]["team-inhabitor-diff"] = 0;
 weights[30]["team-ward-diff"] = 0;
 weights[30]["heros-kill-diff"] = 0;
-weights[30]["heros-death-diff"] = 0;
-weights[30]["heros-assist-diff"] = 0;
+weights[30]["heros-level-diff"] = 0;
 weights[30]["heros-item-diff"] = 0;
 
 weights[35] = {}
@@ -112,8 +106,7 @@ weights[35]["team-baseturret-diff"] = 0;
 weights[35]["team-inhabitor-diff"] = 0;
 weights[35]["team-ward-diff"] = 0;
 weights[35]["heros-kill-diff"] = 0;
-weights[35]["heros-death-diff"] = 0;
-weights[35]["heros-assist-diff"] = 0;
+weights[35]["heros-level-diff"] = 0;
 weights[35]["heros-item-diff"] = 0;
 
 weights[40] = {}
@@ -125,8 +118,7 @@ weights[40]["team-baseturret-diff"] = 0;
 weights[40]["team-inhabitor-diff"] = 0;
 weights[40]["team-ward-diff"] = 0;
 weights[40]["heros-kill-diff"] = 0;
-weights[40]["heros-death-diff"] = 0;
-weights[40]["heros-assist-diff"] = 0;
+weights[40]["heros-level-diff"] = 0;
 weights[40]["heros-item-diff"] = 0;
 
 weights[45] = {}
@@ -138,8 +130,7 @@ weights[45]["team-baseturret-diff"] = 0;
 weights[45]["team-inhabitor-diff"] = 0;
 weights[45]["team-ward-diff"] = 0;
 weights[45]["heros-kill-diff"] = 0;
-weights[45]["heros-death-diff"] = 0;
-weights[45]["heros-assist-diff"] = 0;
+weights[45]["heros-level-diff"] = 0;
 weights[45]["heros-item-diff"] = 0;
 // for test
 getMatchData('3019374593', 'EUW')
@@ -434,13 +425,11 @@ function getMLData(data, item_weight) {
 		result["team-inhabitor-diff"] = current["team"][0]["inhabitor"]? current["team"][0]["inhabitor"]:0 - current["team"][1]["inhabitor"]?current["team"][1]["inhabitor"]:0;
 		result["team-ward-diff"] = current["team"][0]["ward"]? current["team"][0]["ward"]:0 - current["team"][1]["ward"]? current["team"][1]["ward"]:0;
 		result["heros-kill-diff"] = 0;
-		result["heros-death-diff"] = 0;
-		result["heros-assist-diff"] = 0;
+		result["heros-level-diff"] = 0;
 		result["heros-item-diff"] = 0;
 		for (var j = 0;j < 10; j++) {
 			result["heros-kill-diff"] += (current["participant"][j]["kill"]? current["participant"][j]["kill"]:0) * (j < 5? 1:-1);
-			result["heros-death-diff"] += (current["participant"][j]["death"]? current["participant"][j]["death"]:0) * (j < 5? 1:-1);
-			result["heros-assist-diff"] += (current["participant"][j]["assist"]? current["participant"][j]["assist"]:0) * (j < 5? 1:-1);
+			result["heros-level-diff"] += (current["participant"][j]["level"]? current["participant"][j]["level"]:0) * (j < 5? 1:-1);
 			champion_type = champions[data["championId"][j]];
 			for (var k in Object.keys(current["item"][j])) {
 				result["heros-item-diff"] += item_weight[champion_type][k] * (j < 5? 1:-1);
@@ -478,205 +467,206 @@ function calculateSinglePrediction(current, weight) {
 }
 
 function draw(result, MLData) {
-        var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
-        var gold = [result["team"][0]["gold"]/1000, result["team"][1]["gold"]/1000]
-        var exp = [result["participant"][0]["level"], result["participant"][0]["level"]]
 
-        var weight = [
-          {legend:"baron", value:MLData["team-baron-diff"], color:"red"},
-          {legend:"gold", value:MLData["team-gold-diff"], color:"orangered"},
-          {legend:"dragon", value:MLData["team-dragon-diff"], color:"yellow"},
-          {legend:"tower", value:MLData["team-outturret-diff"], color:"pink"},
-          {legend:"item", value:MLData["heros-item-diff"], color:"purple"}
-          ];
-        var margin = {top: 30, right: 20, bottom: 30, left: 50},
-          width = 800 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
-        var svg = d3.select("svg")
-            .attr("width", 1200)
-            .style("background-color", "white")
+    var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
+    var gold = [result["team"][0]["gold"]/1000, result["team"][1]["gold"]/1000]
+    var exp = [result["participant"][0]["level"], result["participant"][0]["level"]]
 
-        var x = d3.scale.linear().range([0, width]).domain([0,8]);
-        var y = d3.scale.linear().range([height, 0]).domain([0,1]);
+    var weight = [
+      {legend:"baron", value:MLData["team-baron-diff"], color:"red"},
+      {legend:"gold", value:MLData["team-gold-diff"], color:"orangered"},
+      {legend:"dragon", value:MLData["team-dragon-diff"], color:"yellow"},
+      {legend:"tower", value:MLData["team-outturret-diff"], color:"pink"},
+      {legend:"item", value:MLData["heros-item-diff"], color:"purple"}
+      ];
+    var margin = {top: 30, right: 20, bottom: 30, left: 50},
+      width = 800 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+    var svg = d3.select("svg")
+        .attr("width", 1200)
+        .style("background-color", "white")
 
-        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(8).tickFormat(function(d){
-          return d*5;
+    var x = d3.scale.linear().range([0, width]).domain([0,8]);
+    var y = d3.scale.linear().range([height, 0]).domain([0,1]);
+
+    var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(8).tickFormat(function(d){
+      return d*5;
+    });
+    var yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
+
+    var valueline = d3.svg.line()
+      .x(function(d, i){
+        return x(i);
+      })
+      .y(function(d){
+        return y(d);
+      })
+    var g = svg
+        .append("g")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("transform", "translate("+margin.left+","+margin.top+")");
+    g.append("path")
+      .attr("class", "line")
+      .attr("d", valueline(winrate))
+    g.selectAll("dot")
+      .data(winrate)
+      .enter().append("circle")
+      .attr("r", 3.5)
+      .attr("cx", function(d, i){
+        return x(i);
+      })
+      .attr("cy", function(d){
+        return y(d);
+      })
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate("+ margin.left + "," + (height+30) + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .append("text")
+      .text(function(d){
+        return 
+      });
+    svg.append("g")
+      .attr("class", "y axis")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + margin.left + "," + margin.bottom + ")")
+      .call(yAxis);
+    
+    // chart 2
+
+    var x_compare_1 = d3.scale.linear().range([0,200]).domain([0,1])
+    var y_compare_1 = d3.scale.linear().range([150, 0]).domain([1,9])
+
+    var xAxis_compare_1 = d3.svg.axis()
+      .scale(x_compare_1)
+      .orient("bottom")
+      .ticks(0)
+    var yAxis_compare_1 = d3.svg.axis()
+      .scale(y_compare_1)
+      .orient("left")
+      .ticks(5);
+    var g_compare = svg.append("g");
+    var g_compare_1 = g_compare.append("g")
+      .attr("transform", "translate(50,500)")
+    
+    g_compare_1.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0, 150)")
+      .call(xAxis_compare_1)
+      .append("text")
+      .text("team1" + "\t"  + "team2")
+      .attr("transform", "translate(60, 20)");
+      
+    
+    g_compare_1.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(0,0)")
+      .call(yAxis_compare_1)
+      .append("text")
+      .text("gold")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+    g_compare_1.selectAll("bar")
+      .data(gold)
+      .enter().append("rect")
+      .style("fill", "black")
+      .attr("x", function(d, i) { if(i == 0){
+        
+        return 60;
+      }else{
+        
+        return 100;
+      } })
+      .attr("width", 30)
+      .attr("y", function(d) { return y_compare_1(d); })
+      .attr("height", function(d) { return 150 - y_compare_1(d); });
+
+    // chart 3
+    var x_compare_2 = d3.scale.linear().range([0, 200]).domain([0,1]);
+    var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 18]);
+    var xAxis_compare_2 = d3.svg.axis()
+      .scale(x_compare_2)
+      .orient("bottom")
+      .ticks("0");
+    var yAxis_compare_2 = d3.svg.axis()
+      .scale(y_compare_2)
+      .orient("left")
+      .ticks(5);
+    var g_compare_2 = g_compare.append("g")
+      .attr("transform", "translate(300, 500)");
+    g_compare_2.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0, 150)")
+      .call(xAxis_compare_2)
+      .append("text")
+      .text("team1" + "\t\t"  + "team2")
+      .attr("transform", "translate(60, 20)");
+
+    g_compare_2.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(0, 0)")
+      .call(yAxis_compare_2)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("exp");
+
+    g_compare_2.selectAll("bar")
+      .data(exp)
+      .enter()
+      .append("rect")
+      .style("fill", "black")
+      .attr("x", function(d, i) { if(i == 0){
+        return 60;
+      }else{
+        return 100;
+      } })
+      .attr("width", 30)
+      .attr("y", function(d) { return y_compare_2(d); })
+      .attr("height", function(d) { return 150 - y_compare_2(d); });
+
+      // pie chart
+
+      var g_pie = svg.append("g")
+        .attr("width", 350)
+        .attr("height", 200)
+        .attr("transform", "translate(150, 800)");
+      var arc = d3.svg.arc()
+        .outerRadius(100)
+        .innerRadius(10);
+      var pieValue = d3.layout.pie()
+        .sort(null)
+        .value(function(d){
+          return d.value;
         });
-        var yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
 
-        var valueline = d3.svg.line()
-          .x(function(d, i){
-            return x(i);
-          })
-          .y(function(d){
-            return y(d);
-          })
-        var g = svg
-            .append("g")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("transform", "translate("+margin.left+","+margin.top+")");
-        g.append("path")
-          .attr("class", "line")
-          .attr("d", valueline(winrate))
-        g.selectAll("dot")
-          .data(winrate)
-          .enter().append("circle")
-          .attr("r", 3.5)
-          .attr("cx", function(d, i){
-            return x(i);
-          })
-          .attr("cy", function(d){
-            return y(d);
-          })
-        svg.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate("+ margin.left + "," + (height+30) + ")")
-          .call(xAxis)
-          .selectAll("text")
-          .append("text")
-          .text(function(d){
-            return 
-          });
-        svg.append("g")
-          .attr("class", "y axis")
-          .attr("class", "y axis")
-          .attr("transform", "translate(" + margin.left + "," + margin.bottom + ")")
-          .call(yAxis);
-        
-        // chart 2
+      var pie = g_pie.selectAll(".fan")
+        .data(pieValue(weight))
+        .enter()
+        .append("g")
+        .attr("class", "fan");
 
-        var x_compare_1 = d3.scale.linear().range([0,200]).domain([0,1])
-        var y_compare_1 = d3.scale.linear().range([150, 0]).domain([1,9])
+      pie.append("path")
+        .attr("d", arc)
+        .style("fill", function(d){
+          return d.data.color;
+        });
 
-        var xAxis_compare_1 = d3.svg.axis()
-          .scale(x_compare_1)
-          .orient("bottom")
-          .ticks(0)
-        var yAxis_compare_1 = d3.svg.axis()
-          .scale(y_compare_1)
-          .orient("left")
-          .ticks(5);
-        var g_compare = svg.append("g");
-        var g_compare_1 = g_compare.append("g")
-          .attr("transform", "translate(50,500)")
-        
-        g_compare_1.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0, 150)")
-          .call(xAxis_compare_1)
-          .append("text")
-          .text("team1" + "\t"  + "team2")
-          .attr("transform", "translate(60, 20)");
-          
-        
-        g_compare_1.append("g")
-          .attr("class", "y axis")
-          .attr("transform", "translate(0,0)")
-          .call(yAxis_compare_1)
-          .append("text")
-          .text("gold")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", ".71em")
-          .style("text-anchor", "end")
-        g_compare_1.selectAll("bar")
-          .data(gold)
-          .enter().append("rect")
-          .style("fill", "black")
-          .attr("x", function(d, i) { if(i == 0){
-            
-            return 60;
-          }else{
-            
-            return 100;
-          } })
-          .attr("width", 30)
-          .attr("y", function(d) { return y_compare_1(d); })
-          .attr("height", function(d) { return 150 - y_compare_1(d); });
-
-        // chart 3
-        var x_compare_2 = d3.scale.linear().range([0, 200]).domain([0,1]);
-        var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 18]);
-        var xAxis_compare_2 = d3.svg.axis()
-          .scale(x_compare_2)
-          .orient("bottom")
-          .ticks("0");
-        var yAxis_compare_2 = d3.svg.axis()
-          .scale(y_compare_2)
-          .orient("left")
-          .ticks(5);
-        var g_compare_2 = g_compare.append("g")
-          .attr("transform", "translate(300, 500)");
-        g_compare_2.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0, 150)")
-          .call(xAxis_compare_2)
-          .append("text")
-          .text("team1" + "\t\t"  + "team2")
-          .attr("transform", "translate(60, 20)");
-
-        g_compare_2.append("g")
-          .attr("class", "y axis")
-          .attr("transform", "translate(0, 0)")
-          .call(yAxis_compare_2)
-          .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", ".71em")
-          .style("text-anchor", "end")
-          .text("exp");
-
-        g_compare_2.selectAll("bar")
-          .data(exp)
-          .enter()
-          .append("rect")
-          .style("fill", "black")
-          .attr("x", function(d, i) { if(i == 0){
-            return 60;
-          }else{
-            return 100;
-          } })
-          .attr("width", 30)
-          .attr("y", function(d) { return y_compare_2(d); })
-          .attr("height", function(d) { return 150 - y_compare_2(d); });
-
-          // pie chart
-
-          var g_pie = svg.append("g")
-            .attr("width", 350)
-            .attr("height", 200)
-            .attr("transform", "translate(150, 800)");
-          var arc = d3.svg.arc()
-            .outerRadius(100)
-            .innerRadius(10);
-          var pieValue = d3.layout.pie()
-            .sort(null)
-            .value(function(d){
-              return d.value;
-            });
-
-          var pie = g_pie.selectAll(".fan")
-            .data(pieValue(weight))
-            .enter()
-            .append("g")
-            .attr("class", "fan");
-
-          pie.append("path")
-            .attr("d", arc)
-            .style("fill", function(d){
-              return d.data.color;
-            });
-
-          pie.append("text")
-            .attr("transform", function(d){
-              return "translate(" + arc.centroid(d) + ")";
-            })
-            .style("text-anchor", "middle")
-            .text(function(d){
-              return d.data.legend;
-            })
-          }
+      pie.append("text")
+        .attr("transform", function(d){
+          return "translate(" + arc.centroid(d) + ")";
+        })
+        .style("text-anchor", "middle")
+        .text(function(d){
+          return d.data.legend;
+    })
+     }
 
 
 

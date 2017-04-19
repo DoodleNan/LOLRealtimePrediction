@@ -26,108 +26,100 @@ d3.json("champion.json", function(data) {
 
 weights = {}
 weights[5] = {}
-weights[5]["team-gold-diff"] = 0.001;
-weights[5]["team-dragon-diff"] = 1.1651;
+weights[5]["team-gold-diff"] = 0;
+weights[5]["team-dragon-diff"] = 0;
 weights[5]["team-baron-diff"] = 0;
 weights[5]["team-outturret-diff"] = 0;
 weights[5]["team-baseturret-diff"] = 0;
 weights[5]["team-inhabitor-diff"] = 0;
-weights[5]["team-ward-diff"] = 0.0072;
-weights[5]["heros-kill-diff"] = -0.1641;
-weights[5]["heros-level-diff"] = 0.0256;
-weights[5]["heros-item-diff"] = 0.6384;
-weights[5]["intercept"] = 0.0191;
+weights[5]["team-ward-diff"] = 0;
+weights[5]["heros-kill-diff"] = 0;
+weights[5]["heros-level-diff"] = 0;
+weights[5]["heros-item-diff"] = 0;
 
 weights[10] = {}
-weights[10]["team-gold-diff"] = 0.0007;
-weights[10]["team-dragon-diff"] = 0.39;
+weights[10]["team-gold-diff"] = 0;
+weights[10]["team-dragon-diff"] = 0;
 weights[10]["team-baron-diff"] = 0;
-weights[10]["team-outturret-diff"] = 204.5222;
-weights[10]["team-baseturret-diff"] = -0.5434;
-weights[10]["team-inhabitor-diff"] = 206.2739;
-weights[10]["team-ward-diff"] = 0.0024;
-weights[10]["heros-kill-diff"] = -0.0789;
-weights[10]["heros-level-diff"] = 0.0794;
-weights[10]["heros-item-diff"] = 0.5559;
-weights[10]["intercept"] = 0.0164;
+weights[10]["team-outturret-diff"] = 0;
+weights[10]["team-baseturret-diff"] = 0;
+weights[10]["team-inhabitor-diff"] = 0;
+weights[10]["team-ward-diff"] = 0;
+weights[10]["heros-kill-diff"] = 0;
+weights[10]["heros-level-diff"] = 0;
+weights[10]["heros-item-diff"] = 0;
 
 weights[15] = {}
-weights[15]["team-gold-diff"] = 0.0005;
-weights[15]["team-dragon-diff"] = 0.2552;
+weights[15]["team-gold-diff"] = 0;
+weights[15]["team-dragon-diff"] = 0;
 weights[15]["team-baron-diff"] = 0;
-weights[15]["team-outturret-diff"] = -0.5769;
-weights[15]["team-baseturret-diff"] = -0.1698;
-weights[15]["team-inhabitor-diff"] = -0.086;
-weights[15]["team-ward-diff"] = 0.0011;
-weights[15]["heros-kill-diff"] = -0.0311;
-weights[15]["heros-level-diff"] = 0.0585;
-weights[15]["heros-item-diff"] = 1.3747;
-weights[15]["intercept"] = 0.0367;
+weights[15]["team-outturret-diff"] = 0;
+weights[15]["team-baseturret-diff"] = 0;
+weights[15]["team-inhabitor-diff"] = 0;
+weights[15]["team-ward-diff"] = 0;
+weights[15]["heros-kill-diff"] = 0;
+weights[15]["heros-level-diff"] = 0;
+weights[15]["heros-item-diff"] = 0;
 
 weights[20] = {}
-weights[20]["team-gold-diff"] = 0.0002;
-weights[20]["team-dragon-diff"] = 0.2161;
+weights[20]["team-gold-diff"] = 0;
+weights[20]["team-dragon-diff"] = 0;
 weights[20]["team-baron-diff"] = 0;
-weights[20]["team-outturret-diff"] = 0.9118;
-weights[20]["team-baseturret-diff"] = 0.0374;
-weights[20]["team-inhabitor-diff"] = -0.292;
-weights[20]["team-ward-diff"] = 0.0008;
-weights[20]["heros-kill-diff"] = -0.007;
-weights[20]["heros-level-diff"] = 0.1508;
-weights[20]["heros-item-diff"] = 1.4599;
-weights[20]["intercept"] = 0.0608;
+weights[20]["team-outturret-diff"] = 0;
+weights[20]["team-baseturret-diff"] = 0;
+weights[20]["team-inhabitor-diff"] = 0;
+weights[20]["team-ward-diff"] = 0;
+weights[20]["heros-kill-diff"] = 0;
+weights[20]["heros-level-diff"] = 0;
+weights[20]["heros-item-diff"] = 0;
 
 weights[25] = {}
-weights[25]["team-gold-diff"] = 0.0002;
-weights[25]["team-dragon-diff"] = 0.1707;
+weights[25]["team-gold-diff"] = 0;
+weights[25]["team-dragon-diff"] = 0;
 weights[25]["team-baron-diff"] = 0;
-weights[25]["team-outturret-diff"] = 0.3066;
-weights[25]["team-baseturret-diff"] = 0.0026;
-weights[25]["team-inhabitor-diff"] = 0.596;
-weights[25]["team-ward-diff"] = 0.0008;
-weights[25]["heros-kill-diff"] = -0.0129;
-weights[25]["heros-level-diff"] = 0.1358;
-weights[25]["heros-item-diff"] = 1.431;
-weights[25]["intercept"] = 0.063;
+weights[25]["team-outturret-diff"] = 0;
+weights[25]["team-baseturret-diff"] = 0;
+weights[25]["team-inhabitor-diff"] = 0;
+weights[25]["team-ward-diff"] = 0;
+weights[25]["heros-kill-diff"] = 0;
+weights[25]["heros-level-diff"] = 0;
+weights[25]["heros-item-diff"] = 0;
 
 weights[30] = {}
 weights[30]["team-gold-diff"] = 0;
-weights[30]["team-dragon-diff"] = 0.1785;
+weights[30]["team-dragon-diff"] = 0;
 weights[30]["team-baron-diff"] = 0;
-weights[30]["team-outturret-diff"] = 0.4202;
-weights[30]["team-baseturret-diff"] = 0.1554;
-weights[30]["team-inhabitor-diff"] = 0.2878;
-weights[30]["team-ward-diff"] = 0.001;
-weights[30]["heros-kill-diff"] = -0.0112;
-weights[30]["heros-level-diff"] = 0.2727;
-weights[30]["heros-item-diff"] = 1.5751;
-weights[30]["intercept"] = 0.0328;
+weights[30]["team-outturret-diff"] = 0;
+weights[30]["team-baseturret-diff"] = 0;
+weights[30]["team-inhabitor-diff"] = 0;
+weights[30]["team-ward-diff"] = 0;
+weights[30]["heros-kill-diff"] = 0;
+weights[30]["heros-level-diff"] = 0;
+weights[30]["heros-item-diff"] = 0;
 
 weights[35] = {}
-weights[35]["team-gold-diff"] = 0.0001;
-weights[35]["team-dragon-diff"] = 0.1327;
+weights[35]["team-gold-diff"] = 0;
+weights[35]["team-dragon-diff"] = 0;
 weights[35]["team-baron-diff"] = 0;
-weights[35]["team-outturret-diff"] = 0.3648;
-weights[35]["team-baseturret-diff"] = 0.1158;
-weights[35]["team-inhabitor-diff"] = 0.2915;
-weights[35]["team-ward-diff"] = 0.0001;
-weights[35]["heros-kill-diff"] = -0.0181;
-weights[35]["heros-level-diff"] = 0.2298;
-weights[35]["heros-item-diff"] = 1.2389;
-weights[35]["intercept"] = -0.0227;
+weights[35]["team-outturret-diff"] = 0;
+weights[35]["team-baseturret-diff"] = 0;
+weights[35]["team-inhabitor-diff"] = 0;
+weights[35]["team-ward-diff"] = 0;
+weights[35]["heros-kill-diff"] = 0;
+weights[35]["heros-level-diff"] = 0;
+weights[35]["heros-item-diff"] = 0;
 
 weights[40] = {}
-weights[40]["team-gold-diff"] = 0.0001;
-weights[40]["team-dragon-diff"] = 0.0838;
+weights[40]["team-gold-diff"] = 0;
+weights[40]["team-dragon-diff"] = 0;
 weights[40]["team-baron-diff"] = 0;
-weights[40]["team-outturret-diff"] = 0.3859;
-weights[40]["team-baseturret-diff"] = -0.0175;
-weights[40]["team-inhabitor-diff"] = 0.0999;
-weights[40]["team-ward-diff"] = -0.0006;
-weights[40]["heros-kill-diff"] = 0.0041;
-weights[40]["heros-level-diff"] = 0.1737;
-weights[40]["heros-item-diff"] = 0.4032;
-weights[40]["intercept"] = 0.0096;
+weights[40]["team-outturret-diff"] = 0;
+weights[40]["team-baseturret-diff"] = 0;
+weights[40]["team-inhabitor-diff"] = 0;
+weights[40]["team-ward-diff"] = 0;
+weights[40]["heros-kill-diff"] = 0;
+weights[40]["heros-level-diff"] = 0;
+weights[40]["heros-item-diff"] = 0;
 
 weights[45] = {}
 weights[45]["team-gold-diff"] = 0;
@@ -475,90 +467,213 @@ function calculateSinglePrediction(current, weight) {
 }
 
 function draw(result, MLData) {
+        var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
+        var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
+        var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
+        var parlevel0 = [];
+        var parlevel1 = [];
+        var adv = []
+        var disadv = []
+        if (MLData["heros-assist-diff"] > 0) {
+        	adv.push({legend: "heros-assist-diff", value: MLData["heros-assist-diff"]});
+        }else if (MLData["heros-assist-diff"] < 0){
+        	disadv.push({legend: "heros-assist-diff", value: MLData["heros-assist-diff"]});
+        }
 
-    var winrate = [0.5,0.3, 0.2, 0.3, 0.6, 0.8, 0.7];
-    var gold = [result["team"][0]["gold"]/1000, result["team"][1]["gold"]/1000]
-    var exp = [result["participant"][0]["level"], result["participant"][0]["level"]]
+        if (MLData["heros-death-diff-diff"] > 0) {
+        	adv.push({legend: "heros-death-diff", value: MLData["heros-death-diff"]});
+        }else if (MLData["heros-death-diff"] < 0){
+        	disadv.push({legend: "heros-death-diff", value: MLData["heros-death-diff"]});
+        }
 
-    var weight = [
-      {legend:"baron", value:MLData["team-baron-diff"], color:"red"},
-      {legend:"gold", value:MLData["team-gold-diff"], color:"orangered"},
-      {legend:"dragon", value:MLData["team-dragon-diff"], color:"yellow"},
-      {legend:"tower", value:MLData["team-outturret-diff"], color:"pink"},
-      {legend:"item", value:MLData["heros-item-diff"], color:"purple"}
-      ];
-    var margin = {top: 30, right: 20, bottom: 30, left: 50},
-      width = 800 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
-    var svg = d3.select("svg")
-        .attr("width", 1200)
-        .style("background-color", "white")
+        if (MLData["heros-item-diff"] > 0) {
+        	adv.push({legend: "heros-item-diff", value: MLData["heros-item-diff"]});
+        }else if (MLData["heros-item-diff"] < 0){
+        	disadv.push({legend: "heros-item-diff", value: MLData["heros-item-diff"]});
+        }
 
-    var x = d3.scale.linear().range([0, width]).domain([0,8]);
-    var y = d3.scale.linear().range([height, 0]).domain([0,1]);
+        if (MLData["heros-kill-diff"] > 0) {
+        	adv.push({legend: "heros-kill-diff", value: MLData["heros-kill-diff"]});
+        }else if (MLData["heros-kill-diff"] < 0){
+        	disadv.push({legend: "heros-kill-diff", value: MLData["heros-kill-diff"]});
+        }
 
-    var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(8).tickFormat(function(d){
-      return d*5;
-    });
-    var yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
+        if (MLData["team-baron-diff"] > 0) {
+        	adv.push({legend: "team-baron-diff", value: MLData["team-baron-diff"]});
+        }else if (MLData["team-baron-diff"] < 0){
+        	disadv.push({legend: "team-baron-diff", value: MLData["team-baron-diff"]});
+        }
 
-    var valueline = d3.svg.line()
-      .x(function(d, i){
-        return x(i);
-      })
-      .y(function(d){
-        return y(d);
-      })
-    var g = svg
-        .append("g")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("transform", "translate("+margin.left+","+margin.top+")");
-    g.append("path")
-      .attr("class", "line")
-      .attr("d", valueline(winrate))
-    g.selectAll("dot")
-      .data(winrate)
-      .enter().append("circle")
-      .attr("r", 3.5)
-      .attr("cx", function(d, i){
-        return x(i);
-      })
-      .attr("cy", function(d){
-        return y(d);
-      })
-    svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate("+ margin.left + "," + (height+30) + ")")
-      .call(xAxis)
-      .selectAll("text")
-      .append("text")
-      .text(function(d){
-        return 
-      });
-    svg.append("g")
-      .attr("class", "y axis")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + margin.left + "," + margin.bottom + ")")
-      .call(yAxis);
+        if (MLData["team-baseturret-diff"] > 0) {
+        	adv.push({legend: "team-baseturret-diff", value: MLData["team-baseturret-diff"]});
+        }else if (MLData["team-baseturret-diff"] < 0){
+        	disadv.push({legend: "team-baseturret-diff", value: MLData["team-baseturret-diff"]});
+        }
+
+        if (MLData["team-dragon-diff"] > 0) {
+        	adv.push({legend: "team-dragon-diff", value: MLData["team-dragon-diff"]});
+        }else if (MLData["team-dragon-diff"] < 0){
+        	disadv.push({legend: "team-dragon-diff", value: MLData["team-dragon-diff"]});
+        }
+
+        if (MLData["team-gold-diff"] > 0) {
+        	adv.push({legend: "team-gold-diff", value: MLData["team-gold-diff"]});
+        }else if (MLData["team-gold-diff"] < 0){
+        	disadv.push({legend: "team-gold-diff", value: MLData["team-gold-diff"]});
+        }
+
+        if (MLData["team-inhabitor-diff"] > 0) {
+        	adv.push({legend: "team-inhabitor-diff", value: MLData["team-inhabitor-diff"]});
+        }else if (MLData["heros-assist-diff"] < 0){
+        	disadv.push({legend: "team-inhabitor-diff", value: MLData["team-inhabitor-diff"]});
+        }
+
+        if (MLData["team-outturret-diff"] > 0) {
+        	adv.push({legend: "team-outturret-diff", value: MLData["team-outturret-diff"]});
+        }else if (MLData["team-outturret-diff"] < 0){
+        	disadv.push({legend: "team-outturret-diff", value: MLData["team-outturret-diff"]});
+        }
+
+        if (MLData["team-ward-diff"] > 0) {
+        	adv.push({legend: "team-ward-diff", value: MLData["team-ward-diff"]});
+        }else if (MLData["team-ward-diff"] < 0){
+        	disadv.push({legend: "team-ward-diff", value: MLData["team-ward-diff"]});
+        }
+
+
+        for (var i = 0; i < 5; i++) {
+        	parlevel0.push(result["participant"][i]["level"]);
+        	parlevel1.push(result["participant"][i+5]["level"]);
+        }
+
+        var margin = {top: 30, right: 20, bottom: 30, left: 50},
+          width = 800 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom;
+        var svg = d3.select("svg")
+            .attr("width", 1200)
     
-    // chart 2
 
-    var x_compare_1 = d3.scale.linear().range([0,200]).domain([0,1])
-    var y_compare_1 = d3.scale.linear().range([150, 0]).domain([1,9])
+        var x = d3.scale.linear().range([0, width]).domain([0,8]);
+        var y = d3.scale.linear().range([height, 0]).domain([0,1]);
 
-    var xAxis_compare_1 = d3.svg.axis()
-      .scale(x_compare_1)
-      .orient("bottom")
-      .ticks(0)
-    var yAxis_compare_1 = d3.svg.axis()
-      .scale(y_compare_1)
-      .orient("left")
-      .ticks(5);
-    var g_compare = svg.append("g");
-    var g_compare_1 = g_compare.append("g")
-      .attr("transform", "translate(50,500)")
-    
+        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(8).tickFormat(function(d){
+          return d*5;
+        });
+        var yAxis = d3.svg.axis().scale(y).orient("left").ticks(10);
+
+        var valueline = d3.svg.line()
+          .x(function(d, i){
+            return x(i);
+          })
+          .y(function(d){
+            return y(d);
+          })
+        var div = d3.select("body").append("div") 
+          .attr("class", "tooltip")       
+          .style("opacity", 0);
+
+        // var winrate_section = svg.append("g")
+
+        // winrate_section.append("rect")
+        // 	// .attr("y", -40)
+        // 	.attr("width", 100)
+        // 	.attr("height", 60)
+        // 	.style("fill", "grey")
+       	// winrate_section.append("text")
+       	// 	// .attr("y", 40)
+       	// 	.text("WinRate Analysis")
+       	// 	.style("stroke", "white")
+        
+        var g = svg
+            .append("g")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("transform", "translate("+margin.left+","+margin.top+")");
+        
+        g.append("path")
+          .attr("class", "line")
+          .attr("d", valueline(winrate))
+          .style("stroke", "white")
+        
+        g.selectAll("dot")
+          .data(winrate)
+          .enter().append("circle")
+          .attr("r", 8)
+          .attr("cx", function(d, i){
+            return x(i);
+          })
+          .attr("cy", function(d){
+            return y(d);
+          })
+          .style("fill", "#d07a21")
+          .on("mouseover", function(d){
+
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.attr("r", 15)
+        		.style("fill", "#d07a21")
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Winning Rate:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX + 20) + "px")  .style("top", (d3.event.pageY - 28) + "px");  
+            })
+           .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.attr("r", 8);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+        
+        svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate("+ margin.left + "," + (height+30) + ")")
+          .attr("stroke", "white")
+          .attr("fill", "white")
+          .call(xAxis)
+          .selectAll("text")
+          .append("text")
+          .text(function(d){
+            return "" 
+          });
+        
+        svg.append("g")
+          .attr("class", "y axis")
+          .attr("stroke", "white")
+          .attr("transform", "translate(" + margin.left + "," + margin.bottom + ")")
+          .call(yAxis);
+        
+
+        var team_section = svg.append("g")
+        	.attr("transform", "translate(0, 550)")
+        team_section.append("rect")
+        	
+        	.attr("width", 100)
+        	.attr("height", 60)
+        	.style("fill", "grey")
+        team_section.append("text")
+        	.attr("y", 40)
+        	.style("fill", "white")
+        	.text("Team Analysis")
+        
+        var x_compare_1 = d3.scale.linear().range([0,200]).domain([0,1])
+        var y_compare_1 = d3.scale.linear().range([150, 0]).domain([d3.min(gold)*0.8, d3.max(gold) * 1.2])
+        var xAxis_compare_1 = d3.svg.axis()
+          .scale(x_compare_1)
+          .orient("bottom")
+          .ticks(0)
+        var yAxis_compare_1 = d3.svg.axis()
+          .scale(y_compare_1)
+          .orient("left")
+          .ticks(5);
+        var g_compare = svg.append("g");
+        var g_compare_1 = g_compare.append("g")
+          .attr("transform", "translate(55,700)")
+
     g_compare_1.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0, 150)")
@@ -578,100 +693,383 @@ function draw(result, MLData) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-    g_compare_1.selectAll("bar")
-      .data(gold)
-      .enter().append("rect")
-      .style("fill", "black")
-      .attr("x", function(d, i) { if(i == 0){
         
-        return 60;
-      }else{
         
-        return 100;
-      } })
-      .attr("width", 30)
-      .attr("y", function(d) { return y_compare_1(d); })
-      .attr("height", function(d) { return 150 - y_compare_1(d); });
+        g_compare_1.selectAll("bar")
+          .data(gold)
+          .enter().append("rect")
+          .style("fill", function(d, i){
+          	if (i == 0) {
+          		return "#d07a21"
+          	}else{
+          		return "#386ecb"
+          	}
+          })
+          .attr("x", function(d, i) { if(i == 0){
+            return 55;
+          }else{
+            
+            return 105;
+          } })
+          .attr("width", 30)
+          .attr("y", function(d) { return y_compare_1(d); })
+          .attr("height", function(d) { return 150 - y_compare_1(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Gold:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1.0);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
 
-    // chart 3
-    var x_compare_2 = d3.scale.linear().range([0, 200]).domain([0,1]);
-    var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 18]);
-    var xAxis_compare_2 = d3.svg.axis()
-      .scale(x_compare_2)
-      .orient("bottom")
-      .ticks("0");
-    var yAxis_compare_2 = d3.svg.axis()
-      .scale(y_compare_2)
-      .orient("left")
-      .ticks(5);
-    var g_compare_2 = g_compare.append("g")
-      .attr("transform", "translate(300, 500)");
-    g_compare_2.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0, 150)")
-      .call(xAxis_compare_2)
-      .append("text")
-      .text("team1" + "\t\t"  + "team2")
-      .attr("transform", "translate(60, 20)");
+        // chart team 2
+        var x_compare_2 = d3.scale.linear().range([0, 200]).domain([0,1]);
+        var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 80]);
+        var xAxis_compare_2 = d3.svg.axis()
+          .scale(x_compare_2)
+          .orient("bottom")
+          .ticks("0");
+        var yAxis_compare_2 = d3.svg.axis()
+          .scale(y_compare_2)
+          .orient("left")
+          .ticks(5);
+        var g_compare_2 = g_compare.append("g")
+          .attr("transform", "translate(350, 700)");
+        g_compare_2.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0, 150)")
+          .call(xAxis_compare_2)
+          .append("text")
+          .text("team1" + "\t\t"  + "team2")
+          .attr("transform", "translate(60, 20)");
 
-    g_compare_2.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(0, 0)")
-      .call(yAxis_compare_2)
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("exp");
+        g_compare_2.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(0, 0)")
+          .call(yAxis_compare_2)
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("ward");
 
-    g_compare_2.selectAll("bar")
-      .data(exp)
-      .enter()
-      .append("rect")
-      .style("fill", "black")
-      .attr("x", function(d, i) { if(i == 0){
-        return 60;
-      }else{
-        return 100;
-      } })
-      .attr("width", 30)
-      .attr("y", function(d) { return y_compare_2(d); })
-      .attr("height", function(d) { return 150 - y_compare_2(d); });
+        g_compare_2.selectAll("bar")
+          .data(ward)
+          .enter()
+          .append("rect")
+          .style("fill", function(d, i){
+          	if (i == 0) {
+          		return "#d07a21"
+          	}else{
+          		return "#386ecb"
+          	}
+          })
+          .attr("x", function(d, i) { if(i == 0){
+            return 55;
+          }else{
+            return 105;
+          } })
+          .attr("width", 30)
+          .attr("y", function(d) { return y_compare_2(d); })
+          .attr("height", function(d) { return 150 - y_compare_2(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Ward:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
 
-      // pie chart
 
-      var g_pie = svg.append("g")
-        .attr("width", 350)
-        .attr("height", 200)
-        .attr("transform", "translate(150, 800)");
-      var arc = d3.svg.arc()
-        .outerRadius(100)
-        .innerRadius(10);
-      var pieValue = d3.layout.pie()
-        .sort(null)
-        .value(function(d){
-          return d.value;
-        });
+        var par_section = svg.append("g")
+        	.attr("transform", "translate(0, 900)")
+        par_section.append("rect")
+        	.style("fill", "grey")
+        	.attr("height", 60)
+        	.attr("width", 100)
+        par_section.append("text")
+        	.text("Player Analysis")
+        	.attr("y", 40)
+        	.style("stroke", "white")
 
-      var pie = g_pie.selectAll(".fan")
-        .data(pieValue(weight))
-        .enter()
-        .append("g")
-        .attr("class", "fan");
+        // chart participant level
+        var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
+        var y_compare_3 = d3.scale.linear().range([300, 0]).domain([0, 25]);
 
-      pie.append("path")
-        .attr("d", arc)
-        .style("fill", function(d){
-          return d.data.color;
-        });
+        var xAxis_compare_3 = d3.svg.axis()
+          .scale(x_compare_3)
+          .orient("bottom")
+          .ticks(0)
+          .tickFormat("");
+        var yAxis_compare_3 = d3.svg.axis()
+          .scale(y_compare_3)
+          .orient("left")
+          .ticks(5);
 
-      pie.append("text")
-        .attr("transform", function(d){
-          return "translate(" + arc.centroid(d) + ")";
-        })
-        .style("text-anchor", "middle")
-        .text(function(d){
-          return d.data.legend;
-    })
-     }
+        var g_compare_3 = g_compare.append("g")
+        	.attr("transform", "translate(50, 900)");
+       	g_compare_3.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
+     		
+     
+
+       	g_compare_3.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          
+	        .text("level");
+	    g_compare_3.selectAll("bar")
+          .data(parlevel0)
+          .enter()
+          .append("rect")
+          .style("fill", "#d07a21")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3(d); })
+          .attr("height", function(d) { return 400 - y_compare_3(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });;
+
+        // participant chart team 2
+        var xAxis_compare_3 = d3.svg.axis()
+          .scale(x_compare_3)
+          .orient("bottom")
+          .ticks(0)
+          .tickFormat("");
+        var yAxis_compare_3 = d3.svg.axis()
+          .scale(y_compare_3)
+          .orient("left")
+          .ticks(5);
+
+        var g_compare_3 = g_compare.append("g")
+        	.attr("transform", "translate(580, 900)");
+       	g_compare_3.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
+
+       	g_compare_3.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          
+	        .text("level");
+	    g_compare_3.selectAll("bar")
+          .data(parlevel1)
+          .enter()
+          .append("rect")
+          .style("fill", "#386ecb")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3(d); })
+          .attr("height", function(d) { return 400 - y_compare_3(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });;
+        
+
+          // pie chart
+         
+          var color = d3.scale.category20();
+          var g_pie = svg.append("g")
+            .attr("width", 350)
+            .attr("height", 200)
+            .attr("transform", "translate(150, 1500)");
+          var arc = d3.svg.arc()
+            .outerRadius(100)
+            .innerRadius(50);
+          var pieValue = d3.layout.pie()
+            .sort(null)
+            .value(function(d){
+              return d.value;
+            });
+
+          var pie = g_pie.selectAll(".fan")
+            .data(pieValue(adv))
+            .enter()
+            .append("g")
+            .attr("transform", "translate(50, 100)")
+            .attr("class", "fan");
+
+          pie.append("path")
+            .attr("d", arc)
+            .style("fill", function(d, i){
+              return color(i);
+            })
+            ;
+
+          pie.append("rect")
+          	.attr("x", 150)
+          	.attr("y", function(d, i){
+          		return i * 20 - 50;
+          	})
+          	.attr("width", 20)
+          	.attr("height", 20)
+          	.style("fill", function(d, i){
+          		return color(i);
+          	})
+
+          pie.append("text")
+            .attr("transform", function(d, i){
+              return "translate(180," + (i * 20 - 38) + ")";
+            })
+            .style("text-anchor", "left")
+            .style("stroke", "white")
+            .text(function(d){
+              return d.data.legend;
+            })
+          
+
+          // pie chart 2
+          var color = d3.scale.category20();
+          var g_pie = svg.append("g")
+            .attr("width", 350)
+            .attr("height", 200)
+            .attr("transform", "translate(630, 1500)");
+          var arc = d3.svg.arc()
+            .outerRadius(100)
+            .innerRadius(50);
+          var pieValue = d3.layout.pie()
+            .sort(null)
+            .value(function(d){
+              return d.value;
+            });
+
+          var pie = g_pie.selectAll(".fan")
+            .data(pieValue(disadv))
+            .enter()
+            .append("g")
+            .attr("transform", "translate(50, 100)")
+            .attr("class", "fan");
+
+          pie.append("path")
+            .attr("d", arc)
+            .style("fill", function(d, i){
+              return color(i);
+            })
+            .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Weight:</strong> <span>" + d + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            });
+            
+
+          pie.append("rect")
+          	.attr("x", 150)
+          	.attr("y", function(d, i){
+          		return i * 20 - 50;
+          	})
+          	.attr("width", 20)
+          	.attr("height", 20)
+          	.style("fill", function(d, i){
+          		return color(i);
+          	});
+
+          pie.append("text")
+            .attr("transform", function(d, i){
+              return "translate(180," + (i * 20 - 38) + ")";
+            })
+            .style("stroke", "white")
+            .style("text-anchor", "left")
+            .text(function(d){
+              return d.data.legend;
+            });
+          
+}
+     

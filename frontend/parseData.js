@@ -11,7 +11,10 @@ var item_weight = {};
 var champions = {};
 
 var currentTime = 0;
+
 var region = "";
+
+
 
 // load item id
 d3.csv("item.csv", function(error, data){

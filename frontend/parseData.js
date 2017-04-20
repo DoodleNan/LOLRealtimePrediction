@@ -9,12 +9,8 @@
 	var ml = {};
 	var item_weight = {};
 	var champions = {};
-
 	var currentTime = 0;
-
 	var region = "";
-
-
 
 	// load item id
 	d3.csv("item.csv", function(error, data){
@@ -313,7 +309,7 @@
 							    	// console.log(d.participantId + " destroyed " + d.itemId);
 								    // console.log("Updated item number " + timeline.item[d.participantId-1][item_index]);
 								}
-								
+
 								break;
 
 								case "CHAMPION_KILL":
@@ -499,7 +495,7 @@ if (i == end || i == frames.length - 1){
 		for (var i = 5; i <= time; i+=5) {
 			winrate.push(predicted[i]);
 		}
-		
+
 		var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
 		var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
 		var parlevel0 = [];
@@ -599,11 +595,11 @@ if (i == end || i == frames.length - 1){
 			}
 		}
 
-		
+
 		var margin = {top: 30, right: 20, bottom: 30, left: 50},
 		width = 800 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
-		
+
 		var svg = d3.select("svg")
 		.attr("background-color", "black")
 		.attr("height", 3000)
@@ -674,7 +670,7 @@ if (i == end || i == frames.length - 1){
 	        	.attr("class", "line")
 	        	.attr("d", valueline(winrate))
 	        	.style("stroke", "white")
-	        	
+
 	        	g.selectAll("dot")
 	        	.data(winrate)
 	        	.enter().append("circle")
@@ -708,7 +704,7 @@ if (i == end || i == frames.length - 1){
 	        		.duration(500)    
 	        		.style("opacity", 0);
 	        	});
-	        	
+
 	        	svg.append("g")
 	        	.attr("class", "x axis")
 	        	.attr("transform", "translate("+ margin.left + "," + (height+30) + ")")
@@ -720,13 +716,13 @@ if (i == end || i == frames.length - 1){
 	          // .text(function(d){
 	          //   return "" 
 	          // });
-	          
+
 	          svg.append("g")
 	          .attr("class", "y axis")
 	          .attr("stroke", "white")
 	          .attr("transform", "translate(" + margin.left + "," + margin.bottom + ")")
 	          .call(yAxis);
-	          
+
 
 	          var Team_section = svg.append("g")
 	          .attr("transform", "translate(0, 550)")
@@ -748,7 +744,7 @@ if (i == end || i == frames.length - 1){
 	          .attr("x", 15)
 	          .style("fill", "white")
 	          .text("Team Analysis")
-	          
+
 	          var x_compare_1 = d3.scale.linear().range([0,200]).domain([0,1])
 	          var y_compare_1 = d3.scale.linear().range([150, 0]).domain([d3.min(gold)*0.8, d3.max(gold) * 1.2])
 	          var xAxis_compare_1 = d3.svg.axis()
@@ -771,8 +767,8 @@ if (i == end || i == frames.length - 1){
 	          .text("team1" + "\t"  + "team2")
 	          .style("fill", "white")
 	          .attr("transform", "translate(60, 20)");
-	          
-	          
+
+
 	          g_compare_1.append("g")
 	          .attr("class", "y axis")
 	          .attr("transform", "translate(0,0)")
@@ -784,8 +780,8 @@ if (i == end || i == frames.length - 1){
 	          .attr("y", 6)
 	          .attr("dy", ".71em")
 	          .style("text-anchor", "end")
-	          
-	          
+
+
 	          g_compare_1.selectAll("bar")
 	          .data(gold)
 	          .enter().append("rect")
@@ -799,7 +795,7 @@ if (i == end || i == frames.length - 1){
 	          .attr("x", function(d, i) { if(i == 0){
 	          	return 55;
 	          }else{
-	          	
+
 	          	return 105;
 	          } })
 	          .attr("width", 30)
@@ -952,8 +948,8 @@ if (i == end || i == frames.length - 1){
 	        .attr("y", -10)
 	        .style("fill", "white")
 	        .text("players");
-	        
-	        
+
+
 
 	        g_compare_3.append("g")
 	        .attr("class", "y axis")
@@ -965,7 +961,7 @@ if (i == end || i == frames.length - 1){
 	        .attr("y", 6)
 	        .attr("dy", ".71em")
 	        .style("text-anchor", "end")
-	        
+
 	        .text("level");
 	        g_compare_3.selectAll("bar")
 	        .data(parlevel0)
@@ -1000,9 +996,9 @@ if (i == end || i == frames.length - 1){
 	        	.style("opacity", 0);
 	        });
 
-	        
+
 	        // participant chart team 2
-	        
+
 	        var g_compare_4 = g_compare.append("g")
 	        .attr("transform", "translate(580, 900)");
 	        g_compare_4.append("g")
@@ -1091,8 +1087,8 @@ if (i == end || i == frames.length - 1){
 	        .attr("y", -10)
 	        .style("fill", "white")
 	        .text("players");
-	        
-	        
+
+
 
 	        g_compare_3.append("g")
 	        .attr("class", "y axis")
@@ -1200,7 +1196,7 @@ if (i == end || i == frames.length - 1){
 	          var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
 	          var y_compare_3 = d3.scale.linear().range([300, 0]).domain([0, d3.max(pardeath0)+5]);
 	          var y_compare_3_2 = d3.scale.linear().range([300, 0]).domain([0, d3.max(pardeath1)+5]);
-	          
+
 	          var xAxis_compare_3 = d3.svg.axis()
 	          .scale(x_compare_3)
 	          .orient("bottom")
@@ -1226,7 +1222,7 @@ if (i == end || i == frames.length - 1){
 	          .attr("x", 500)
 	          .attr("y", -10)
 	          .text("players");
-	          
+
 	          g_compare_3.append("g")
 	          .attr("class", "y axis")
 	          .attr("transform", "translate(0, 100)")
@@ -1272,7 +1268,7 @@ if (i == end || i == frames.length - 1){
 	          });
 
 	        // participant chart team 2
-	        
+
 	        var g_compare_4 = g_compare.append("g")
 	        .attr("transform", "translate(580, 1700)");
 	        g_compare_4.append("g")
@@ -1330,7 +1326,7 @@ if (i == end || i == frames.length - 1){
 	        	.style("opacity", 0);
 	        });
 	          // pie chart
-	          
+
 	          var weight_section = svg.append("g")
 	          .attr("transform", "translate(0, 2200)")
 	          weight_section.append("rect")
@@ -1408,7 +1404,7 @@ if (i == end || i == frames.length - 1){
 	          	.duration(500)    
 	          	.style("opacity", 0);
 	          });
-	          
+
 
 	          pie.append("rect")
 	          .attr("x", 150)
@@ -1495,7 +1491,7 @@ if (i == end || i == frames.length - 1){
 	          	.duration(500)    
 	          	.style("opacity", 0);
 	          });
-	          
+
 
 	          pie.append("rect")
 	          .attr("x", 150)
@@ -1520,19 +1516,21 @@ if (i == end || i == frames.length - 1){
 	          });
 	          
 	      }
-	      
+
 
 
 	      function updateTable(data) {
 	      	$("#count_gold_1")[0].value = data["team"][0]["gold"];
-	      	$("#count_gold_2")[0].value = data["team"][1]["gold"];
-	      	$("#count_exp_1")[0].value = data["team"][0]["level"];
-	      	$("#count_exp_2")[0].value = data["team"][1]["level"];
-	      	$("#count_tower_1")[0].value = (data["team"][0]["inner_and_outer_turret"]? data["team"][0]["inner_and_outer_turret"]:0) + (data["team"][0]["base_and_nexus_turret"]? data["team"][0]["base_and_nexus_turret"]:0);
-	      	$("#count_tower_2")[0].value = (data["team"][1]["inner_and_outer_turret"]? data["team"][1]["inner_and_outer_turret"]:0) + (data["team"][1]["base_and_nexus_turret"]? data["team"][1]["base_and_nexus_turret"]:0);
-	      	$("#count_ward_1")[0].value = data["team"][0]["ward"]? data["team"][0]["ward"]:0;
-	      	$("#count_ward_2")[0].value = data["team"][0]["ward"]? data["team"][0]["ward"]:0;
-	      	$("#count_dragon_1")[0].value = data["team"][0]["dragon"]? data["team"][0]["dragon"]:0;
-	      	$("#count_dragon_2")[0].value = data["team"][0]["dragon"]? data["team"][0]["dragon"]:0;
+			$("#count_gold_2")[0].value = data["team"][1]["gold"];
+			$("#count_tower_1")[0].value = (data["team"][0]["inner_and_outer_turret"]? data["team"][0]["inner_and_outer_turret"]:0);
+			$("#count_inner_tower_1")[0].value = data["team"][0]["base_and_nexus_turret"]? data["team"][0]["base_and_nexus_turret"]:0;
+			$("#count_tower_2")[0].value = (data["team"][1]["inner_and_outer_turret"]? data["team"][1]["inner_and_outer_turret"]:0);
+			$("#count_inner_tower_2")[0].value = (data["team"][1]["base_and_nexus_turret"]? data["team"][1]["base_and_nexus_turret"]:0);
+			$("#count_ward_1")[0].value = data["team"][0]["ward"]? data["team"][0]["ward"]:0;
+			$("#count_ward_2")[0].value = data["team"][1]["ward"]? data["team"][1]["ward"]:0;
+			$("#count_dragon_1")[0].value = data["team"][0]["dragon"]? data["team"][0]["dragon"]:0;
+			$("#count_dragon_2")[0].value = data["team"][1]["dragon"]? data["team"][1]["dragon"]:0;
+			$("#count_baron_1")[0].value = data["team"][0]["baron"]? data["team"][0]["baron"]:0;
+			$("#count_baron_2")[0].value = data["team"][1]["baron"]? data["team"][1]["baron"]:0;
 	      }
-	      
+

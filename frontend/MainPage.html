@@ -1,315 +1,315 @@
-<!DOCTYPE html>
-<html>
-<title>MainPage</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script type="text/javascript" src="lib/d3.v3.min.js"></script>
-<script type="text/javascript" src="parseData.js"></script>
-<style>
-body {font-family: "Lato", sans-serif}
-.mySlides {display: none}
-.btn-group{
-  position: absolute;
-  left: 100px;
+  <!DOCTYPE html>
+  <html>
+  <title>MainPage</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="lib/d3.v3.min.js"></script>
+  <script type="text/javascript" src="parseData.js"></script>
+  <style>
+    body {font-family: "Lato", sans-serif}
+    .mySlides {display: none}
+    .btn-group{
+      position: absolute;
+      left: 100px;
 
-}
-.btn-group .button {
-  position: relative;
-  left: 20px;
-    background-color: black; 
-    border: none;
-    color: white;
-    padding: 10px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    cursor: pointer;
-    float: left;
-    margin-right: 5px;
-    
-}
+    }
+    .btn-group .button {
+      position: relative;
+      left: 20px;
+      background-color: black; 
+      border: none;
+      color: white;
+      padding: 10px 25px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 15px;
+      cursor: pointer;
+      float: left;
+      margin-right: 5px;
+      
+    }
 
-.btn-group .button{
-  margin-right: 5px;
-}
-.btn-group .button:hover {
-    background-color: #888;
-}
+    .btn-group .button{
+      margin-right: 5px;
+    }
+    .btn-group .button:hover {
+      background-color: #888;
+    }
 
-path {
-  stroke: white;
-  stroke-width: 2;
-  fill: none;
-}
+    path {
+      stroke: white;
+      stroke-width: 2;
+      fill: none;
+    }
 
-.run {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #f4511e;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 18px;
-  padding: 20px;
-  width: 100px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-}
+    .run {
+      display: inline-block;
+      border-radius: 4px;
+      background-color: #f4511e;
+      border: none;
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 18px;
+      padding: 20px;
+      width: 100px;
+      transition: all 0.5s;
+      cursor: pointer;
+      margin: 5px;
+    }
 
-.run span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
+    .run span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
 
-.run span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
+    .run span:after {
+      content: '\00bb';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
 
-.run:hover span {
-  padding-right: 25px;
-}
+    .run:hover span {
+      padding-right: 25px;
+    }
 
-.run:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-.dot {
-  fill:none;
-  stroke: black;
-  color: white;
-}
+    .run:hover span:after {
+      opacity: 1;
+      right: 0;
+    }
+    .dot {
+      fill:none;
+      stroke: black;
+      color: white;
+    }
 
-.axis path,
-.axis line {
-    fill: none;
-    stroke: "#172367";
-    stroke-width: 2;
-    shape-rendering: geometricPrecision;
-}
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: "#172367";
+      stroke-width: 2;
+      shape-rendering: geometricPrecision;
+    }
 
-.axis text{
-  stroke: white;
-  /*stroke-width: 1;*/
+    .axis text{
+      stroke: white;
+      /*stroke-width: 1;*/
 
-}
-.ticks {
-  font: 10px sans-serif;
-}
+    }
+    .ticks {
+      font: 10px sans-serif;
+    }
 
-.track,
-.track-inset,
-.track-overlay {
-  stroke-linecap: round;
-}
+    .track,
+    .track-inset,
+    .track-overlay {
+      stroke-linecap: round;
+    }
 
-.track {
-  stroke: #000;
-  stroke-opacity: 0.3;
-  stroke-width: 50px;
-}
+    .track {
+      stroke: #000;
+      stroke-opacity: 0.3;
+      stroke-width: 50px;
+    }
 
-.track-inset {
-  stroke: black;
-  stroke-width: 20px;
-}
+    .track-inset {
+      stroke: black;
+      stroke-width: 20px;
+    }
 
-.track-overlay {
-  pointer-events: stroke;
-  stroke-width: 30px;
-  stroke: transparent;
-  cursor: crosshair;
-}
+    .track-overlay {
+      pointer-events: stroke;
+      stroke-width: 30px;
+      stroke: transparent;
+      cursor: crosshair;
+    }
 
-.handle {
-  fill: #fff;
-  stroke: #000;
-  stroke-opacity: 0.4;
-  stroke-width: 1.25px;
-}
+    .handle {
+      fill: #fff;
+      stroke: #000;
+      stroke-opacity: 0.4;
+      stroke-width: 1.25px;
+    }
 
-div.tooltip { 
-    position: absolute;     
-    text-align: center;     
-    width: 80px;          
-    height: 60px;         
-    padding: 5px;       
-    font: 15px sans-serif;    
-    background: lightsteelblue; 
-    border: 2px;    
-    border-radius: 8px;     
-    pointer-events: none;     
-}
+    div.tooltip { 
+      position: absolute;     
+      text-align: center;     
+      width: 80px;          
+      height: 60px;         
+      padding: 5px;       
+      font: 15px sans-serif;    
+      background: lightsteelblue; 
+      border: 2px;    
+      border-radius: 8px;     
+      pointer-events: none;     
+    }
 
-.slider{
-  border: 1px solid #7AC143;
-  background-color: black;
-}
+    .slider{
+      border: 1px solid #7AC143;
+      background-color: black;
+    }
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 75%;
-  margin:auto;
-  /*margin-top: 10px;*/
-}
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 75%;
+      margin:auto;
+      /*margin-top: 10px;*/
+    }
 
-td, th{
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+    td, th{
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
 
-select  {
-  width:100px;
-  height:34px;
-}
+    select  {
+      width:100px;
+      height:34px;
+    }
 
-.match_group{
-  width:50%;
-  margin:auto;
-}
+    .match_group{
+      width:50%;
+      margin:auto;
+    }
 
-.match_group button.btn-default {
-  width:100px;
-  margin-left:10px;
-  margin-right:10px;
-}
+    .match_group button.btn-default {
+      width:100px;
+      margin-left:10px;
+      margin-right:10px;
+    }
 
-.button.selected {
-  background-color: white;
-  color:black;
-}
+    .button.selected {
+      background-color: white;
+      color:black;
+    }
 
-#time_control {
-  margin:auto;
-  display:block;
-  position:relative;
-}
+    #time_control {
+      margin:auto;
+      display:block;
+      position:relative;
+    }
 
-.button:disabled {
-  color:#AAA;
-}
+    .button:disabled {
+      color:#AAA;
+    }
 
-#run_model {
-  width:75%;
-  margin:auto;
-  margin-top:15px;
-  display: block;
-}
+    #run_model {
+      width:75%;
+      margin:auto;
+      margin-top:15px;
+      display: block;
+    }
 
-.caret {
-  position: absolute;
-  right:15px;
-  top:14px;
-}
+    .caret {
+      position: absolute;
+      right:15px;
+      top:14px;
+    }
 
-/*tr:nth-child(even){
-  background-color: #dddddd;
-}*/
+  /*tr:nth-child(even){
+    background-color: #dddddd;
+  }*/
 </style>
 <body>
 
-<!-- Navbar -->
-<div class="w3-top">
-  <div class="w3-bar w3-black w3-card-2">
-    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
-    <a href="#champions" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CHAMPIONS</a>
-    <a href="#team members" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TEAM MEMBERS</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
-
-    <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>     
-      <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="#" class="w3-bar-item w3-button">MORE1</a>
-        <a href="#" class="w3-bar-item w3-button">MORE2</a>
-        <a href="#" class="w3-bar-item w3-button">MORE3</a>
-      </div>
-    </div>
-    <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
-  </div>
-</div>
-
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-  <a href="#champions" class="w3-bar-item w3-button w3-padding-large">CHAMPIONS</a>
-  <a href="#team members" class="w3-bar-item w3-button w3-padding-large">TEAM MEMBERS</a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large">CONTACT</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">MORE</a>
-</div>
-
-<div class="w3-sidebar w3-bar-block w3-black w3-border-right" id="mySidebar" style="display:none">
-        <button onclick="closeNav()" class="closeNav" style="color: #818181"> &times;</button>
-        <a href="#" class="w3-bar-item w3-button">LINK 1</a>
-        <a href="#" class="w3-bar-item w3-button">LINK 2</a>
-        <a href="#" class="w3-bar-item w3-button">LINK 3</a>
-  </div>
-<!-- Page content -->
-<div class="w3-content" style="max-width:2000px;margin-top:46px">
-
-  <!-- Automatic Slideshow Images -->
-  <div class="mySlides w3-display-container w3-center">
-    <img src="static/img/1.jpg" style="width:100%; height: 580px;">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3>HHHHHHHH</h3>
-      <p><b>HHHHHHHHHHHHHHHHHHHHHHHH!</b></p>   
-    </div>
-  </div>
-  <div class="mySlides w3-display-container w3-center">
-    <img src="static/img/2.jpg" style="width:100%; height: 580px;">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3>AAAAAAAAAA</h3>
-      <p><b>AAAAAAAAAAAAAAAAAAAAAAAA</b></p>    
-    </div>
-  </div>
-  <div class="mySlides w3-display-container w3-center">
-    <img src="static/img/3.jpg" style="width:100%; height: 580px;">
-    <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-      <h3>BBBBBBBB</h3>
-      <p><b>BBBBBBBBBBBBBBBBBBBBBBBB.</b></p>    
-    </div>
-  </div>
-
-  <!-- The Champion Section -->
-  
-    
-  <div class="w3-black" id="champions">
-    <div class="w3-container w3-content w3-padding-64 con" style="max-width:1100px; max-height: 3500px;">
-    <!-- Sidebar -->
-      <!-- <button class="w3-button w3-grey w3-xlarge" onclick="openNav()">☰</button> -->
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-black w3-card-2">
+      <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      
+      <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+      <a href="#champions" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CHAMPIONS</a>
+      <a href="#team members" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TEAM MEMBERS</a>
+      <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
 
       <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">Choices <i class="fa fa-caret-down"></i></button>     
-      <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="#" class="w3-bar-item w3-button">Team Attributes</a>
-        <a href="#" class="w3-bar-item w3-button">Chiampion</a>
-        <a href="#" class="w3-bar-item w3-button">Item</a>
+        <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>     
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+          <a href="#" class="w3-bar-item w3-button">MORE1</a>
+          <a href="#" class="w3-bar-item w3-button">MORE2</a>
+          <a href="#" class="w3-bar-item w3-button">MORE3</a>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+    </div>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+    <a href="#champions" class="w3-bar-item w3-button w3-padding-large">CHAMPIONS</a>
+    <a href="#team members" class="w3-bar-item w3-button w3-padding-large">TEAM MEMBERS</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-padding-large">CONTACT</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">MORE</a>
+  </div>
+
+  <div class="w3-sidebar w3-bar-block w3-black w3-border-right" id="mySidebar" style="display:none">
+    <button onclick="closeNav()" class="closeNav" style="color: #818181"> &times;</button>
+    <a href="#" class="w3-bar-item w3-button">LINK 1</a>
+    <a href="#" class="w3-bar-item w3-button">LINK 2</a>
+    <a href="#" class="w3-bar-item w3-button">LINK 3</a>
+  </div>
+  <!-- Page content -->
+  <div class="w3-content" style="max-width:2000px;margin-top:46px">
+
+    <!-- Automatic Slideshow Images -->
+    <div class="mySlides w3-display-container w3-center">
+      <img src="static/img/1.jpg" style="width:100%; height: 580px;">
+      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        <h3>HHHHHHHH</h3>
+        <p><b>HHHHHHHHHHHHHHHHHHHHHHHH!</b></p>   
+      </div>
+    </div>
+    <div class="mySlides w3-display-container w3-center">
+      <img src="static/img/2.jpg" style="width:100%; height: 580px;">
+      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        <h3>AAAAAAAAAA</h3>
+        <p><b>AAAAAAAAAAAAAAAAAAAAAAAA</b></p>    
+      </div>
+    </div>
+    <div class="mySlides w3-display-container w3-center">
+      <img src="static/img/3.jpg" style="width:100%; height: 580px;">
+      <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        <h3>BBBBBBBB</h3>
+        <p><b>BBBBBBBBBBBBBBBBBBBBBBBB.</b></p>    
       </div>
     </div>
 
-      <h2 class="w3-wide w3-center">It is your battle</h2>
-      <p class="w3-opacity w3-center"><i>Real-time winning rate prediction here!</i></p><br>
-      <div>
-        <div class="input-group match_group">
-          <input type="text" class="form-control" id="match_input" placeholder="match ID">
+    <!-- The Champion Section -->
+    
+    
+    <div class="w3-black" id="champions">
+      <div class="w3-container w3-content w3-padding-64 con" style="max-width:1100px; max-height: 3500px;">
+        <!-- Sidebar -->
+        <!-- <button class="w3-button w3-grey w3-xlarge" onclick="openNav()">☰</button> -->
+
+        <div class="w3-dropdown-hover w3-hide-small">
+          <button class="w3-padding-large w3-button" title="More">Choices <i class="fa fa-caret-down"></i></button>     
+          <div class="w3-dropdown-content w3-bar-block w3-card-4">
+            <a href="#" class="w3-bar-item w3-button">Team Attributes</a>
+            <a href="#" class="w3-bar-item w3-button">Chiampion</a>
+            <a href="#" class="w3-bar-item w3-button">Item</a>
+          </div>
+        </div>
+
+        <h2 class="w3-wide w3-center">It is your battle</h2>
+        <p class="w3-opacity w3-center"><i>Real-time winning rate prediction here!</i></p><br>
+        <div>
+          <div class="input-group match_group">
+            <input type="text" class="form-control" id="match_input" placeholder="match ID">
             <div class="input-group-btn">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">REGION <span class="caret"></span></button>
               <ul class="dropdown-menu dropdown-menu-right">
@@ -332,201 +332,201 @@ select  {
                   region = "";
                 })
                 $('.match_group li').on('click', function(){
-                    $(".match_group button.btn-default").html($(this).text()+"<span class='caret'></span>");
-                    region = $(this).text();
+                  $(".match_group button.btn-default").html($(this).text()+"<span class='caret'></span>");
+                  region = $(this).text();
                 });
               </script>
             </div>
-          <span class="input-group-btn">
-            <button class="btn btn-danger" type="button" style="width:60px;margin-left:5px;margin-right:5px;" onclick="loadMatch()">Get</button>
-          </span>
+            <span class="input-group-btn">
+              <button class="btn btn-danger" type="button" style="width:60px;margin-left:5px;margin-right:5px;" onclick="loadMatch()">Get</button>
+            </span>
+          </div>
         </div>
-      </div>
-      <script>
-        function loadMatch() {
-          //console.log("a");
-          console.log($("#match_input")[0].value);
-          console.log(region);
-          if (region == "") {
-            alert("Select region!");
-            return;
+        <script>
+          function loadMatch() {
+            //console.log("a");
+            console.log($("#match_input")[0].value);
+            console.log(region);
+            if (region == "") {
+              alert("Select region!");
+              return;
+            }
+            var id = $("#match_input")[0].value;
+            if (id == "") {
+              alert("Invalid match ID!");
+              return;
+            }
+            getMatchData($("#match_input")[0].value, region);
           }
-          var id = $("#match_input")[0].value;
-          if (id == "") {
-            alert("Invalid match ID!");
-            return;
-          }
-          getMatchData($("#match_input")[0].value, region);
-        }
-      </script>
+        </script>
 
-      <div style="padding: 20px;display:none;" id="page">
-      <div>
-        <br>
-        <br>
-        <br>
-      </div>
-      
-      <div class="btn-group" id="time_control">
-        <button class="button" onclick="selectTime(5)">5 min</button>
-        <button class="button" onclick="selectTime(10)">10 min</button>
-        <button class="button" onclick="selectTime(15)">15 min</button>
-        <button class="button" onclick="selectTime(20)">20 min</button>
-        <button class="button" onclick="selectTime(25)">25 min</button>
-        <button class="button" onclick="selectTime(30)">30 min</button>
-        <button class="button" onclick="selectTime(35)">35 min</button>
-        <button class="button" onclick="selectTime(40)">40 min</button>
-      </div>
-      <script type="text/javascript">
-        function selectTime(time) {
-          $("#time_control button").removeClass("selected");
-          var button = $("#time_control button")[time/5-1];
-          $(button).addClass("selected");
-          draw(final_result[time], ml[time], time);
-          updateTable(final_result[time]);
-          currentTime = time;
-        }
-      </script>
-      <div>
-        <br>
-        <br>
-        <br>
-      </div>
-      <div id="table" style="display:none;">
-        <table>
-        <tr>
-          <th>Attr</th>
-          <th>TEAM 1</th>
-          <th>TEAM 2</th>
-        </tr>
-          <td>
-            <i class="fa fa-cubes" aria-hidden="true"></i>
-            Gold
-          </td>
-          <td>
-            <input type="text" size="10" value="10" id="count_gold_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-          </td>
-          <td>
+        <div style="padding: 20px;display:none;" id="page">
+          <div>
+            <br>
+            <br>
+            <br>
+          </div>
+          
+          <div class="btn-group" id="time_control">
+            <button class="button" onclick="selectTime(5)">5 min</button>
+            <button class="button" onclick="selectTime(10)">10 min</button>
+            <button class="button" onclick="selectTime(15)">15 min</button>
+            <button class="button" onclick="selectTime(20)">20 min</button>
+            <button class="button" onclick="selectTime(25)">25 min</button>
+            <button class="button" onclick="selectTime(30)">30 min</button>
+            <button class="button" onclick="selectTime(35)">35 min</button>
+            <button class="button" onclick="selectTime(40)">40 min</button>
+          </div>
+          <script type="text/javascript">
+            function selectTime(time) {
+              $("#time_control button").removeClass("selected");
+              var button = $("#time_control button")[time/5-1];
+              $(button).addClass("selected");
+              draw(final_result[time], ml[time], time);
+              updateTable(final_result[time]);
+              currentTime = time;
+            }
+          </script>
+          <div>
+            <br>
+            <br>
+            <br>
+          </div>
+          <div id="table" style="display:none;">
+            <table>
+              <tr>
+                <th>Attr</th>
+                <th>TEAM 1</th>
+                <th>TEAM 2</th>
+              </tr>
+              <td>
+                <i class="fa fa-cubes" aria-hidden="true"></i>
+                Gold
+              </td>
+              <td>
+                <input type="text" size="10" value="10" id="count_gold_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="10" id="count_gold_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+            </tr>
             
-            <input type="text" size="10" value="10" id="count_gold_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-        </tr>
-        
-        <tr> 
-          <td>
-            <i class="fa fa-fort-awesome" aria-hidden="true"></i>
-            Out Tower
-          </td>
-          <td>
-            
-            <input type="text" size="10" value="10" id="count_tower_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-          <td>
-            
-            <input type="text" size="10" value="10" id="count_tower_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-        </tr>
+            <tr> 
+              <td>
+                <i class="fa fa-fort-awesome" aria-hidden="true"></i>
+                Out Tower
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="10" id="count_tower_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="10" id="count_tower_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+            </tr>
 
-        <tr> 
-          <td>
-            <i class="fa fa-fort-awesome" aria-hidden="true"></i>
-            Inner Tower
-          </td>
-          <td>
-            <input type="text" size="10" value="10" id="count_inner_tower_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+            <tr> 
+              <td>
+                <i class="fa fa-fort-awesome" aria-hidden="true"></i>
+                Inner Tower
+              </td>
+              <td>
+                <input type="text" size="10" value="10" id="count_inner_tower_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="10" id="count_inner_tower_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+            </tr>
             
-          </td>
-          <td>
-            
-            <input type="text" size="10" value="10" id="count_inner_tower_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-        </tr>
-        
-        <tr>
-          <td>
-            <i class="fa fa-superpowers" aria-hidden="true"></i>
-            Ward
-          </td>
-          <td>
-            
-            <input type="text" size="10" value="1000" id="count_ward_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-          <td>
-            
-            <input type="text" size="10" value="1500" id="count_ward_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-        </tr>
+            <tr>
+              <td>
+                <i class="fa fa-superpowers" aria-hidden="true"></i>
+                Ward
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="1000" id="count_ward_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="1500" id="count_ward_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+            </tr>
 
-        <tr>
-          <td>
-            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-            Dragon
-          </td>
-          <td>
-            
-            <input type="text" size="10" value="1000" id="count_dragon_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-          <td>
-            
-            <input type="text" size="10" value="1500" id="count_dragon_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-        </tr>
+            <tr>
+              <td>
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                Dragon
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="1000" id="count_dragon_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="1500" id="count_dragon_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+            </tr>
 
-        <tr>
-          <td>
-            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-            Baron
-          </td>
-          <td>
-            
-            <input type="text" size="10" value="1000" id="count_baron_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-          <td>
-            
-            <input type="text" size="10" value="1500" id="count_baron_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
-            
-          </td>
-        </tr>
-      </table>
-      <button type="button" id="run_model" class="btn btn-success" onclick="runModel()">Run</button>
-      <script>
-        function runModel() {
-          tmpData = JSON.parse(JSON.stringify(final_result[currentTime]));
-          tmpData["team"][0]["gold"] = $("#count_gold_1")[0].value;
-          tmpData["team"][1]["gold"] = $("#count_gold_2")[0].value;
-          tmpData["team"][0]["inner_and_outer_turret"] = $("#count_tower_1")[0].value;
-          tmpData["team"][0]["base_and_nexus_turret"] = $("#count_inner_tower_1")[0].value;
-          tmpData["team"][1]["inner_and_outer_turret"] = $("#count_tower_2")[0].value;
-          tmpData["team"][1]["base_and_nexus_turret"] = $("#count_inner_tower_2")[0].value;
-          tmpData["team"][0]["ward"] = $("#count_ward_1")[0].value;
-          tmpData["team"][1]["ward"] = $("#count_ward_2")[0].value;
-          tmpData["team"][0]["dragon"] = $("#count_dragon_1")[0].value;
-          tmpData["team"][1]["dragon"] = $("#count_dragon_2")[0].value;
-          tmpData["team"][0]["baron"] = $("#count_baron_1")[0].value;
-          tmpData["team"][1]["baron"] = $("#count_baron_2")[0].value;
-          tmpML = getMLData(tmpData, item_weight, currentTime);
-          tmpML["heros-item-diff"] = ml[currentTime]["heros-item-diff"];
-          draw(tmpData, tmpML, currentTime);
-        }
-      </script>
-      </div>
-      <br>
-      <br>
-      <br>
-      <br>
-      <svg id="area0"></svg>
-      <!--width="700" height="2000"-->
-    </div> 
-  </div>
+            <tr>
+              <td>
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                Baron
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="1000" id="count_baron_1" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+              <td>
+                
+                <input type="text" size="10" value="1500" id="count_baron_2" style="border: 2px solid grey; border-radius: 4px; color: black; background-color: white;">
+                
+              </td>
+            </tr>
+          </table>
+          <button type="button" id="run_model" class="btn btn-success" onclick="runModel()">Run</button>
+          <script>
+            function runModel() {
+              tmpData = JSON.parse(JSON.stringify(final_result[currentTime]));
+              tmpData["team"][0]["gold"] = $("#count_gold_1")[0].value;
+              tmpData["team"][1]["gold"] = $("#count_gold_2")[0].value;
+              tmpData["team"][0]["inner_and_outer_turret"] = $("#count_tower_1")[0].value;
+              tmpData["team"][0]["base_and_nexus_turret"] = $("#count_inner_tower_1")[0].value;
+              tmpData["team"][1]["inner_and_outer_turret"] = $("#count_tower_2")[0].value;
+              tmpData["team"][1]["base_and_nexus_turret"] = $("#count_inner_tower_2")[0].value;
+              tmpData["team"][0]["ward"] = $("#count_ward_1")[0].value;
+              tmpData["team"][1]["ward"] = $("#count_ward_2")[0].value;
+              tmpData["team"][0]["dragon"] = $("#count_dragon_1")[0].value;
+              tmpData["team"][1]["dragon"] = $("#count_dragon_2")[0].value;
+              tmpData["team"][0]["baron"] = $("#count_baron_1")[0].value;
+              tmpData["team"][1]["baron"] = $("#count_baron_2")[0].value;
+              tmpML = getMLData(tmpData, item_weight, currentTime);
+              tmpML["heros-item-diff"] = ml[currentTime]["heros-item-diff"];
+              draw(tmpData, tmpML, currentTime);
+            }
+          </script>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <svg id="area0"></svg>
+        <!--width="700" height="2000"-->
+      </div> 
+    </div>
   </div>
   
 
@@ -536,105 +536,105 @@ select  {
     <p class="w3-opacity"><i>We love games</i></p>
     <p class="w3-justify">League of Legends (abbreviated LoL) is a multiplayer online battle arena video game developed and published by Riot Games. It was generally well received at release, and has grown in popularity, with an active and expansive fanbase.
 
-    Our project is a real-time winning prediction system based on current battle situations such as items, experiences, positions. A successful implementation can predict winning possibility, help adjust current strategies and add more favor to game experiences. </p>
-    <div class="w3-row w3-padding-32">
-      <div class="w3-third">
-        <p>Yinzi Zhu</p>
-        <img src="static/img/1.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
+      Our project is a real-time winning prediction system based on current battle situations such as items, experiences, positions. A successful implementation can predict winning possibility, help adjust current strategies and add more favor to game experiences. </p>
+      <div class="w3-row w3-padding-32">
+        <div class="w3-third">
+          <p>Yinzi Zhu</p>
+          <img src="static/img/1.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
+        </div>
+        <div class="w3-third">
+          <p>Pei Lyu</p>
+          <img src="static/img/1.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
+        </div>
+        <div class="w3-third">
+          <p>Yiwei Li</p>
+          <img src="static/img/1.jpg" class="w3-round" alt="Random Name" style="width:60%">
+        </div>
       </div>
-      <div class="w3-third">
-        <p>Pei Lyu</p>
-        <img src="static/img/1.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
-      </div>
-      <div class="w3-third">
-        <p>Yiwei Li</p>
-        <img src="static/img/1.jpg" class="w3-round" alt="Random Name" style="width:60%">
-      </div>
-    </div>
 
-    <div class="w3-row w3-padding-32">
-      <div class="w3-third">
-        <p>Yongrui Lin</p>
-        <img src="static/img/2.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
-      </div>
-      <div class="w3-third">
-        <p>Yidong Liu</p>
-        <img src="static/img/2.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
-      </div>
-      <div class="w3-third">
-        <p>Nan Li</p>
-        <img src="static/img/2.jpg" class="w3-round" alt="Random Name" style="width:60%">
+      <div class="w3-row w3-padding-32">
+        <div class="w3-third">
+          <p>Yongrui Lin</p>
+          <img src="static/img/2.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
+        </div>
+        <div class="w3-third">
+          <p>Yidong Liu</p>
+          <img src="static/img/2.jpg" class="w3-round w3-margin-bottom" alt="Random Name" style="width:60%">
+        </div>
+        <div class="w3-third">
+          <p>Nan Li</p>
+          <img src="static/img/2.jpg" class="w3-round" alt="Random Name" style="width:60%">
+        </div>
       </div>
     </div>
-  </div>
     <!-- The Contact Section -->
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
-    <h2 class="w3-wide w3-center">CONTACT</h2>
-    <p class="w3-opacity w3-center"><i>Fan? Drop a note and support us!</i></p>
-    <div class="w3-row w3-padding-32">
-      <div class="w3-col m6 w3-large w3-margin-bottom">
-        <i class="fa fa-map-marker" style="width:30px"></i> Atlanta, US<br>
-        <i class="fa fa-phone" style="width:30px"></i> Phone: +1 404 404 404<br>
-        <i class="fa fa-envelope" style="width:30px"> </i> Email: mail@mail.com<br>
-      </div>
-      <div class="w3-col m6">
-        <form action="/action_page.php" target="_blank">
-          <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
-            <div class="w3-half">
-              <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
+      <h2 class="w3-wide w3-center">CONTACT</h2>
+      <p class="w3-opacity w3-center"><i>Fan? Drop a note and support us!</i></p>
+      <div class="w3-row w3-padding-32">
+        <div class="w3-col m6 w3-large w3-margin-bottom">
+          <i class="fa fa-map-marker" style="width:30px"></i> Atlanta, US<br>
+          <i class="fa fa-phone" style="width:30px"></i> Phone: +1 404 404 404<br>
+          <i class="fa fa-envelope" style="width:30px"> </i> Email: mail@mail.com<br>
+        </div>
+        <div class="w3-col m6">
+          <form action="/action_page.php" target="_blank">
+            <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+              <div class="w3-half">
+                <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+              </div>
+              <div class="w3-half">
+                <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+              </div>
             </div>
-            <div class="w3-half">
-              <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
-            </div>
-          </div>
-          <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
-          <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
-        </form>
+            <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+            <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-var myIndex = 0;
-carousel();
-function carousel() {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    for (i = 0; i < x.length; i++) {
+  <script>
+    var myIndex = 0;
+    carousel();
+    function carousel() {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      for (i = 0; i < x.length; i++) {
        x[i].style.display = "none";  
+     }
+     myIndex++;
+     if (myIndex > x.length) {myIndex = 1}    
+      x[myIndex-1].style.display = "block";  
+      setTimeout(carousel, 2000); // Change image every 2 seconds
     }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}    
-    x[myIndex-1].style.display = "block";  
-    setTimeout(carousel, 2000); // Change image every 2 seconds
-}
-function myFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
+    function myFunction() {
+      var x = document.getElementById("navDemo");
+      if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
-    } else { 
+      } else { 
         x.className = x.className.replace(" w3-show", "");
+      }
     }
-}
-function openNav() {
-    console.log("here");
-    document.getElementById("mySidebar").style.display = 'block';
-    document.getElementById("mySidebar").style.width = '20%';
-    document.getElementById("mySidebar").style.height = '70%';
+    function openNav() {
+      console.log("here");
+      document.getElementById("mySidebar").style.display = 'block';
+      document.getElementById("mySidebar").style.width = '20%';
+      document.getElementById("mySidebar").style.height = '70%';
     }
-function closeNav() {
-document.getElementById("mySidebar").style.display = "none";
-}
+    function closeNav() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
 
-</script>
-<footer class="w3-container w3-padding-16 w3-center w3-opacity w3-light-grey w3-xlarge">
-  <i class="fa fa-facebook-official w3-hover-opacity" onclick="fun()"></i>
-  <i class="fa fa-instagram w3-hover-opacity"></i>
-  <i class="fa fa-snapchat w3-hover-opacity"></i>
-  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-  <i class="fa fa-twitter w3-hover-opacity"></i>
-  <i class="fa fa-linkedin w3-hover-opacity"></i>
-</footer>
+  </script>
+  <footer class="w3-container w3-padding-16 w3-center w3-opacity w3-light-grey w3-xlarge">
+    <i class="fa fa-facebook-official w3-hover-opacity" onclick="fun()"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </footer>
 </body>
 </html>

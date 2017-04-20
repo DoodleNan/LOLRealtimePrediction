@@ -186,6 +186,16 @@ function getMatchData(matchId, region) {
         $("#page").show();
         $("#table").hide();
         d3.select("svg").selectAll("*").remove();
+        var buttons = $("#time_control button");
+        var num = final_result['count'];
+        for (var i = 0; i < num; i ++) {
+        	buttons[i].disabled = false;
+        	$(buttons[i]).removeClass("selected");
+        }
+        for (var i = num; i < 8; i ++) {
+        	buttons[i].disabled = true;
+        	$(buttons[i]).removeClass("selected");
+        }
 
         //draw(final_result[30], ml[30]);
 
@@ -209,9 +219,10 @@ function parseData(response){
 		championId.push(d.championId);
 	});
 	result['championId'] = championId;
-	final_result['participant_attribute'] = participant_attr;
-	final_result['team_attribute'] = team_attr;
-	final_result['item_id'] = itemId;
+	result['participant_attribute'] = participant_attr;
+	result['team_attribute'] = team_attr;
+	result['item_id'] = itemId;
+	result['count'] = 0
 
 	var timeline = {};
 	timeline['team'] = Array(2).fill(null).map(() => Object());
@@ -410,6 +421,7 @@ function parseData(response){
 				i = i - i % 5 + 5;
 			}
             result[i.toString()] = (JSON.parse(JSON.stringify(timeline)));
+            result['count'] ++;
             end += 5;
         }
 	}

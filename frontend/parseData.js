@@ -488,101 +488,121 @@ function calculateSinglePrediction(current, weight) {
 }
 
 function draw(result, MLData, time) {
-    var winrate = [];
-    for (var i = 5; i <= time; i+=5) {
-    	winrate.push(predicted[i]);
-    }
-    // for (var i = time + 5; i <= 40; i +=5) {
-    // 	winrate.push(0.0)
-    // }
-    var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
-    var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
-    var parlevel0 = [];
-    var parlevel1 = [];
-    var adv = []
-    var disadv = []
-    if (MLData["heros-assist-diff"] > 0) {
-    	adv.push({legend: "heros-assist-diff", value: MLData["heros-assist-diff"]});
-    }else if (MLData["heros-assist-diff"] < 0){
-    	disadv.push({legend: "heros-assist-diff", value: MLData["heros-assist-diff"]});
-    }
-
-    if (MLData["heros-death-diff-diff"] > 0) {
-    	adv.push({legend: "heros-death-diff", value: MLData["heros-death-diff"]});
-    }else if (MLData["heros-death-diff"] < 0){
-    	disadv.push({legend: "heros-death-diff", value: MLData["heros-death-diff"]});
-    }
-
-    if (MLData["heros-item-diff"] > 0) {
-    	adv.push({legend: "heros-item-diff", value: MLData["heros-item-diff"]});
-    }else if (MLData["heros-item-diff"] < 0){
-    	disadv.push({legend: "heros-item-diff", value: MLData["heros-item-diff"]});
-    }
-
-    if (MLData["heros-kill-diff"] > 0) {
-    	adv.push({legend: "heros-kill-diff", value: MLData["heros-kill-diff"]});
-    }else if (MLData["heros-kill-diff"] < 0){
-    	disadv.push({legend: "heros-kill-diff", value: MLData["heros-kill-diff"]});
-    }
-
-    if (MLData["team-baron-diff"] > 0) {
-    	adv.push({legend: "team-baron-diff", value: MLData["team-baron-diff"]});
-    }else if (MLData["team-baron-diff"] < 0){
-    	disadv.push({legend: "team-baron-diff", value: MLData["team-baron-diff"]});
-    }
-
-    if (MLData["team-baseturret-diff"] > 0) {
-    	adv.push({legend: "team-baseturret-diff", value: MLData["team-baseturret-diff"]});
-    }else if (MLData["team-baseturret-diff"] < 0){
-    	disadv.push({legend: "team-baseturret-diff", value: MLData["team-baseturret-diff"]});
-    }
-
-    if (MLData["team-dragon-diff"] > 0) {
-    	adv.push({legend: "team-dragon-diff", value: MLData["team-dragon-diff"]});
-    }else if (MLData["team-dragon-diff"] < 0){
-    	disadv.push({legend: "team-dragon-diff", value: MLData["team-dragon-diff"]});
-    }
-
-    if (MLData["team-gold-diff"] > 0) {
-    	adv.push({legend: "team-gold-diff", value: MLData["team-gold-diff"]});
-    }else if (MLData["team-gold-diff"] < 0){
-    	disadv.push({legend: "team-gold-diff", value: MLData["team-gold-diff"]});
-    }
-
-    if (MLData["team-inhabitor-diff"] > 0) {
-    	adv.push({legend: "team-inhabitor-diff", value: MLData["team-inhabitor-diff"]});
-    }else if (MLData["heros-assist-diff"] < 0){
-    	disadv.push({legend: "team-inhabitor-diff", value: MLData["team-inhabitor-diff"]});
-    }
-
-    if (MLData["team-outturret-diff"] > 0) {
-    	adv.push({legend: "team-outturret-diff", value: MLData["team-outturret-diff"]});
-    }else if (MLData["team-outturret-diff"] < 0){
-    	disadv.push({legend: "team-outturret-diff", value: MLData["team-outturret-diff"]});
-    }
-
-    if (MLData["team-ward-diff"] > 0) {
-    	adv.push({legend: "team-ward-diff", value: MLData["team-ward-diff"]});
-    }else if (MLData["team-ward-diff"] < 0){
-    	disadv.push({legend: "team-ward-diff", value: MLData["team-ward-diff"]});
-    }
-
-
-    for (var i = 0; i < 5; i++) {
-    	parlevel0.push(result["participant"][i]["level"]);
-    	parlevel1.push(result["participant"][i+5]["level"]);
-    }
-
-    var margin = {top: 30, right: 20, bottom: 30, left: 50},
-      width = 800 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+        var winrate = [];
+        for (var i = 5; i <= time; i+=5) {
+        	winrate.push(predicted[i]);
+        }
         
-    // svg--------------------------
-    var svg = d3.select("svg")
-    			.attr("height", 2000)
-    			.attr("width", 1400);
-    svg.selectAll("*").remove();
-    $("#table").show();
+        var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
+        var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
+        var parlevel0 = [];
+        var parlevel1 = [];
+        var parkill0 = [];
+        var parkill1 = [];
+        var pardeath0 = [];
+        var pardeath1 = [];
+
+        var adv = [];
+        var disadv = [];
+
+        if (MLData["heros-assist-diff"] > 0) {
+        	adv.push({legend: "heros-assist-diff", value: MLData["heros-assist-diff"]});
+        }else if (MLData["heros-assist-diff"] < 0){
+        	disadv.push({legend: "heros-assist-diff", value: MLData["heros-assist-diff"]});
+        }
+
+        if (MLData["heros-death-diff-diff"] > 0) {
+        	adv.push({legend: "heros-death-diff", value: MLData["heros-death-diff"]});
+        }else if (MLData["heros-death-diff"] < 0){
+        	disadv.push({legend: "heros-death-diff", value: MLData["heros-death-diff"]});
+        }
+
+        if (MLData["heros-item-diff"] > 0) {
+        	adv.push({legend: "heros-item-diff", value: MLData["heros-item-diff"]});
+        }else if (MLData["heros-item-diff"] < 0){
+        	disadv.push({legend: "heros-item-diff", value: MLData["heros-item-diff"]});
+        }
+
+        if (MLData["heros-kill-diff"] > 0) {
+        	adv.push({legend: "heros-kill-diff", value: MLData["heros-kill-diff"]});
+        }else if (MLData["heros-kill-diff"] < 0){
+        	disadv.push({legend: "heros-kill-diff", value: MLData["heros-kill-diff"]});
+        }
+
+        if (MLData["team-baron-diff"] > 0) {
+        	adv.push({legend: "team-baron-diff", value: MLData["team-baron-diff"]});
+        }else if (MLData["team-baron-diff"] < 0){
+        	disadv.push({legend: "team-baron-diff", value: MLData["team-baron-diff"]});
+        }
+
+        if (MLData["team-baseturret-diff"] > 0) {
+        	adv.push({legend: "team-baseturret-diff", value: MLData["team-baseturret-diff"]});
+        }else if (MLData["team-baseturret-diff"] < 0){
+        	disadv.push({legend: "team-baseturret-diff", value: MLData["team-baseturret-diff"]});
+        }
+
+        if (MLData["team-dragon-diff"] > 0) {
+        	adv.push({legend: "team-dragon-diff", value: MLData["team-dragon-diff"]});
+        }else if (MLData["team-dragon-diff"] < 0){
+        	disadv.push({legend: "team-dragon-diff", value: MLData["team-dragon-diff"]});
+        }
+
+        if (MLData["team-gold-diff"] > 0) {
+        	adv.push({legend: "team-gold-diff", value: MLData["team-gold-diff"]});
+        }else if (MLData["team-gold-diff"] < 0){
+        	disadv.push({legend: "team-gold-diff", value: MLData["team-gold-diff"]});
+        }
+
+        if (MLData["team-inhabitor-diff"] > 0) {
+        	adv.push({legend: "team-inhabitor-diff", value: MLData["team-inhabitor-diff"]});
+        }else if (MLData["heros-assist-diff"] < 0){
+        	disadv.push({legend: "team-inhabitor-diff", value: MLData["team-inhabitor-diff"]});
+        }
+
+        if (MLData["team-outturret-diff"] > 0) {
+        	adv.push({legend: "team-outturret-diff", value: MLData["team-outturret-diff"]});
+        }else if (MLData["team-outturret-diff"] < 0){
+        	disadv.push({legend: "team-outturret-diff", value: MLData["team-outturret-diff"]});
+        }
+
+        if (MLData["team-ward-diff"] > 0) {
+        	adv.push({legend: "team-ward-diff", value: MLData["team-ward-diff"]});
+        }else if (MLData["team-ward-diff"] < 0){
+        	disadv.push({legend: "team-ward-diff", value: MLData["team-ward-diff"]});
+        }
+
+
+        for (var i = 0; i < 5; i++) {
+        	parlevel0.push(result["participant"][i]["level"]);
+        	parlevel1.push(result["participant"][i+5]["level"]);
+        }
+
+        for (var i = 0; i < 5; i++) {
+        	if (result["participant"][i]["kill"]){
+        		parkill0.push(result["participant"][i]["kill"]);
+        	}
+        	if (result["participant"][i+5]["kill"]){
+        		parkill1.push(result["participant"][i+5]["kill"]);
+        	}
+        	if (result["participant"][i]["death"]){
+        		pardeath0.push(result["participant"][i]["death"]);
+        	}
+        	if (result["participant"][i+5]["death"]){
+        		pardeath1.push(result["participant"][i+5]["death"]);
+        	}
+        }
+
+        
+        var margin = {top: 30, right: 20, bottom: 30, left: 50},
+          width = 800 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom;
+        
+        var svg = d3.select("svg")
+        			.attr("background-color", "black")
+        			.attr("height", 3000)
+        			.attr("width", 1400);
+        svg.selectAll("*").remove();
+        $("#table").show();
 
     var x = d3.scale.linear().range([0, width]).domain([0,8]);
     var y = d3.scale.linear().range([height, 0]).domain([0,1]);
@@ -714,270 +734,159 @@ function draw(result, MLData, time) {
       .attr("dy", ".71em")
       .style("text-anchor", "end")
         
+        g_compare_1.selectAll("bar")
+          .data(gold)
+          .enter().append("rect")
+          .style("fill", function(d, i){
+          	if (i == 0) {
+          		return "#d07a21"
+          	}else{
+          		return "#386ecb"
+          	}
+          })
+          .attr("x", function(d, i) { if(i == 0){
+            return 55;
+          }else{
+            
+            return 105;
+          } })
+          .attr("width", 30)
+          .attr("y", function(d) { return y_compare_1(d); })
+          .attr("height", function(d) { return 150 - y_compare_1(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Gold:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1.0);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+
+        // chart team 2
+        var x_compare_2 = d3.scale.linear().range([0, 200]).domain([0,1]);
+        var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 80]);
+        var xAxis_compare_2 = d3.svg.axis()
+          .scale(x_compare_2)
+          .orient("bottom")
+          .ticks("0");
+        var yAxis_compare_2 = d3.svg.axis()
+          .scale(y_compare_2)
+          .orient("left")
+          .ticks(5);
+        var g_compare_2 = g_compare.append("g")
+          .attr("transform", "translate(350, 700)");
+        g_compare_2.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0, 150)")
+          .call(xAxis_compare_2)
+          .append("text")
+          .text("team1" + "\t\t"  + "team2")
+          .attr("transform", "translate(60, 20)");
+
+        g_compare_2.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(0, 0)")
+          .call(yAxis_compare_2)
+          .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("ward");
+
+        g_compare_2.selectAll("bar")
+          .data(ward)
+          .enter()
+          .append("rect")
+          .style("fill", function(d, i){
+          	if (i == 0) {
+          		return "#d07a21"
+          	}else{
+          		return "#386ecb"
+          	}
+          })
+          .attr("x", function(d, i) { if(i == 0){
+            return 55;
+          }else{
+            return 105;
+          } })
+          .attr("width", 30)
+          .attr("y", function(d) { return y_compare_2(d); })
+          .attr("height", function(d) { return 150 - y_compare_2(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Ward:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+
+
+        var par_section = svg.append("g")
+        	.attr("transform", "translate(0, 900)")
+        par_section.append("rect")
+        	.style("fill", "grey")
+        	.attr("height", 60)
+        	.attr("width", 100)
+        par_section.append("text")
+        	.text("Player Analysis")
+        	.attr("y", 40)
+        	.style("stroke", "white")
+
+        // chart participant level 1
+        var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
+        var y_compare_3 = d3.scale.linear().range([300, 0]).domain([0, d3.max(parlevel0)+5]);
+        var y_compare_3_2 = d3.scale.linear().range([300, 0]).domain([0, d3.max(parlevel1)+5]);
         
-    g_compare_1.selectAll("bar")
-      .data(gold)
-      .enter().append("rect")
-      .style("fill", function(d, i){
-      	if (i == 0) {
-      		return "#d07a21"
-      	}else{
-      		return "#386ecb"
-      	}
-      })
-      .attr("x", function(d, i) { if(i == 0){
-        return 55;
-      }else{
-        
-        return 105;
-      } })
-      .attr("width", 30)
-      .attr("y", function(d) { return y_compare_1(d); })
-      .attr("height", function(d) { return 150 - y_compare_1(d); })
-      .on("mouseover", function(d){
-      	  d3.select(this).transition()
-    		.duration(750)
-    		.style("opacity", 1.5);
-          div.transition()    
-            .duration(200)    
-            .style("opacity", .9);    
-          div.html(
-            "<strong>Gold:</strong> <span>" + Number(d) + "</span>"
-            )
-            .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
-        })
-        .on("mouseout", function(d){
-        	d3.select(this).transition()
-    			.duration(750)
-				.style("opacity", 1.0);
-          	div.transition()    
-            	.duration(500)    
-            	.style("opacity", 0);
-        });
-
-    // chart team 2
-    var x_compare_2 = d3.scale.linear().range([0, 200]).domain([0,1]);
-    var y_compare_2 = d3.scale.linear().range([150, 0]).domain([0, 80]);
-    var xAxis_compare_2 = d3.svg.axis()
-      .scale(x_compare_2)
-      .orient("bottom")
-      .ticks("0");
-    var yAxis_compare_2 = d3.svg.axis()
-      .scale(y_compare_2)
-      .orient("left")
-      .ticks(5);
-    var g_compare_2 = g_compare.append("g")
-      .attr("transform", "translate(350, 700)");
-    g_compare_2.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0, 150)")
-      .call(xAxis_compare_2)
-      .append("text")
-      .text("team1" + "\t\t"  + "team2")
-      .attr("transform", "translate(60, 20)");
-
-    g_compare_2.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(0, 0)")
-      .call(yAxis_compare_2)
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("ward");
-
-    g_compare_2.selectAll("bar")
-      .data(ward)
-      .enter()
-      .append("rect")
-      .style("fill", function(d, i){
-      	if (i == 0) {
-      		return "#d07a21"
-      	}else{
-      		return "#386ecb"
-      	}
-      })
-      .attr("x", function(d, i) { if(i == 0){
-        return 55;
-      }else{
-        return 105;
-      } })
-      .attr("width", 30)
-      .attr("y", function(d) { return y_compare_2(d); })
-      .attr("height", function(d) { return 150 - y_compare_2(d); })
-      .on("mouseover", function(d){
-      	  d3.select(this).transition()
-    		.duration(750)
-    		.style("opacity", 1.5);
-          div.transition()    
-            .duration(200)    
-            .style("opacity", .9);    
-          div.html(
-            "<strong>Ward:</strong> <span>" + Number(d) + "</span>"
-            )
-            .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
-        })
-        .on("mouseout", function(d){
-        	d3.select(this).transition()
-    			.duration(750)
-				.style("opacity", 1);
-          	div.transition()    
-            	.duration(500)    
-            	.style("opacity", 0);
-        });
-
-
-    var par_section = svg.append("g")
-    	.attr("transform", "translate(0, 900)")
-    par_section.append("rect")
-    	.style("fill", "grey")
-    	.attr("height", 60)
-    	.attr("width", 100)
-    par_section.append("text")
-    	.text("Player Analysis")
-    	.attr("y", 40)
-    	.style("stroke", "white")
-
-    // chart participant level
-    var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
-    var y_compare_3 = d3.scale.linear().range([300, 0]).domain([d3.min(parlevel0), d3.max(parlevel0) + 5]);
-    
-    var xAxis_compare_3 = d3.svg.axis()
-      .scale(x_compare_3)
-      .orient("bottom")
-      .ticks(0)
-      .tickFormat("");
-    var yAxis_compare_3 = d3.svg.axis()
-      .scale(y_compare_3)
-      .orient("left")
-      .ticks(5);
-
-    var g_compare_3 = g_compare.append("g")
-    	.attr("transform", "translate(50, 900)");
-   	g_compare_3.append("g")
-   		.attr("class", "x axis")
-   		.attr("transform", "translate(0, 400)")
-   		.call(xAxis_compare_3)
-   		.append("text")
-        .style("text-anchor", "end")
-        .attr("x", 500)
-        .attr("y", -10)
-        .text("players");
- 		
- 
-
-   	g_compare_3.append("g")
-   		.attr("class", "y axis")
-   		.attr("transform", "translate(0, 100)")
-   		.call(yAxis_compare_3)
-   		.append("text")
-   		.attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      
-        .text("level");
-    g_compare_3.selectAll("bar")
-      .data(parlevel0)
-      .enter()
-      .append("rect")
-      .style("fill", "#d07a21")
-      .attr("x", function(d, i) { 
-      	return x_compare_3(i) + 20
-      	})
-      .attr("width", 50)
-      .attr("y", function(d) { return y_compare_3(d); })
-      .attr("height", function(d) { return 400 - y_compare_3(d); })
-      .on("mouseover", function(d){
-      	  d3.select(this).transition()
-    		.duration(750)
-    		.style("opacity", 1.5);
-          div.transition()    
-            .duration(200)    
-            .style("opacity", .9);    
-          div.html(
-            "<strong>Level:</strong> <span>" + Number(d) + "</span>"
-            )
-            .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
-        })
-        .on("mouseout", function(d){
-        	d3.select(this).transition()
-    			.duration(750)
-				.style("opacity", 1);
-          	div.transition()    
-            	.duration(500)    
-            	.style("opacity", 0);
-        });;
-
-    // participant chart team 2
-    var xAxis_compare_3 = d3.svg.axis()
-      .scale(x_compare_3)
-      .orient("bottom")
-      .ticks(0)
-      .tickFormat("");
-    var yAxis_compare_3 = d3.svg.axis()
-      .scale(y_compare_3)
-      .orient("left")
-      .ticks(5);
-
-    var g_compare_3 = g_compare.append("g")
-    	.attr("transform", "translate(580, 900)");
-   	g_compare_3.append("g")
-   		.attr("class", "x axis")
-   		.attr("transform", "translate(0, 400)")
-   		.call(xAxis_compare_3)
-   		.append("text")
-        .style("text-anchor", "end")
-        .attr("x", 500)
-        .attr("y", -10)
-        .text("players");
-
-   	g_compare_3.append("g")
-   		.attr("class", "y axis")
-   		.attr("transform", "translate(0, 100)")
-   		.call(yAxis_compare_3)
-   		.append("text")
-   		.attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      
-        .text("level");
-    g_compare_3.selectAll("bar")
-      .data(parlevel1)
-      .enter()
-      .append("rect")
-      .style("fill", "#386ecb")
-      .attr("x", function(d, i) { 
-      	return x_compare_3(i) + 20
-      	})
-      .attr("width", 50)
-      .attr("y", function(d) { return y_compare_3(d); })
-      .attr("height", function(d) { return 400 - y_compare_3(d); })
-      .on("mouseover", function(d){
-      	  d3.select(this).transition()
-    		.duration(750)
-    		.style("opacity", 1.5);
-          div.transition()    
-            .duration(200)    
-            .style("opacity", .9);    
-          div.html(
-            "<strong>Level:</strong> <span>" + Number(d) + "</span>"
-            )
-            .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
-        })
-        .on("mouseout", function(d){
-        	d3.select(this).transition()
-    			.duration(750)
-				.style("opacity", 1);
-          	div.transition()    
-            	.duration(500)    
-            	.style("opacity", 0);
-        });;
-    
-
-      // pie chart
+        var xAxis_compare_3 = d3.svg.axis()
+          .scale(x_compare_3)
+          .orient("bottom")
+          .ticks(0)
+          .tickFormat("");
+        var yAxis_compare_3 = d3.svg.axis()
+          .scale(y_compare_3)
+          .orient("left")
+          .ticks(5);
+        var yAxis_compare_3_2 = d3.svg.axis()
+          .scale(y_compare_3_2)
+          .orient("left")
+          .ticks(5);
+        var g_compare_3 = g_compare.append("g")
+        	.attr("transform", "translate(50, 900)");
+       	g_compare_3.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
      
 	var color = d3.scale.category20();
 	var g_pie = svg.append("g")
@@ -993,132 +902,511 @@ function draw(result, MLData, time) {
 	  return d.value;
 	});
 
-	var pie = g_pie.selectAll(".fan")
-	.data(pieValue(adv))
-	.enter()
-	.append("g")
-	.attr("transform", "translate(50, 100)")
-	.attr("class", "fan");
 
-	pie.append("path")
-	.attr("d", arc)
-	.style("fill", function(d, i){
-	  return color(i);
-	})
-	.on("mouseover", function(d){
-		  d3.select(this).transition()
-		.duration(750)
-		.style("opacity", 1.5);
-	  div.transition()    
-	    .duration(200)    
-	    .style("opacity", .9);    
-	  div.html(
-	    "<strong>Weight:</strong> <span>" + d.data.legend + "</span>"
-	    )
-	    .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
-	})
-	.on("mouseout", function(d){
-		d3.select(this).transition()
-			.duration(750)
-			.style("opacity", 1);
-	  	div.transition()    
-	    	.duration(500)    
-	    	.style("opacity", 0);
-	});
+       	g_compare_3.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          
+	        .text("level");
+	    g_compare_3.selectAll("bar")
+          .data(parlevel0)
+          .enter()
+          .append("rect")
+          .style("fill", "#d07a21")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3(d)+100; })
+          .attr("height", function(d) { return 300 - y_compare_3(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
 
+        // participant chart team 2
+       
+        var g_compare_4 = g_compare.append("g")
+        	.attr("transform", "translate(580, 900)");
+       	g_compare_4.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
 
-	pie.append("rect")
-		.attr("x", 150)
-		.attr("y", function(d, i){
-			return i * 20 - 50;
-		})
-		.attr("width", 20)
-		.attr("height", 20)
-		.style("fill", function(d, i){
-			return color(i);
-		})
-
-	pie.append("text")
-	.attr("transform", function(d, i){
-	  return "translate(180," + (i * 20 - 38) + ")";
-	})
-	.style("text-anchor", "left")
-	.style("stroke", "white")
-	.text(function(d){
-	  return d.data.legend;
-	})
-
-
-	// pie chart 2
-	var color = d3.scale.category20();
-	var g_pie = svg.append("g")
-	.attr("width", 350)
-	.attr("height", 200)
-	.attr("transform", "translate(630, 1500)");
-	var arc = d3.svg.arc()
-	.outerRadius(100)
-	.innerRadius(50);
-	var pieValue = d3.layout.pie()
-	.sort(null)
-	.value(function(d){
-	  return d.value;
-	});
-
-	var pie = g_pie.selectAll(".fan")
-	.data(pieValue(disadv))
-	.enter()
-	.append("g")
-	.attr("transform", "translate(50, 100)")
-	.attr("class", "fan");
-
-	pie.append("path")
-	.attr("d", arc)
-	.style("fill", function(d, i){
-	  return color(i);
-	})
-	.on("mouseover", function(d){
-		  d3.select(this).transition()
-		.duration(750)
-		.style("opacity", 1.5);
-	  div.transition()    
-	    .duration(200)    
-	    .style("opacity", .9);    
-	  div.html(
-	    "<strong>Weight:</strong> <span>" + d.data.legend + "</span>"
-	    )
-	    .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
-	})
-	.on("mouseout", function(d){
-		d3.select(this).transition()
-			.duration(750)
-			.style("opacity", 1);
-	  	div.transition()    
-	    	.duration(500)    
-	    	.style("opacity", 0);
-	});
+       	g_compare_4.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3_2)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+	        .text("level");
+	    g_compare_4.selectAll("bar")
+          .data(parlevel1)
+          .enter()
+          .append("rect")
+          .style("fill", "#386ecb")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3_2(d)+100; })
+          .attr("height", function(d) { return 300 - y_compare_3_2(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+        
 
 
-	pie.append("rect")
-		.attr("x", 150)
-		.attr("y", function(d, i){
-			return i * 20 - 50;
-		})
-		.attr("width", 20)
-		.attr("height", 20)
-		.style("fill", function(d, i){
-			return color(i);
-		});
+        var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
+        var y_compare_3 = d3.scale.linear().range([300, 0]).domain([0, d3.max(parkill0)+5]);
+        var y_compare_3_2 = d3.scale.linear().range([300, 0]).domain([0, d3.max(parkill1)+5]);
+        
+        var xAxis_compare_3 = d3.svg.axis()
+          .scale(x_compare_3)
+          .orient("bottom")
+          .ticks(0)
+          .tickFormat("");
+        var yAxis_compare_3 = d3.svg.axis()
+          .scale(y_compare_3)
+          .orient("left")
+          .ticks(5);
+        var yAxis_compare_3_2 = d3.svg.axis()
+          .scale(y_compare_3_2)
+          .orient("left")
+          .ticks(5);
+        var g_compare_3 = g_compare.append("g")
+        	.attr("transform", "translate(50, 1300)");
+       	g_compare_3.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
+     		
+     
 
-	pie.append("text")
-	.attr("transform", function(d, i){
-	  return "translate(180," + (i * 20 - 38) + ")";
-	})
-	.style("stroke", "white")
-	.style("text-anchor", "left")
-	.text(function(d){
-	  return d.data.legend;
-	});  
-}
+       	g_compare_3.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+	      .text("kill");
+	    g_compare_3.selectAll("bar")
+          .data(parkill0)
+          .enter()
+          .append("rect")
+          .style("fill", "#d07a21")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3(d)+100; })
+          .attr("height", function(d) { return 300 - y_compare_3(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            }); 
+
+
+        var g_compare_4 = g_compare.append("g")
+        	.attr("transform", "translate(580, 1300)");
+       	g_compare_4.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
+
+       	g_compare_4.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3_2)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+	        .text("kill");
+	    g_compare_4.selectAll("bar")
+          .data(parkill1)
+          .enter()
+          .append("rect")
+          .style("fill", "#386ecb")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3_2(d)+100; })
+          .attr("height", function(d) { return 300 - y_compare_3_2(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+
+          // chart participant level 1
+        var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
+        var y_compare_3 = d3.scale.linear().range([300, 0]).domain([0, d3.max(pardeath0)+5]);
+        var y_compare_3_2 = d3.scale.linear().range([300, 0]).domain([0, d3.max(pardeath1)+5]);
+        
+        var xAxis_compare_3 = d3.svg.axis()
+          .scale(x_compare_3)
+          .orient("bottom")
+          .ticks(0)
+          .tickFormat("");
+        var yAxis_compare_3 = d3.svg.axis()
+          .scale(y_compare_3)
+          .orient("left")
+          .ticks(5);
+        var yAxis_compare_3_2 = d3.svg.axis()
+          .scale(y_compare_3_2)
+          .orient("left")
+          .ticks(5);
+        var g_compare_3 = g_compare.append("g")
+        	.attr("transform", "translate(50, 1700)");
+       	g_compare_3.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
+     		
+       	g_compare_3.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+	      .text("death");
+	    g_compare_3.selectAll("bar")
+          .data(pardeath0)
+          .enter()
+          .append("rect")
+          .style("fill", "#d07a21")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3(d)+100; })
+          .attr("height", function(d) { return 300 - y_compare_3(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+
+        // participant chart team 2
+       
+        var g_compare_4 = g_compare.append("g")
+        	.attr("transform", "translate(580, 1700)");
+       	g_compare_4.append("g")
+       		.attr("class", "x axis")
+       		.attr("transform", "translate(0, 400)")
+       		.call(xAxis_compare_3)
+       		.append("text")
+	        .style("text-anchor", "end")
+	        .attr("x", 500)
+	        .attr("y", -10)
+	        .text("players");
+
+       	g_compare_4.append("g")
+       		.attr("class", "y axis")
+       		.attr("transform", "translate(0, 100)")
+       		.call(yAxis_compare_3_2)
+       		.append("text")
+       		.attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+	      .text("death");
+	    g_compare_4.selectAll("bar")
+          .data(pardeath1)
+          .enter()
+          .append("rect")
+          .style("fill", "#386ecb")
+          .attr("x", function(d, i) { 
+          	return x_compare_3(i) + 20
+          	})
+          .attr("width", 50)
+          .attr("y", function(d) { return y_compare_3_2(d)+100; })
+          .attr("height", function(d) { return 300 - y_compare_3_2(d); })
+          .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+          // pie chart
+         
+          var color = d3.scale.category20();
+          var g_pie = svg.append("g")
+            .attr("width", 350)
+            .attr("height", 200)
+            .attr("transform", "translate(150, 2200)");
+          var arc = d3.svg.arc()
+            .outerRadius(100)
+            .innerRadius(50);
+          var pieValue = d3.layout.pie()
+            .sort(null)
+            .value(function(d){
+              return d.value;
+            });
+
+          var pie = g_pie.selectAll(".fan")
+            .data(pieValue(adv))
+            .enter()
+            .append("g")
+            .attr("transform", "translate(50, 100)")
+            .attr("class", "fan");
+
+          pie.append("path")
+            .attr("d", arc)
+            .style("fill", function(d, i){
+              return color(i);
+            })
+            .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Weight:</strong> <span>" + d.data.legend + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+            
+
+          pie.append("rect")
+          	.attr("x", 150)
+          	.attr("y", function(d, i){
+          		return i * 20 - 50;
+          	})
+          	.attr("width", 20)
+          	.attr("height", 20)
+          	.style("fill", function(d, i){
+          		return color(i);
+          	})
+
+          pie.append("text")
+            .attr("transform", function(d, i){
+              return "translate(180," + (i * 20 - 38) + ")";
+            })
+            .style("text-anchor", "left")
+            .style("stroke", "white")
+            .text(function(d){
+              return d.data.legend;
+            })
+          
+
+          // pie chart 2
+          var color = d3.scale.category20();
+          var g_pie = svg.append("g")
+            .attr("width", 350)
+            .attr("height", 200)
+            .attr("transform", "translate(630, 2200)");
+          var arc = d3.svg.arc()
+            .outerRadius(100)
+            .innerRadius(50);
+          var pieValue = d3.layout.pie()
+            .sort(null)
+            .value(function(d){
+              if (d.value > 10) {
+              	return 10;
+              }else if(d.value < 1){
+              	return 1;
+              }else{
+              	return d.value;
+              }
+            });
+
+          var pie = g_pie.selectAll(".fan")
+            .data(pieValue(disadv))
+            .enter()
+            .append("g")
+            .attr("transform", "translate(50, 100)")
+            .attr("class", "fan");
+
+          pie.append("path")
+            .attr("d", arc)
+            .style("fill", function(d, i){
+              return color(i);
+            })
+            .on("mouseover", function(d){
+          	  d3.select(this).transition()
+        		.duration(750)
+        		.style("opacity", 1.5);
+              div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+              div.html(
+                "<strong>Weight:</strong> <span>" + d.data.legend + "</span>"
+                )
+                .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
+            })
+            .on("mouseout", function(d){
+            	d3.select(this).transition()
+        			.duration(750)
+    				.style("opacity", 1);
+              	div.transition()    
+                	.duration(500)    
+                	.style("opacity", 0);
+            });
+            
+
+          pie.append("rect")
+          	.attr("x", 150)
+          	.attr("y", function(d, i){
+          		return i * 20 - 50;
+          	})
+          	.attr("width", 20)
+          	.attr("height", 20)
+          	.style("fill", function(d, i){
+          		return color(i);
+          	});
+
+          pie.append("text")
+            .attr("transform", function(d, i){
+              return "translate(180," + (i * 20 - 38) + ")";
+            })
+            .style("stroke", "white")
+            .style("text-anchor", "left")
+            .text(function(d){
+              return d.data.legend;
+            });
+          }
 
 function updateTable(data) {
 	$("#count_gold_1")[0].value = data["team"][0]["gold"];

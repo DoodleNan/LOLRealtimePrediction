@@ -9,9 +9,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="lib/d3.v3.min.js"></script>
 <script type="text/javascript" src="parseData.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <style>
 body {font-family: "Lato", sans-serif}
 .mySlides {display: none}
@@ -185,6 +186,12 @@ select  {
   margin:auto;
 }
 
+.match_group button.btn-default {
+  width:100px;
+  margin-left:10px;
+  margin-right:10px;
+}
+
 .button.selected {
   background-color: white;
   color:black;
@@ -205,6 +212,12 @@ select  {
   margin:auto;
   margin-top:15px;
   display: block;
+}
+
+.caret {
+  position: absolute;
+  right:15px;
+  top:14px;
 }
 
 /*tr:nth-child(even){
@@ -297,23 +310,33 @@ select  {
       <div>
         <div class="input-group match_group">
           <input type="text" class="form-control" id="match_input" placeholder="match ID">
-          <span class="input-group-btn">
-            <select id="region" style="margin-left:5px;margin-right:5px;">
-              <option value="NA" selected="selected">NA</option>
-              <option value="BR">BR</option>
-              <option value="EUNE">EUNE</option>
-              <option value="EUW">EUW</option>
-              <option value="LAN">LAN</option>
-              <option value="LAS">LAS</option>
-              <option value="OCE">OCE</option>
-              <option value="RU">RU</option>
-              <option value="TR">TR</option>
-              <option value="JP">JP</option>
-              <option value="SEA">SEA</option>
-              <option value="KR">KR</option>
-              <option value="PBE">PBE</option>
-            </select>
-          </span>
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">REGION <span class="caret"></span></button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#/">NA</a></li>
+                <li><a href="#/">BR</a></li>
+                <li><a href="#/">EUNE</a></li>
+                <li><a href="#/">EUW</a></li>
+                <li><a href="#/">LAN</a></li>
+                <li><a href="#/">LAS</a></li>
+                <li><a href="#/">OCE</a></li>
+                <li><a href="#/">RU</a></li>
+                <li><a href="#/">TR</a></li>
+                <li><a href="#/">JP</a></li>
+                <li><a href="#/">SEA</a></li>
+                <li><a href="#/">KR</a></li>
+                <li><a href="#/">PBE</a></li>
+              </ul>
+              <script type="text/javascript">
+                $(function() {
+                  region = "";
+                })
+                $('.match_group li').on('click', function(){
+                    $(".match_group button.btn-default").html($(this).text()+"<span class='caret'></span>");
+                    region = $(this).text();
+                });
+              </script>
+            </div>
           <span class="input-group-btn">
             <button class="btn btn-danger" type="button" style="width:60px;margin-left:5px;margin-right:5px;" onclick="loadMatch()">Get</button>
           </span>
@@ -323,8 +346,17 @@ select  {
         function loadMatch() {
           //console.log("a");
           console.log($("#match_input")[0].value);
-          console.log($("#region")[0].value);
-          getMatchData($("#match_input")[0].value, $("#region")[0].value);
+          console.log(region);
+          if (region == "") {
+            alert("Select region!");
+            return;
+          }
+          var id = $("#match_input")[0].value;
+          if (id == "") {
+            alert("Invalid match ID!");
+            return;
+          }
+          getMatchData($("#match_input")[0].value, region);
         }
       </script>
 

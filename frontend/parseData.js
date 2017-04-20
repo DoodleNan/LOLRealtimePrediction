@@ -623,13 +623,39 @@ function draw(result, MLData, time) {
           .attr("class", "tooltip")       
           .style("opacity", 0);
 
+        // var Rate_section = svg.append("g")
+        // 	.attr("transform", "translate(0, -30)")
+        //   Rate_section.append("rect")
+        // 	.style("stroke", "black")
+        // 	.attr("rx", 10)
+        // 	.attr("ry", 10)
+        // 	.style("fill", "#033856")
+        // 	.attr("height", 40)
+        // 	.attr("width", 200)
+        // 	.on("mouseover", function(d){
+        // 		d3.select(this).style("fill", "black");
+        // 	})
+        // 	.on("mouseout", function(d){
+        // 		d3.select(this).style("fill", "#033856");
+        // 	})
+        //   Rate_section.append("text")
+        // 	.attr("y", 31)
+        // 	.attr("x", 15)
+        // 	.style("fill", "white")
+        // 	.text("Rate Analysis")
         
         var g = svg
             .append("g")
             .attr("width", width)
             .attr("height", height)
             .attr("transform", "translate("+margin.left+","+30+")");
-        
+        g.append("text")
+        	.text("Winning rate Prediction")
+        	.attr("x", 300)
+        	.attr("y", 0)
+        	.style("stroke", "white")
+        	.style("font-size", "30px")
+        	// .attr()
         g.append("path")
           .attr("class", "line")
           .attr("d", valueline(winrate))
@@ -688,15 +714,24 @@ function draw(result, MLData, time) {
           .call(yAxis);
         
 
-        var team_section = svg.append("g")
+        var Team_section = svg.append("g")
         	.attr("transform", "translate(0, 550)")
-        team_section.append("rect")
-        	
-        	.attr("width", 100)
-        	.attr("height", 60)
-        	.style("fill", "grey")
-        team_section.append("text")
-        	.attr("y", 40)
+          Team_section.append("rect")
+        	.style("stroke", "black")
+        	.attr("rx", 10)
+        	.attr("ry", 10)
+        	.style("fill", "#7c3224")
+        	.attr("height", 40)
+        	.attr("width", 200)
+        	.on("mouseover", function(d){
+        		d3.select(this).style("fill", "black");
+        	})
+        	.on("mouseout", function(d){
+        		d3.select(this).style("fill", "#7c3224");
+        	})
+          Team_section.append("text")
+        	.attr("y", 31)
+        	.attr("x", 15)
         	.style("fill", "white")
         	.text("Team Analysis")
         
@@ -848,16 +883,26 @@ function draw(result, MLData, time) {
             });
 
 
-        var par_section = svg.append("g")
+        var weight_section = svg.append("g")
         	.attr("transform", "translate(0, 900)")
-        par_section.append("rect")
-        	.style("fill", "grey")
-        	.attr("height", 60)
-        	.attr("width", 100)
-        par_section.append("text")
+          weight_section.append("rect")
+        	.style("stroke", "black")
+        	.attr("rx", 10)
+        	.attr("ry", 10)
+        	.style("fill", "386ecb")
+        	.attr("height", 40)
+        	.attr("width", 200)
+        	.on("mouseover", function(d){
+        		d3.select(this).style("fill", "black");
+        	})
+        	.on("mouseout", function(d){
+        		d3.select(this).style("fill", "#386ecb");
+        	})
+          weight_section.append("text")
+        	.attr("y", 31)
+        	.attr("x", 15)
+        	.style("fill", "white")
         	.text("Player Analysis")
-        	.attr("y", 40)
-        	.style("stroke", "white")
 
         // chart participant level 1
         var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
@@ -913,7 +958,7 @@ function draw(result, MLData, time) {
           .attr("width", 50)
           .attr("y", function(d) { return y_compare_3(d)+100; })
           .attr("height", function(d) { return 300 - y_compare_3(d); })
-          .on("mouseover", function(d){
+          .on("mouseover", function(d, i){
           	  d3.select(this).transition()
         		.duration(750)
         		.style("opacity", 1.5);
@@ -922,6 +967,7 @@ function draw(result, MLData, time) {
                 .style("opacity", .9);    
               div.html(
                 "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                + "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
             })
@@ -934,6 +980,7 @@ function draw(result, MLData, time) {
                 	.style("opacity", 0);
             });
 
+          
         // participant chart team 2
        
         var g_compare_4 = g_compare.append("g")
@@ -978,6 +1025,7 @@ function draw(result, MLData, time) {
                 .style("opacity", .9);    
               div.html(
                 "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                + "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
             })
@@ -1052,7 +1100,8 @@ function draw(result, MLData, time) {
                 .duration(200)    
                 .style("opacity", .9);    
               div.html(
-                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                "<strong>Kill:</strong> <span>" + Number(d) + "</span>"
+                + "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
             })
@@ -1107,7 +1156,8 @@ function draw(result, MLData, time) {
                 .duration(200)    
                 .style("opacity", .9);    
               div.html(
-                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                "<strong>Kill:</strong> <span>" + Number(d) + "</span>"
+                + "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
             })
@@ -1179,7 +1229,8 @@ function draw(result, MLData, time) {
                 .duration(200)    
                 .style("opacity", .9);    
               div.html(
-                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                "<strong>Death:</strong> <span>" + Number(d) + "</span>"
+                + "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
             })
@@ -1235,7 +1286,8 @@ function draw(result, MLData, time) {
                 .duration(200)    
                 .style("opacity", .9);    
               div.html(
-                "<strong>Level:</strong> <span>" + Number(d) + "</span>"
+                "<strong>Death:</strong> <span>" + Number(d) + "</span>"
+                + "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
                 )
                 .style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
             })
@@ -1249,11 +1301,34 @@ function draw(result, MLData, time) {
             });
           // pie chart
          
+          var weight_section = svg.append("g")
+        	.attr("transform", "translate(0, 2200)")
+          weight_section.append("rect")
+        	.style("stroke", "black")
+        	.attr("rx", 10)
+        	.attr("ry", 10)
+        	.style("fill", "e7a53d")
+        	.attr("height", 40)
+        	.attr("width", 200)
+        	.on("mouseover", function(d){
+        		d3.select(this).style("fill", "black");
+        	})
+        	.on("mouseout", function(d){
+        		d3.select(this).style("fill", "#e7a53d");
+        	})
+          weight_section.append("text")
+        	.attr("y", 31)
+        	.attr("x", 15)
+        	.style("fill", "white")
+        	.text("Weight Analysis")
+
+
+
           var color = d3.scale.category20();
           var g_pie = svg.append("g")
             .attr("width", 350)
             .attr("height", 200)
-            .attr("transform", "translate(150, 2200)");
+            .attr("transform", "translate(150, 2300)");
           var arc = d3.svg.arc()
             .outerRadius(100)
             .innerRadius(50);
@@ -1324,7 +1399,7 @@ function draw(result, MLData, time) {
           var g_pie = svg.append("g")
             .attr("width", 350)
             .attr("height", 200)
-            .attr("transform", "translate(630, 2200)");
+            .attr("transform", "translate(630, 2300)");
           var arc = d3.svg.arc()
             .outerRadius(100)
             .innerRadius(50);

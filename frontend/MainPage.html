@@ -181,6 +181,22 @@ select  {
   margin:auto;
 }
 
+.button.selected {
+  background-color: white;
+  color:black;
+}
+
+#time_control {
+  margin:auto;
+  display:block;
+  position:relative;
+  left:auto;
+}
+
+.button:disabled {
+  color:#AAA;
+}
+
 /*tr:nth-child(even){
   background-color: #dddddd;
 }*/
@@ -309,16 +325,24 @@ select  {
         <br>
       </div>
       
-      <div class="btn-group">
-        <button class="button" onclick="draw(final_result[5], ml[5], 5);">5 min</button>
-        <button class="button" onclick="draw(final_result[10], ml[10], 10);">10 min</button>
-        <button class="button" onclick="draw(final_result[15], ml[15], 15);">15 min</button>
-        <button class="button" onclick="draw(final_result[20], ml[20], 20);">20 min</button>
-        <button class="button" onclick="draw(final_result[25], ml[25], 25);">25 min</button>
-        <button class="button" onclick="draw(final_result[30], ml[30], 30);">30 min</button>
-        <button class="button" onclick="draw(final_result[35], ml[35], 35);">35 min</button>
-        <button class="button" onclick="draw(final_result[40], ml[40], 40);">40 min</button>
+      <div class="btn-group" id="time_control">
+        <button class="button" onclick="selectTime(5)">5 min</button>
+        <button class="button" onclick="selectTime(10)">10 min</button>
+        <button class="button" onclick="selectTime(15)">15 min</button>
+        <button class="button" onclick="selectTime(20)">20 min</button>
+        <button class="button" onclick="selectTime(25)">25 min</button>
+        <button class="button" onclick="selectTime(30)">30 min</button>
+        <button class="button" onclick="selectTime(35)">35 min</button>
+        <button class="button" onclick="selectTime(40)">40 min</button>
       </div>
+      <script type="text/javascript">
+        function selectTime(time) {
+          $("#time_control button").removeClass("selected");
+          var button = $("#time_control button")[time/5-1];
+          $(button).addClass("selected");
+          draw(final_result[time], ml[time], time);
+        }
+      </script>
       <div>
         <br>
         <br>

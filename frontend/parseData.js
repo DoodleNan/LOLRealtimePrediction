@@ -185,7 +185,7 @@
 			console.log("Successfully fetch data of match: " + matchId);
 			var result = parseData(response);
 			final_result = result;
-			ml = getMLData(final_result, item_weight);
+			ml = getMLData(final_result, item_weight, 0);
 			predicted = calculatePredictionResult(ml, weights, 0);
 			$("#page").show();
 			$("#table").hide();
@@ -400,10 +400,10 @@
 							    break;
 							}
 						});
-}
-}
+				}
+			}
 
-if (i == end || i == frames.length - 1){
+			if (i == end || i == frames.length - 1){
 	            // calculate totalGold of each team
 	            var f = frames[i].participantFrames;
 	            timeline.team[0][GOLD] = 0.0;
@@ -432,7 +432,26 @@ if (i == end || i == frames.length - 1){
 	    return result;
 	}
 
-	function getMLData(data, item_weight) {
+	function getMLData(data, item_weight, time) {
+		if (time != 0) {
+			var result = {};
+			var current = data;
+			result["team-gold-diff"] = current["team"][0]["gold"]  - current["team"][1]["gold"];
+			result["team-dragon-diff"] = current["team"][0]["dragon"]? current["team"][0]["dragon"] : 0 - current["team"][1]["dragon"]? current["team"][1]["dragon"] : 0;
+			result["team-baron-diff"] = current["team"][0]["baron"]? current["team"][0]["baron"]:0 - current["team"][1]["baron"]? current["team"][1]["baron"]:0;
+			result["team-outturret-diff"] = current["team"][0]["inner_and_outer_turret"]? current["team"][0]["inner_and_outer_turret"]:0 - current["team"][1]["inner_and_outer_turret"]? current["team"][1]["inner_and_outer_turret"]:0;
+			result["team-baseturret-diff"] = current["team"][0]["base_and_nexus_turret"]? current["team"][0]["base_and_nexus_turret"]:0 - current["team"][1]["base_and_nexus_turret"]? current["team"][1]["base_and_nexus_turret"]:0;
+			result["team-inhabitor-diff"] = current["team"][0]["inhabitor"]? current["team"][0]["inhabitor"]:0 - current["team"][1]["inhabitor"]?current["team"][1]["inhabitor"]:0;
+			result["team-ward-diff"] = current["team"][0]["ward"]? current["team"][0]["ward"]:0 - current["team"][1]["ward"]? current["team"][1]["ward"]:0;
+			result["heros-kill-diff"] = 0;
+			result["heros-level-diff"] = 0;
+			result["heros-item-diff"] = 0;
+			for (var j = 0;j < 10; j++) {
+				result["heros-kill-diff"] += (current["participant"][j]["kill"]? current["participant"][j]["kill"]:0) * (j < 5? 1:-1);
+				result["heros-level-diff"] += (current["participant"][j]["level"]? current["participant"][j]["level"]:0) * (j < 5? 1:-1);
+			}
+			return result;
+		}
 		var results = {};
 		for (var i = 5;i <= 40;i += 5) {
 			if (!data[i]) {
@@ -441,12 +460,12 @@ if (i == end || i == frames.length - 1){
 			var result = {};
 			var current = data[i];
 			result["team-gold-diff"] = current["team"][0]["gold"]  - current["team"][1]["gold"];
-			result["team-dragon-diff"] = current["team"][0]["dragon"]? current["team"][0]["dragon"] : 0 - current["team"][1]["dragon"]? current["team"][1]["dragon"] : 0;
-			result["team-baron-diff"] = current["team"][0]["baron"]? current["team"][0]["baron"]:0 - current["team"][1]["baron"]? current["team"][1]["baron"]:0;
-			result["team-outturret-diff"] = current["team"][0]["inner_and_outer_turret"]? current["team"][0]["inner_and_outer_turret"]:0 - current["team"][1]["inner_and_outer_turret"]? current["team"][1]["inner_and_outer_turret"]:0;
-			result["team-baseturret-diff"] = current["team"][0]["base_and_nexus_turret"]? current["team"][0]["base_and_nexus_turret"]:0 - current["team"][1]["base_and_nexus_turret"]? current["team"][1]["base_and_nexus_turret"]:0;
-			result["team-inhabitor-diff"] = current["team"][0]["inhabitor"]? current["team"][0]["inhabitor"]:0 - current["team"][1]["inhabitor"]?current["team"][1]["inhabitor"]:0;
-			result["team-ward-diff"] = current["team"][0]["ward"]? current["team"][0]["ward"]:0 - current["team"][1]["ward"]? current["team"][1]["ward"]:0;
+			result["team-dragon-diff"] = (current["team"][0]["dragon"]? current["team"][0]["dragon"] : 0) - (current["team"][1]["dragon"]? current["team"][1]["dragon"] : 0);
+			result["team-baron-diff"] = (current["team"][0]["baron"]? current["team"][0]["baron"]:0) - (current["team"][1]["baron"]? current["team"][1]["baron"]:0);
+			result["team-outturret-diff"] = (current["team"][0]["inner_and_outer_turret"]? current["team"][0]["inner_and_outer_turret"]:0) - (current["team"][1]["inner_and_outer_turret"]? current["team"][1]["inner_and_outer_turret"]:0);
+			result["team-baseturret-diff"] = (current["team"][0]["base_and_nexus_turret"]? current["team"][0]["base_and_nexus_turret"]:0) - (current["team"][1]["base_and_nexus_turret"]? current["team"][1]["base_and_nexus_turret"]:0);
+			result["team-inhabitor-diff"] = (current["team"][0]["inhabitor"]? current["team"][0]["inhabitor"]:0) - (current["team"][1]["inhabitor"]?current["team"][1]["inhabitor"]:0);
+			result["team-ward-diff"] = (current["team"][0]["ward"]? current["team"][0]["ward"]:0) - (current["team"][1]["ward"]? current["team"][1]["ward"]:0);
 			result["heros-kill-diff"] = 0;
 			result["heros-level-diff"] = 0;
 			result["heros-item-diff"] = 0;
@@ -492,10 +511,11 @@ if (i == end || i == frames.length - 1){
 	}
 
 	function draw(result, MLData, time) {
-		var winrate = [];
-		for (var i = 5; i <= time; i+=5) {
+		var winrate = [0.5];
+		for (var i = 5; i < time; i+=5) {
 			winrate.push(predicted[i]);
 		}
+		winrate.push(calculateSinglePrediction(MLData, weights[time]));
 
 		var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
 		var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
@@ -584,15 +604,23 @@ if (i == end || i == frames.length - 1){
 		for (var i = 0; i < 5; i++) {
 			if (result["participant"][i]["kill"]){
 				parkill0.push(result["participant"][i]["kill"]);
+			} else {
+				parkill0.push(0);
 			}
 			if (result["participant"][i+5]["kill"]){
 				parkill1.push(result["participant"][i+5]["kill"]);
+			} else {
+				parkill1.push(0);
 			}
 			if (result["participant"][i]["death"]){
 				pardeath0.push(result["participant"][i]["death"]);
+			} else {
+				pardeath0.push(0);
 			}
 			if (result["participant"][i+5]["death"]){
 				pardeath1.push(result["participant"][i+5]["death"]);
+			} else {
+				pardeath1.push(0);
 			}
 		}
 
@@ -1057,7 +1085,7 @@ if (i == end || i == frames.length - 1){
 	        	.style("opacity", 0);
 	        });
 	        
-
+	        //kill
 
 	        var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
 	        var y_compare_3 = d3.scale.linear().range([300, 0]).domain([0, d3.max(parkill0)+5]);
@@ -1113,7 +1141,7 @@ if (i == end || i == frames.length - 1){
 	        .attr("width", 50)
 	        .attr("y", function(d) { return y_compare_3(d)+100; })
 	        .attr("height", function(d) { return 300 - y_compare_3(d); })
-	        .on("mouseover", function(d){
+	        .on("mouseover", function(d,i){
 	        	d3.select(this).transition()
 	        	.duration(750)
 	        	.style("opacity", 1.5);
@@ -1122,7 +1150,7 @@ if (i == end || i == frames.length - 1){
 	        	.style("opacity", .9);    
 	        	div.html(
 	        		"<strong>Kill:</strong> <span>" + Number(d) + "</span>"
-	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
+	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i+1) + "</span>"
 	        		)
 	        	.style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
 	        })
@@ -1171,7 +1199,7 @@ if (i == end || i == frames.length - 1){
 	        .attr("width", 50)
 	        .attr("y", function(d) { return y_compare_3_2(d)+100; })
 	        .attr("height", function(d) { return 300 - y_compare_3_2(d); })
-	        .on("mouseover", function(d){
+	        .on("mouseover", function(d,i){
 	        	d3.select(this).transition()
 	        	.duration(750)
 	        	.style("opacity", 1.5);
@@ -1180,7 +1208,7 @@ if (i == end || i == frames.length - 1){
 	        	.style("opacity", .9);    
 	        	div.html(
 	        		"<strong>Kill:</strong> <span>" + Number(d) + "</span>"
-	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
+	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i+1) + "</span>"
 	        		)
 	        	.style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
 	        })
@@ -1246,7 +1274,7 @@ if (i == end || i == frames.length - 1){
 	          .attr("width", 50)
 	          .attr("y", function(d) { return y_compare_3(d)+100; })
 	          .attr("height", function(d) { return 300 - y_compare_3(d); })
-	          .on("mouseover", function(d){
+	          .on("mouseover", function(d,i){
 	          	d3.select(this).transition()
 	          	.duration(750)
 	          	.style("opacity", 1.5);
@@ -1255,7 +1283,7 @@ if (i == end || i == frames.length - 1){
 	          	.style("opacity", .9);    
 	          	div.html(
 	          		"<strong>Death:</strong> <span>" + Number(d) + "</span>"
-	          		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
+	          		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i+1) + "</span>"
 	          		)
 	          	.style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
 	          })
@@ -1305,7 +1333,7 @@ if (i == end || i == frames.length - 1){
 	        .attr("width", 50)
 	        .attr("y", function(d) { return y_compare_3_2(d)+100; })
 	        .attr("height", function(d) { return 300 - y_compare_3_2(d); })
-	        .on("mouseover", function(d){
+	        .on("mouseover", function(d,i){
 	        	d3.select(this).transition()
 	        	.duration(750)
 	        	.style("opacity", 1.5);
@@ -1314,7 +1342,7 @@ if (i == end || i == frames.length - 1){
 	        	.style("opacity", .9);    
 	        	div.html(
 	        		"<strong>Death:</strong> <span>" + Number(d) + "</span>"
-	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
+	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i+1) + "</span>"
 	        		)
 	        	.style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
 	        })

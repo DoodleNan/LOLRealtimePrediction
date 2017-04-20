@@ -9,6 +9,7 @@ var final_result = {};
 var ml = {};
 var item_weight = {};
 var champions = {};
+var currentTime = 0;
 // load item id
 d3.csv("item.csv", function(error, data){
 	data.forEach(function(d, i) {
@@ -181,7 +182,7 @@ function getMatchData(matchId, region) {
         console.log("Successfully fetch data of match: " + matchId);
         var result = parseData(response);
         final_result = result;
-        ml = getMLData(final_result, item_weight);
+        ml = getMLData(final_result, item_weight, 0);
         predicted = calculatePredictionResult(ml, weights, 0);
         $("#page").show();
         $("#table").hide();
@@ -428,8 +429,27 @@ function parseData(response){
 	return result;
 }
 
-function getMLData(data, item_weight) {
+function getMLData(data, item_weight, time) {
 	var results = {};
+	if (time != 0) {
+		var result = {};
+		var current = data;
+		result["team-gold-diff"] = current["team"][0]["gold"]  - current["team"][1]["gold"];
+		result["team-dragon-diff"] = current["team"][0]["dragon"]? current["team"][0]["dragon"] : 0 - current["team"][1]["dragon"]? current["team"][1]["dragon"] : 0;
+		result["team-baron-diff"] = current["team"][0]["baron"]? current["team"][0]["baron"]:0 - current["team"][1]["baron"]? current["team"][1]["baron"]:0;
+		result["team-outturret-diff"] = current["team"][0]["inner_and_outer_turret"]? current["team"][0]["inner_and_outer_turret"]:0 - current["team"][1]["inner_and_outer_turret"]? current["team"][1]["inner_and_outer_turret"]:0;
+		result["team-baseturret-diff"] = current["team"][0]["base_and_nexus_turret"]? current["team"][0]["base_and_nexus_turret"]:0 - current["team"][1]["base_and_nexus_turret"]? current["team"][1]["base_and_nexus_turret"]:0;
+		result["team-inhabitor-diff"] = current["team"][0]["inhabitor"]? current["team"][0]["inhabitor"]:0 - current["team"][1]["inhabitor"]?current["team"][1]["inhabitor"]:0;
+		result["team-ward-diff"] = current["team"][0]["ward"]? current["team"][0]["ward"]:0 - current["team"][1]["ward"]? current["team"][1]["ward"]:0;
+		result["heros-kill-diff"] = 0;
+		result["heros-level-diff"] = 0;
+		result["heros-item-diff"] = 0;
+		for (var j = 0;j < 10; j++) {
+			result["heros-kill-diff"] += (current["participant"][j]["kill"]? current["participant"][j]["kill"]:0) * (j < 5? 1:-1);
+			result["heros-level-diff"] += (current["participant"][j]["level"]? current["participant"][j]["level"]:0) * (j < 5? 1:-1);
+		}
+		return result;
+	}
 	for (var i = 5;i <= 40;i += 5) {
 		if (!data[i]) {
 			break;
@@ -489,9 +509,10 @@ function calculateSinglePrediction(current, weight) {
 
 function draw(result, MLData, time) {
         var winrate = [];
-        for (var i = 5; i <= time; i+=5) {
+        for (var i = 5; i < time; i+=5) {
         	winrate.push(predicted[i]);
         }
+        winrate.push(calculateSinglePrediction(MLData, weights[time]));
         
         var gold = [result["team"][0]["gold"], result["team"][1]["gold"]]
         var ward = [result["team"][0]["ward"], result["team"][0]["ward"]]
@@ -1411,13 +1432,15 @@ function draw(result, MLData, time) {
 function updateTable(data) {
 	$("#count_gold_1")[0].value = data["team"][0]["gold"];
 	$("#count_gold_2")[0].value = data["team"][1]["gold"];
-	$("#count_exp_1")[0].value = data["team"][0]["level"];
-	$("#count_exp_2")[0].value = data["team"][1]["level"];
-	$("#count_tower_1")[0].value = (data["team"][0]["inner_and_outer_turret"]? data["team"][0]["inner_and_outer_turret"]:0) + (data["team"][0]["base_and_nexus_turret"]? data["team"][0]["base_and_nexus_turret"]:0);
-	$("#count_tower_2")[0].value = (data["team"][1]["inner_and_outer_turret"]? data["team"][1]["inner_and_outer_turret"]:0) + (data["team"][1]["base_and_nexus_turret"]? data["team"][1]["base_and_nexus_turret"]:0);
+	$("#count_tower_1")[0].value = (data["team"][0]["inner_and_outer_turret"]? data["team"][0]["inner_and_outer_turret"]:0);
+	$("#count_inner_tower_1")[0].value = data["team"][0]["base_and_nexus_turret"]? data["team"][0]["base_and_nexus_turret"]:0;
+	$("#count_tower_2")[0].value = (data["team"][1]["inner_and_outer_turret"]? data["team"][1]["inner_and_outer_turret"]:0);
+	$("#count_inner_tower_2")[0].value = (data["team"][1]["base_and_nexus_turret"]? data["team"][1]["base_and_nexus_turret"]:0);
 	$("#count_ward_1")[0].value = data["team"][0]["ward"]? data["team"][0]["ward"]:0;
-	$("#count_ward_2")[0].value = data["team"][0]["ward"]? data["team"][0]["ward"]:0;
+	$("#count_ward_2")[0].value = data["team"][1]["ward"]? data["team"][1]["ward"]:0;
 	$("#count_dragon_1")[0].value = data["team"][0]["dragon"]? data["team"][0]["dragon"]:0;
-	$("#count_dragon_2")[0].value = data["team"][0]["dragon"]? data["team"][0]["dragon"]:0;
+	$("#count_dragon_2")[0].value = data["team"][1]["dragon"]? data["team"][1]["dragon"]:0;
+	$("#count_baron_1")[0].value = data["team"][0]["baron"]? data["team"][0]["baron"]:0;
+	$("#count_baron_2")[0].value = data["team"][1]["baron"]? data["team"][1]["baron"]:0;
 }
      

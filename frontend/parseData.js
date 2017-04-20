@@ -1,4 +1,5 @@
-	var API_KEY = "RGAPI-48368D89-F4C8-4979-9973-EE735761DD42";
+	//var API_KEY = "RGAPI-48368D89-F4C8-4979-9973-EE735761DD42";
+	var API_KEY = "RGAPI-b4412b5b-fb3e-471b-883b-1a6fd053d3af"
 	var participant_attr = ['kill', 'death', 'level'];
 	var team_attr = ['gold', 'dragon', 'baron', 'inner_and_outer_turret', 'base_and_nexus_turret', 'inhibitor', 'ward'];
 	var itemId = [];
@@ -134,7 +135,7 @@
 	weights[40]["intercept"] = 0.0096;
 
 	// for test
-	//getMatchData('3019374593', 'EUW')
+	//getMatchData('2479384381', 'NA')
 
 	function wait(ms){
 		var start = new Date().getTime();
@@ -175,7 +176,7 @@
 	}
 
 	function getMatchData(matchId, region) {
-		var url = 'https://euw.api.riotgames.com/api/lol/' + region + '/v2.2/match/' + matchId + '?includeTimeline=true&api_key=' + API_KEY;
+		var url = 'https://' + region.toLowerCase() + '.api.riotgames.com/api/lol/' + region + '/v2.2/match/' + matchId + '?includeTimeline=true&api_key=' + API_KEY;
 
 		console.log("Fetching data from: " + url);
 
@@ -191,7 +192,7 @@
 			d3.select("svg").selectAll("*").remove();
 			var buttons = $("#time_control button");
 			var num = final_result['count'];
-			for (var i = 0; i < num; i ++) {
+			for (var i = 0; i < Math.min(8,num); i ++) {
 				buttons[i].disabled = false;
 				$(buttons[i]).removeClass("selected");
 			}

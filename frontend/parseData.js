@@ -655,27 +655,6 @@
 		.attr("class", "tooltip")       
 		.style("opacity", 0);
 
-	        // var Rate_section = svg.append("g")
-	        // 	.attr("transform", "translate(0, -30)")
-	        //   Rate_section.append("rect")
-	        // 	.style("stroke", "black")
-	        // 	.attr("rx", 10)
-	        // 	.attr("ry", 10)
-	        // 	.style("fill", "#033856")
-	        // 	.attr("height", 40)
-	        // 	.attr("width", 200)
-	        // 	.on("mouseover", function(d){
-	        // 		d3.select(this).style("fill", "black");
-	        // 	})
-	        // 	.on("mouseout", function(d){
-	        // 		d3.select(this).style("fill", "#033856");
-	        // 	})
-	        //   Rate_section.append("text")
-	        // 	.attr("y", 31)
-	        // 	.attr("x", 15)
-	        // 	.style("fill", "white")
-	        // 	.text("Rate Analysis")
-	        
 	        var g = svg
 	        .append("g")
 	        .attr("width", width)
@@ -688,7 +667,7 @@
 	        .attr("height", 60)
 	        .style("fill", "rgb(208, 122, 33)")
 	        g.append("text")
-	        .text("Winning rate Prediction")
+	        .text("Winning Rate Prediction")
 	        .attr("x", 300)
 	        .attr("y", 0)
 	        .style("stroke", "white")
@@ -949,6 +928,7 @@
 
 	        // chart participant level 1
 	        var x_compare_3 = d3.scale.linear().range([0, 450]).domain([0, 5]);
+	        var x_compare_3_2 = d3.scale.linear().range([0, 450]).domain([0, 5]);
 	        var y_compare_3 = d3.scale.linear().range([300, 0]).domain([0, d3.max(parlevel0)+5]);
 	        var y_compare_3_2 = d3.scale.linear().range([300, 0]).domain([0, d3.max(parlevel1)+5]);
 	        
@@ -957,14 +937,23 @@
 	        .orient("bottom")
 	        .ticks(0)
 	        .tickFormat("");
+
+	        var xAxis_compare_3_2 = d3.svg.axis()
+	        .scale(x_compare_3_2)
+	        .orient("bottom")
+	        .ticks(0)
+	        .tickFormat("");
+
 	        var yAxis_compare_3 = d3.svg.axis()
 	        .scale(y_compare_3)
 	        .orient("left")
 	        .ticks(5);
+
 	        var yAxis_compare_3_2 = d3.svg.axis()
 	        .scale(y_compare_3_2)
 	        .orient("left")
 	        .ticks(5);
+
 	        var g_compare_3 = g_compare.append("g")
 	        .attr("transform", "translate(50, 900)");
 	        g_compare_3.append("g")
@@ -1012,7 +1001,7 @@
 	        	.style("opacity", .9);    
 	        	div.html(
 	        		"<strong>Level:</strong> <span>" + Number(d) + "</span>"
-	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
+	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i+1) + "</span>"
 	        		)
 	        	.style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
 	        })
@@ -1033,7 +1022,7 @@
 	        g_compare_4.append("g")
 	        .attr("class", "x axis")
 	        .attr("transform", "translate(0, 400)")
-	        .call(xAxis_compare_3)
+	        .call(xAxis_compare_3_2)
 	        .append("text")
 	        .style("text-anchor", "end")
 	        .attr("x", 500)
@@ -1063,7 +1052,7 @@
 	        .attr("width", 50)
 	        .attr("y", function(d) { return y_compare_3_2(d)+100; })
 	        .attr("height", function(d) { return 300 - y_compare_3_2(d); })
-	        .on("mouseover", function(d){
+	        .on("mouseover", function(d, i){
 	        	d3.select(this).transition()
 	        	.duration(750)
 	        	.style("opacity", 1.5);
@@ -1072,7 +1061,7 @@
 	        	.style("opacity", .9);    
 	        	div.html(
 	        		"<strong>Level:</strong> <span>" + Number(d) + "</span>"
-	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i) + "</span>"
+	        		+ "<br>"+"<strong>Player:</strong> <span>" + Number(i+1) + "</span>"
 	        		)
 	        	.style("left", (d3.event.pageX) + "px")  .style("top", (d3.event.pageY - 58) + "px");  
 	        })
